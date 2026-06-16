@@ -1,0 +1,146 @@
+<div class="lf-wrapper">
+  @if (!initialLoading) {
+    <div class="chart-toolbar">
+      <div class="lf-tabs-row">
+        @for (tab of tabs; track tab.id) {
+          <button
+            class="lf-tab"
+            [class.active]="tab.id === activeTabId"
+            [disabled]="tabLoading"
+            (click)="selectTab(tab.id)"
+          >
+            {{ tab.labelKey | translate }}
+          </button>
+        }
+      </div>
+      <div class="toolbar-left"></div>
+      <mat-button-toggle-group
+        [value]="activeMode"
+        (change)="setMode($event.value)"
+        hideSingleSelectionIndicator="true"
+        class="switch-button"
+      >
+        <mat-button-toggle
+          value="columns"
+          [matTooltip]="'data-platform.funnel-view-columns' | translate"
+        >
+          <mat-icon>bar_chart</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="bars" [matTooltip]="'data-platform.funnel-view-bars' | translate">
+          <mat-icon>view_list</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  }
+
+  @if (initialLoading) {
+    <div class="loading-container">
+      <mat-spinner diameter="36"></mat-spinner>
+    </div>
+  }
+
+  @if (!initialLoading) {
+    <div class="chart-content">
+      <div class="lf-header">
+        <div class="text">
+          <h2 class="lf-title">{{ 'tb-signals.live-funnel.title' | translate }}</h2>
+          <p class="lf-text">{{ 'tb-signals.live-funnel.description' | translate }}</p>
+        </div>
+        <div class="lf-time">
+          <mat-icon class="lf-time-icon">schedule</mat-icon>
+          <span>{{ 'tb-signals.live-funnel.time-label' | translate }}</span>
+        </div>
+      </div>
+
+      @if (tabLoading) {
+        <div class="tab-loading">
+          <mat-spinner diameter="28"></mat-spinner>
+        </div>
+      } @else if (displaySteps.length === 0) {
+        <div class="funnel-empty-state">
+          <mat-icon>stacked_bar_chart</mat-icon>
+          <p>{{ emptyMessageKey | translate }}</p>
+        </div>
+      } @else {
+        <div class="content-header">
+          <div class="funnel-summary">
+            <div class="summary-item">
+              <span class="summary-label">{{
+                'data-platform.funnel-starting-audience' | translate
+              }}</span>
+              <span class="summary-value">{{ displaySteps[0].count | number }}</span>
+            </div>
+            @if (displaySteps.length >= 2) {
+              <div class="summary-item">
+                <span class="summary-label">{{
+                  'data-platform.funnel-overall-conversion' | translate
+                }}</span>
+                <span class="summary-value"
+                  >{{ displaySteps[displaySteps.length - 1].percentage | number: '1.1-1' }}%</span
+                >
+              </div>
+            }
+          </div>
+        </div>
+        <div class="chart-row">
+          @if (activeMode === 'columns') {
+            <div class="columns-card">
+              <div class="columns-list" [style.min-width.px]="displaySteps.length * 120">
+                @for (step of displaySteps; track $index; let i = $index) {
+                  <div class="funnel-column">
+                    <div class="header-td">
+                      <div class="step-num">
+                        {{ 'tb-signals.live-funnel.step' | translate: { index: i + 1 } }}
+                      </div>
+                      <div class="step-label">{{ step.label }}</div>
+                      <div class="step-count">{{ step.count | number }}</div>
+                      <div class="step-pct">{{ step.percentage | number: '1.1-1' }}%</div>
+                    </div>
+                    <div class="col-td">
+                      <div class="col-wrapper">
+                        <div class="shadow-line"></div>
+                        <div class="funnel-col" [style.height.%]="step.percentage"></div>
+                      </div>
+                    </div>
+                    <div class="dropoff-td">
+                      @if (step.dropoff) {
+                        <div class="dropoff-content">
+                          <mat-icon class="drop-icon">arrow_downward</mat-icon>
+                          <span class="drop-count"
+                            >{{ dropoffLabelKey | translate }}:
+                            {{ step.dropoff.count | number }}</span
+                          >
+                          <span class="drop-pct"
+                            >({{ step.dropoff.percentage | number: '1.1-1' }}%)</span
+                          >
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+          @if (activeMode === 'bars') {
+            <div class="bars-view">
+              @for (step of displaySteps; track $index) {
+                <div class="bar-row">
+                  <div class="bar-row-header">
+                    <span class="bar-label">{{ step.label }}</span>
+                    <div class="bar-stats">
+                      <span class="bar-count">{{ step.count | number }}</span>
+                      <span class="bar-pct">{{ step.conversionPct | number: '1.1-1' }}%</span>
+                    </div>
+                  </div>
+                  <div class="funnel-bar-track">
+                    <div class="bar-fill" [style.width.%]="step.percentage"></div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

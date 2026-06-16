@@ -1,0 +1,40 @@
+<div class="funnel-name-dialog">
+  <div class="dialog-title">
+    <p>{{ 'data-platform.funnel-name-dialog-title' | translate }}</p>
+  </div>
+  <div class="funnel-name-dialog-container">
+    <div class="dialog-content">
+      <p class="dialog-hint">
+        {{
+          (data.isDuplicate
+            ? 'data-platform.funnel-name-dialog-hint-duplicate'
+            : 'data-platform.funnel-name-dialog-hint'
+          ) | translate
+        }}
+      </p>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="name-field">
+        <mat-label>{{ 'data-platform.funnel-name' | translate }}</mat-label>
+        <input
+          matInput
+          #nameInput
+          [value]="data.currentName"
+          (input)="onInput(nameInput.value)"
+          (keydown.enter)="save(nameInput.value)"
+        />
+      </mat-form-field>
+    </div>
+    <div class="actions-row">
+      <button mat-stroked-button class="secondary-button" (click)="cancel()">
+        {{ 'generic.cancel' | translate | uppercase }}
+      </button>
+      <button
+        mat-flat-button
+        class="funnel-save-btn"
+        (click)="save(nameInput.value)"
+        [disabled]="isSaveDisabled"
+      >
+        {{ 'data-platform.save-funnel' | translate | uppercase }}
+      </button>
+    </div>
+  </div>
+</div>

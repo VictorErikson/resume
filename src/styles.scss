@@ -1,1 +1,551 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --gold: #c9aa00;
+  --gold-fill: #cdb20a;
+  --ink: #1a1a1a;
+  --sidebar-bg: #252424;
+  --education-bg: #383838;
+  --sidebar-text: #e9e9e9;
+  --sidebar-muted: #b8b8b8;
+  --paper: #ffffff;
+  --rule: #d8d8d8;
+  --track: rgba(201, 170, 0, 0.22);
+
+  --appBg: #f2f5f8;
+  --bgCard: #fff;
+  --cardDivider: #e4e7e8;
+  --borderCard: none;
+  --textColor: #222;
+  --grayToGray: #7d7d7d;
+  --linkColor: #516ce3;
+  --secondaryButton: #516ce3;
+  --primaryBtnDisabled: #ebebec;
+  --colorDisabled: #ccc;
+  --colorIcon: invert(0%);
+  --lightToDark: #fff;
+  --radius: 8px;
+
+  --foreground: 0 0% 9%;
+  --muted-foreground: 220 9% 46%;
+
+  --error: #e55054;
+  --errorColor: #e55054;
+  --secondaryButtonGreen: #4cb5ab;
+  --shadowFunnelGraph: #f8f8f8;
+  --borderTag: #d3dae8;
+  --dividerTopMenu: #ccc;
+  --hoverItemMenu: #dfdfe8;
+  --matCardBg: #ffffff;
+  --borderColor: #e0e0e0;
+  --mat-form-field-outlined-outline-color: rgba(0, 0, 0, 0.38);
+  --mat-form-field-outlined-hover-outline-color: rgba(0, 0, 0, 0.87);
+
+  --modalHeader: #5c5c5c;
+  --scrollbar-track: #f0f0f0;
+  --scrollbar-thumb: #cdcdcd;
+  --deleteButton: #e55054;
+  --bgDeleteButton: #fff;
+}
+
+app-tb-signals {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.demo-inactive-panel .mat-mdc-dialog-surface {
+  padding: 0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.demo-flyout-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 1000;
+  animation: demo-flyout-fade 160ms ease;
+}
+.demo-flyout-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  max-width: 92vw;
+  background: var(--bgCard);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.18);
+  z-index: 1001;
+  overflow-y: auto;
+  font-family: 'Source Sans Pro', sans-serif;
+  animation: demo-flyout-slide 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+@keyframes demo-flyout-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes demo-flyout-slide {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+.domain-confirmation-page,
+.company-type-page,
+.integration-selection-page,
+.install-script-page {
+  min-height: 100vh;
+  background: var(--appBg);
+}
+
+body:has(.domain-confirmation-page),
+body:has(.company-type-page),
+body:has(.integration-selection-page),
+body:has(.install-script-page) {
+  background: var(--appBg);
+}
+
+.domain-confirmation-page,
+.company-type-page,
+.integration-selection-page,
+.install-script-page {
+  &,
+  .mat-mdc-button,
+  .mat-mdc-outlined-button,
+  .mat-mdc-unelevated-button,
+  .mdc-button__label,
+  .mat-mdc-form-field,
+  .mat-mdc-floating-label,
+  input,
+  button {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+}
+
+.primary-button,
+.secondary-button,
+button.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button.mat-mdc-button-base,
+.mat-mdc-outlined-button.mat-mdc-button-base {
+  height: 40px;
+  border-radius: 10px !important;
+  min-width: 48px;
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  gap: 6px;
+
+  &[disabled] {
+    border: solid 1px var(--lightToDark) !important;
+    span,
+    .mat-icon {
+      color: var(--grayToGray);
+    }
+  }
+}
+
+.primary-button {
+  border: none !important;
+  &.mat-mdc-unelevated-button:not(:disabled),
+  &.mat-mdc-raised-button:not(:disabled),
+  &.mat-mdc-button:not(:disabled),
+  &.mat-mdc-outlined-button:not(:disabled) {
+    background-color: #516ce3;
+    color: #fff;
+  }
+  &[disabled] {
+    background-color: var(--primaryBtnDisabled);
+    border: none !important;
+    span {
+      color: var(--grayToGray);
+    }
+  }
+}
+
+.secondary-button,
+.secondary-button.mat-mdc-outlined-button:not(:disabled) {
+  background-color: var(--lightToDark);
+  border: solid 1px var(--secondaryButton);
+  color: var(--secondaryButton);
+  font-weight: 600;
+}
+
+.primary-button .mdc-button__label,
+.secondary-button .mdc-button__label,
+.step-link-btn .mdc-button__label,
+.email-btn .mdc-button__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.domain-confirmation-page,
+.company-type-page,
+.integration-selection-page,
+.install-script-page {
+  --mat-form-field-container-text-font: 'Source Sans Pro', sans-serif;
+  --mat-form-field-container-text-size: 14px;
+  --mat-form-field-outlined-label-text-font: 'Source Sans Pro', sans-serif;
+  --mat-form-field-outlined-label-text-size: 14px;
+  --mat-form-field-outlined-input-text-color: #222222;
+  --mat-form-field-outlined-label-text-color: #00000099;
+  --mat-form-field-outlined-hover-label-text-color: #00000099;
+  --mat-form-field-outlined-focus-label-text-color: #00000099;
+  --mat-form-field-outlined-outline-color: var(--borderTag);
+  --mat-form-field-outlined-hover-outline-color: var(--borderTag);
+  --mat-form-field-outlined-focus-outline-color: var(--borderTag);
+  --mat-form-field-outlined-outline-width: 1px;
+  --mat-form-field-outlined-focus-outline-width: 2px;
+}
+
+.install-accordion {
+  --mat-expansion-header-text-font: 'Source Sans Pro', sans-serif;
+  --mat-expansion-container-text-font: 'Source Sans Pro', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+
+  .mat-expansion-panel-header,
+  .mat-expansion-panel-content,
+  .panel-title,
+  .panel-badge,
+  .step-text,
+  .install-step,
+  .notification-link {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+}
+
+app-data-platform-funnels {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.data-platform-funnels {
+  min-height: 100vh;
+  background: var(--appBg);
+
+  --mat-button-toggle-text-color: #000000de;
+  --mat-button-toggle-selected-state-text-color: #000000de;
+  --mat-button-toggle-background-color: transparent;
+  --mat-button-toggle-selected-state-background-color: color-mix(
+    in srgb,
+    rgba(0, 0, 0, 0.87) 12%,
+    transparent
+  );
+  --mat-button-toggle-divider-color: rgba(0, 0, 0, 0.12);
+  --mat-button-toggle-shape: 4px;
+  --mat-button-toggle-height: 48px;
+  --mat-icon-button-icon-color: var(--textColor);
+
+  --mat-form-field-container-text-font: 'Source Sans Pro', sans-serif;
+  --mat-form-field-container-text-size: 14px;
+  --mat-form-field-outlined-label-text-font: 'Source Sans Pro', sans-serif;
+  --mat-form-field-outlined-label-text-size: 14px;
+  --mat-form-field-outlined-input-text-color: #222222;
+  --mat-form-field-outlined-label-text-color: #00000099;
+  --mat-form-field-outlined-hover-label-text-color: #00000099;
+  --mat-form-field-outlined-focus-label-text-color: #00000099;
+
+  --mat-form-field-outlined-outline-color: var(--borderTag);
+  --mat-form-field-outlined-hover-outline-color: var(--borderTag);
+  --mat-form-field-outlined-focus-outline-color: var(--borderTag);
+  --mat-form-field-outlined-outline-width: 1px;
+  --mat-form-field-outlined-focus-outline-width: 2px;
+
+  --mat-select-trigger-text-color: var(--textColor);
+  --mat-select-enabled-arrow-color: var(--grayToGray);
+  --mat-select-focused-arrow-color: var(--grayToGray);
+  --mat-select-panel-background-color: var(--bgCard);
+  --mat-option-label-text-color: var(--textColor);
+  --mat-option-selected-state-label-text-color: var(--textColor);
+  --mat-optgroup-label-text-color: var(--grayToGray);
+
+  &,
+  .mat-mdc-button,
+  .mat-mdc-outlined-button,
+  .mat-mdc-unelevated-button,
+  .mdc-button__label,
+  .mat-mdc-form-field,
+  .mat-mdc-floating-label,
+  input,
+  button {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  .delete-button {
+    background-color: var(--bgDeleteButton);
+    border: solid 1px #e55054 !important;
+
+    &.mat-mdc-outlined-button:not(:disabled) {
+      color: var(--deleteButton);
+      background-color: var(--bgDeleteButton);
+    }
+    &[disabled] {
+      background-color: var(--lightToDark);
+    }
+
+    &:hover:not(:disabled),
+    &.mat-mdc-outlined-button:not(:disabled):hover {
+      --mat-outlined-button-hover-state-layer-opacity: 0;
+      background-color: var(--deleteButton);
+      border-color: var(--deleteButton) !important;
+      color: #fff;
+
+      .mdc-button__label,
+      .material-symbols-outlined,
+      .mat-icon,
+      span {
+        color: #fff;
+      }
+    }
+  }
+
+  .funnel-action-btn.secondary-button:hover:not(:disabled) {
+    --mat-outlined-button-hover-state-layer-opacity: 0;
+    background-color: var(--secondaryButton);
+    border-color: var(--secondaryButton);
+    color: #fff;
+
+    .mdc-button__label,
+    .material-symbols-outlined,
+    .mat-icon,
+    span {
+      color: #fff;
+    }
+  }
+}
+body:has(.data-platform-funnels) {
+  background: var(--appBg);
+}
+
+.mdc-snackbar.mat-mdc-snack-bar-container {
+  --mdc-snackbar-supporting-text-font: 'Source Sans Pro', sans-serif;
+
+  .mdc-snackbar__surface {
+    position: relative;
+    padding: 5px 45px 5px 55px;
+    margin: 24px 24px 64px 24px;
+    color: #222;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 400px;
+    font-family: 'Source Sans Pro', sans-serif;
+
+    .mdc-snackbar__label {
+      padding: 8px 0;
+    }
+    &::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      left: 14px;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .mat-mdc-snack-bar-label,
+  .mdc-snackbar__label,
+  .message-text,
+  .message-sub-text {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  .message-text {
+    margin: 0;
+    line-height: normal;
+  }
+  .message-sub-text {
+    margin: 0;
+    color: #242424;
+    font-size: 13px;
+  }
+  .snack-close-btn {
+    position: absolute;
+    top: calc(50% - 12px);
+    right: 7px;
+    width: 24px;
+    height: 24px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+}
+
+.mdc-snackbar.mat-mdc-snack-bar-container.snack-bar--success {
+  .mdc-snackbar__surface {
+    background-color: #ebf2f0;
+    border: 1px solid #37cb99;
+    .message-text {
+      color: #02732a;
+      font-weight: 600;
+    }
+    .mat-icon {
+      color: #37cb99;
+    }
+    &::before {
+      content: url('/assets/img/emojis/success.svg');
+    }
+  }
+}
+
+.mdc-snackbar.mat-mdc-snack-bar-container.snack-bar--info {
+  .mdc-snackbar__surface {
+    background-color: #dfedf2;
+    border: 1px solid #29a7d9;
+    .message-text {
+      color: #005077;
+      font-weight: 600;
+    }
+    .mat-icon {
+      color: #0487d9;
+    }
+    &::before {
+      content: url('/assets/img/emojis/info.svg');
+    }
+  }
+}
+
+.mdc-snackbar.mat-mdc-snack-bar-container.snack-bar--warning {
+  .mdc-snackbar__surface {
+    background-color: #f2f0e4;
+    border: 1px solid #f4c443;
+    .message-text {
+      color: #995400;
+      font-weight: 600;
+    }
+    .mat-icon {
+      color: #e6a900;
+    }
+    &::before {
+      content: url('/assets/img/emojis/warning.svg');
+    }
+  }
+}
+
+.mdc-snackbar.mat-mdc-snack-bar-container.snack-bar--error {
+  .mdc-snackbar__surface {
+    background-color: #f2dfe0;
+    border: 1px solid #bf0a2b;
+    .message-text {
+      color: #901b22;
+      font-weight: 600;
+    }
+    .mat-icon {
+      color: #c8071d;
+    }
+    &::before {
+      content: url('/assets/img/emojis/error.svg');
+    }
+  }
+}
+
+mat-dialog-container.mat-mdc-dialog-container {
+  .dialog-title,
+  .title-row {
+    position: relative;
+    background: var(--modalHeader);
+    font-weight: 600;
+    color: #f5f5f5;
+
+    p {
+      color: #f5f5f5;
+    }
+  }
+  .mat-mdc-dialog-surface {
+    border-radius: 10px !important;
+    background-color: var(--bgCard);
+    color: var(--textColor);
+  }
+  .mdc-dialog__content {
+    color: var(--textColor) !important;
+    letter-spacing: normal !important;
+  }
+}
+
+.mat-mdc-select-panel {
+  background-color: var(--bgCard) !important;
+
+  --mat-option-label-text-font: 'Source Sans Pro', sans-serif;
+  --mat-option-label-text-size: 14px;
+
+  .mat-mdc-optgroup-label {
+    color: var(--grayToGray);
+  }
+
+  .mat-mdc-option .mat-pseudo-checkbox,
+  .mat-mdc-option .mat-pseudo-checkbox-minimal {
+    display: none;
+  }
+}
+.mat-mdc-option .mdc-list-item__primary-text {
+  color: var(--textColor) !important;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+}
+
+.widget-panel-menu.mat-mdc-menu-panel {
+  --mat-menu-container-color: var(--lightToDark);
+  --mat-menu-item-label-text-font: 'Source Sans Pro', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+
+  .mat-mdc-menu-content {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+}
+
+.data-platform-funnels ::-webkit-scrollbar,
+.mat-mdc-select-panel::-webkit-scrollbar {
+  width: 13px;
+}
+.data-platform-funnels ::-webkit-scrollbar-track,
+.mat-mdc-select-panel::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+.data-platform-funnels ::-webkit-scrollbar-thumb,
+.mat-mdc-select-panel::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #6b6b6b;
+  font-family:
+    'Roboto',
+    -apple-system,
+    'Segoe UI',
+    Helvetica,
+    Arial,
+    sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}

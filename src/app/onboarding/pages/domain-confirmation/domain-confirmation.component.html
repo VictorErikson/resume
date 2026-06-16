@@ -1,0 +1,47 @@
+<div class="domain-confirmation-page">
+  <div class="onboarding-content-container">
+    <app-step-navigation [steps]="steps()"></app-step-navigation>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h3 class="card-title">{{ 'onboarding.domain.title' | translate }}</h3>
+          <p class="card-subtitle">{{ 'onboarding.domain.subtitle' | translate }}</p>
+        </div>
+        <div class="header-actions">
+          @if (form.get('domain')?.valid) {
+            <app-onboarding-continue-button
+              (click)="confirmDomain()"
+              data-test="confirm-button"
+            ></app-onboarding-continue-button>
+          }
+        </div>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="confirmDomain()">
+          <mat-form-field appearance="outline" class="onboarding-card__input">
+            <mat-label>{{ 'onboarding.domain.urlLabel' | translate }}</mat-label>
+            <mat-icon matPrefix class="domain-input-icon">language</mat-icon>
+            <input
+              matInput
+              type="url"
+              formControlName="domain"
+              placeholder="https://example.com"
+              data-test="domain-input"
+            />
+            @if (form.get('domain')?.hasError('required')) {
+              <mat-error>{{ 'onboarding.domain.emptyError' | translate }}</mat-error>
+            } @else if (form.get('domain')?.hasError('domain')) {
+              <mat-error>{{ 'onboarding.domain.invalidError' | translate }}</mat-error>
+            } @else if (form.get('domain')?.hasError('maxlength')) {
+              <mat-error>
+                {{ 'generic.validation.error-maxlength-50' | translate }}
+              </mat-error>
+            } @else if (domainValidationErrorTranslationKey) {
+              <mat-error>{{ domainValidationErrorTranslationKey | translate }}</mat-error>
+            }
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+@use '../../styles/styleguide-onboarding';
+
+:host {
+  display: block;
+}
+
+.onboarding-content-container {
+  max-width: 848px;
+
+  .card-header {
+    width: 100%;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0.25rem 0 0 0;
+}
+
+.type-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 0 auto 1rem auto;
+  max-width: 500px;
+}
+
+.type-option {
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (max-width: 568px) {
+  .type-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .company-type-card {
+    padding: 2rem;
+  }
+}

@@ -1,0 +1,101 @@
+$yellow: #f9ab10;
+$text-primary: #1a1a1a;
+$text-muted: #999;
+
+.card {
+  background: var(--bgCard);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 0;
+  padding-bottom: 12px;
+}
+
+.chart-header {
+  display: flex;
+  align-items: baseline;
+  padding: 18px 20px 4px;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .chart-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: $text-primary;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+  }
+}
+
+.empty-state {
+  display: flex;
+  color: #999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 20px;
+}
+
+.chart-desc {
+  font-size: 12px;
+  color: var(--grayToGray);
+  margin: 0 0 8px;
+}
+
+.session-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  cursor: crosshair;
+  padding: 8px;
+  box-sizing: border-box;
+
+  .grid-line {
+    stroke: rgba(0, 0, 0, 0.06);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+  }
+
+  .axis-label {
+    fill: $text-muted;
+    font-family: system-ui, sans-serif;
+    &--y {
+      text-anchor: end;
+    }
+    &--x {
+      text-anchor: middle;
+    }
+  }
+
+  .session-area {
+    fill: url(#sessionAreaGradient);
+    stroke: none;
+  }
+  .session-line {
+    fill: none;
+    stroke: $yellow;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .hover-line {
+    stroke: rgba(0, 0, 0, 0.2);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+  }
+  .hover-dot {
+    fill: $yellow;
+    stroke: white;
+    stroke-width: 2;
+  }
+  .hover-label {
+    font-weight: 700;
+    fill: $text-primary;
+    font-family: system-ui, sans-serif;
+  }
+}

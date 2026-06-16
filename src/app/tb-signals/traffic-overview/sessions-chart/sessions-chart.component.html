@@ -1,0 +1,77 @@
+<div class="card">
+  <div class="chart-header">
+    <div class="text">
+      <h2 class="chart-title">{{ titleKey | translate }}</h2>
+      <p class="chart-desc">{{ descriptionKey | translate }}</p>
+    </div>
+  </div>
+  @if (loading) {
+    <div class="skeleton"></div>
+  } @else if (sessionLinePath) {
+    <svg
+      class="session-chart"
+      [attr.viewBox]="'0 0 ' + svgW + ' ' + svgH"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+      (mousemove)="onChartMouseMove($event)"
+      (mouseleave)="onChartMouseLeave()"
+    >
+      <defs>
+        <linearGradient id="sessionAreaGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f9ab10" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#f9ab10" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      @for (yl of sessionYLabels; track yl.y) {
+        <line
+          [attr.x1]="44"
+          [attr.x2]="svgW - 12"
+          [attr.y1]="yl.y"
+          [attr.y2]="yl.y"
+          class="grid-line"
+        />
+        <text
+          [attr.x]="40"
+          [attr.y]="yl.y + 4"
+          [attr.font-size]="axisLabelSize"
+          class="axis-label axis-label--y"
+        >
+          {{ yl.value }}
+        </text>
+      }
+      @for (xl of sessionXLabels; track xl.x) {
+        <text
+          [attr.x]="xl.x"
+          [attr.y]="svgH - 6"
+          [attr.font-size]="axisLabelSize"
+          class="axis-label axis-label--x"
+        >
+          {{ xl.label }}
+        </text>
+      }
+      <path [attr.d]="sessionAreaPath" class="session-area" />
+      <path [attr.d]="sessionLinePath" class="session-line" />
+      @if (hoverPoint) {
+        <line
+          class="hover-line"
+          [attr.x1]="hoverPoint.x"
+          [attr.x2]="hoverPoint.x"
+          [attr.y1]="svgChartTop"
+          [attr.y2]="svgChartBottom"
+        />
+        <circle class="hover-dot" [attr.cx]="hoverPoint.x" [attr.cy]="hoverPoint.y" r="4" />
+        <text
+          class="hover-label"
+          [attr.x]="hoverPoint.x + (hoverPoint.x > svgW / 2 ? -8 : 8)"
+          [attr.y]="hoverPoint.y - 8"
+          [attr.font-size]="hoverLabelSize"
+          [attr.text-anchor]="hoverPoint.x > svgW / 2 ? 'end' : 'start'"
+        >
+          {{ hoverPoint.display }}
+        </text>
+      }
+    </svg>
+  } @else {
+    <div class="empty-state">{{ 'tb-signals.sessions-chart.empty' | translate }}</div>
+  }
+</div>

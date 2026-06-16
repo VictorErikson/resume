@@ -1,0 +1,47 @@
+<div class="hd-card">
+  <div class="hd-header">
+    <div class="text">
+      <h2 class="hd-title">{{ 'tb-signals.hot-dimensions.title' | translate }}</h2>
+      <p class="hd-text">{{ 'tb-signals.hot-dimensions.description' | translate }}</p>
+    </div>
+    <div class="hd-time">
+      <mat-icon class="hd-time-icon">schedule</mat-icon>
+      <span>{{ 'tb-signals.hot-dimensions.time-label' | translate }}</span>
+    </div>
+  </div>
+
+  <div class="hd-body">
+    @if (loading) {
+      <div class="hd-placeholder">{{ 'tb-signals.hot-dimensions.loading' | translate }}</div>
+    } @else if (!rows.length) {
+      <div class="hd-placeholder">{{ 'tb-signals.hot-dimensions.empty' | translate }}</div>
+    } @else {
+      <div class="hd-rows">
+        @for (row of rows; track row.label) {
+          <div class="hd-row">
+            <div class="hd-label">{{ row.label }}</div>
+            <div class="hd-bar-track">
+              <div
+                class="hd-bar"
+                [style.width.%]="row.barWidth"
+                [style.background]="row.barBackground"
+              ></div>
+            </div>
+            <div class="hd-count">{{ row.count }}</div>
+            @if (row.trendPct !== null) {
+              <div
+                class="hd-trend"
+                [class.hd-trend--up]="row.trendUp"
+                [class.hd-trend--down]="!row.trendUp"
+              >
+                {{ row.trendUp ? '↑' : '↓' }}{{ row.trendPct | number: '1.0-0' }}%
+              </div>
+            } @else {
+              <div class="hd-trend hd-trend--neutral">–</div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

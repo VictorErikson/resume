@@ -1,0 +1,90 @@
+<div class="feed-card">
+  <div class="feed-header">
+    <span class="dot dot--yellow dot--live"></span>
+    {{ 'tb-signals.live-feed.title' | translate }}
+  </div>
+  <div
+    class="feed-list"
+    #feedList
+    [class.feed-list--collapsed]="!feedExpanded"
+    (scroll)="onFeedScroll($event)"
+  >
+    @for (entry of feedEntries; track entry.id) {
+      <div
+        class="feed-row"
+        [class.feed-row--expanded]="entry.expanded"
+        (click)="toggleEntry(entry)"
+      >
+        <div class="feed-row-main">
+          <span class="country">{{ entry.data.country }}</span>
+          <div class="visitor-info">
+            <div class="visitor-top">
+              <span class="visitor-name">{{ entry.data.name }}</span>
+              @for (tag of entry.data.tags; track tag) {
+                <span class="tag" [class.tag--member]="tag === 'Member'">{{ tag }}</span>
+              }
+            </div>
+            <div class="visitor-action">{{ entry.data.actionLabel }}</div>
+            @if (entry.data.dimensions?.length) {
+              <div class="dim-row">
+                @for (dim of entry.data.dimensions!; track dim) {
+                  <span class="dim-tag">{{ dim }}</span>
+                }
+              </div>
+            }
+          </div>
+          @if (entry.data.badgeText) {
+            <div class="badge badge--{{ entry.data.badgeKind }}">
+              <mat-icon>{{ badgeIcon(entry.data.badgeKind) }}</mat-icon>
+              {{ entry.data.badgeText }}
+            </div>
+          }
+          <mat-icon class="expand-icon">{{
+            entry.expanded ? 'expand_less' : 'expand_more'
+          }}</mat-icon>
+        </div>
+        @if (entry.expanded) {
+          <div class="feed-detail" (click)="$event.stopPropagation()">
+            @if (entry.loadingHistory) {
+              <div class="detail-status">
+                {{ 'tb-signals.live-feed.loading-history' | translate }}
+              </div>
+            } @else if (entry.visitorHistory?.length) {
+              <div class="detail-label">
+                {{ 'tb-signals.live-feed.earlier-from' | translate: { name: entry.data.name } }}
+              </div>
+              <div class="detail-history">
+                @for (h of entry.visitorHistory!; track $index) {
+                  <div class="history-row">
+                    <span class="history-time">{{ formatTime(h.timestamp) }}</span>
+                    <span class="history-action">{{ h.actionLabel }}</span>
+                    @if (h.badgeText) {
+                      <div class="badge badge--{{ h.badgeKind }}">
+                        <mat-icon>{{ badgeIcon(h.badgeKind) }}</mat-icon>
+                        {{ h.badgeText }}
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="detail-status">{{ 'tb-signals.live-feed.no-history' | translate }}</div>
+            }
+          </div>
+        }
+      </div>
+    }
+    @if (historyLoading) {
+      <div class="feed-status">{{ 'tb-signals.live-feed.loading' | translate }}</div>
+    }
+    @if (historyExhausted && !historyLoading) {
+      <div class="feed-status feed-status--end">{{ 'tb-signals.live-feed.end' | translate }}</div>
+    }
+  </div>
+  @if (!feedExpanded) {
+    <button type="button" class="panel-button" (click)="expandFeed()">
+      <mat-icon>keyboard_double_arrow_down</mat-icon>
+      <span>{{ 'tb-signals.live-feed.show-more' | translate }}</span>
+    </button>
+  }
+</div>

@@ -1,0 +1,33 @@
+<svg
+  aria-hidden="true"
+  class="storyline-svg"
+  [attr.viewBox]="viewBox()"
+  preserveAspectRatio="none"
+  fill="none"
+>
+  <defs>
+    <mask [attr.id]="maskId" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120">
+      <path
+        #maskPath
+        [attr.d]="pathD()"
+        stroke="white"
+        stroke-width="6"
+        stroke-linecap="butt"
+        stroke-linejoin="round"
+        fill="none"
+      />
+    </mask>
+  </defs>
+  <path
+    [attr.d]="pathD()"
+    [attr.stroke]="pathColor()"
+    [attr.stroke-width]="pathWidth()"
+    [attr.stroke-dasharray]="dashPattern()"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+    vector-effect="non-scaling-stroke"
+    [attr.mask]="'url(#' + maskId + ')'"
+  ></path>
+</svg>
+<img #dot class="storyline-dot" src="assets/img/tb-signals/bee.png" alt="" aria-hidden="true" />

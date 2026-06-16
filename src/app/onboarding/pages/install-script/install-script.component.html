@@ -1,0 +1,161 @@
+<div class="install-script-page">
+  <div class="onboarding-content-container">
+    <app-step-navigation [steps]="steps()"></app-step-navigation>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h3 class="card-title">{{ 'onboarding.install.title' | translate }}</h3>
+          <p class="card-subtitle">{{ 'onboarding.install.subtitle' | translate }}</p>
+        </div>
+        <div class="header-actions">
+          <app-onboarding-continue-button
+            (click)="goToDashboard()"
+            data-test="continue-button"
+          ></app-onboarding-continue-button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="trial-promo-box">
+          <div class="promo-icon-wrapper">
+            <mat-icon class="promo-icon" fontSet="material-icons-outlined">diamond</mat-icon>
+          </div>
+          <div class="promo-content">
+            <strong>{{ 'onboarding.install.trialTitle' | translate }}</strong>
+            <span>
+              {{ 'onboarding.install.trialInstallOn' | translate }}
+              <strong>{{ domain }}</strong>
+              {{ 'onboarding.install.trialFeatures' | translate }}
+            </span>
+          </div>
+        </div>
+        <mat-accordion class="install-accordion">
+          @for (panel of installPanels; track panel.id) {
+            <mat-expansion-panel class="install-panel">
+              <mat-expansion-panel-header (click)="trackInstallMethodClick(panel.id, panel.title)">
+                <mat-panel-title class="panel-title-wrapper">
+                  <div class="panel-icon">
+                    @if (panel.customIcon) {
+                      <img
+                        [src]="panel.customIcon"
+                        [alt]="panel.title | translate"
+                        class="custom-logo"
+                      />
+                    } @else {
+                      <mat-icon>{{ panel.icon }}</mat-icon>
+                    }
+                  </div>
+                  <div class="panel-title-content">
+                    <span class="panel-title">{{ panel.title | translate }}</span>
+                    @if (panel.badge) {
+                      <span class="panel-badge">{{ panel.badge | translate }}</span>
+                    }
+                  </div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="panel-body">
+                @if (panel.notification) {
+                  <div class="panel-notification">
+                    <mat-icon class="notification-icon">{{ panel.notification.icon }}</mat-icon>
+                    <span>
+                      {{ panel.notification.message | translate }}
+                      @if (panel.notification.link) {
+                        <a
+                          [href]="panel.notification.link.url"
+                          target="_blank"
+                          rel="noopener"
+                          class="notification-link"
+                        >
+                          {{ panel.notification.link.text | translate }}
+                        </a>
+                        <span>{{ 'onboarding.install.soon' | translate }}</span>
+                      }
+                    </span>
+                  </div>
+                }
+                <ol class="install-steps">
+                  @for (step of panel.steps; track $index) {
+                    <li class="install-step">
+                      <span
+                        class="step-number"
+                        [class.step-number--action]="step.action || (step.link && $index === 0)"
+                        [class.step-number--link]="step.link && $index === 0"
+                      >
+                        {{ $index + 1 }}
+                      </span>
+                      <div class="step-content">
+                        @if (!step.copyable && !step.link && !step.action) {
+                          <span class="step-text">
+                            <span [innerHTML]="step.text | translate"></span>
+                          </span>
+                        }
+                        @if (step.copyable) {
+                          <div class="copyable-step">
+                            <span class="step-text">{{ step.text | translate }}</span>
+                            @if (step.copyable.length < 30) {
+                              <span
+                                class="inline-copy-box"
+                                (click)="copyCode(step.copyable, 'Code')"
+                                [matTooltip]="'generic.copyToClipboard.copy' | translate"
+                              >
+                                <span class="copy-value">{{ step.copyable }}</span>
+                                <mat-icon class="copy-icon">content_copy</mat-icon>
+                              </span>
+                            } @else {
+                              <div class="code-block-wrapper">
+                                <pre class="code-block">{{ step.copyable }}</pre>
+                                <button
+                                  class="copy-btn"
+                                  (click)="copyCode(step.copyable, 'Code')"
+                                  [matTooltip]="'generic.copyToClipboard.copy' | translate"
+                                >
+                                  {{ 'onboarding.install.copyCode' | translate }}
+                                  <mat-icon>content_copy</mat-icon>
+                                </button>
+                              </div>
+                            }
+                          </div>
+                        }
+                        @if (step.link) {
+                          <div class="link-step">
+                            <span class="step-text">{{ step.text | translate }}</span>
+                            <a
+                              mat-stroked-button
+                              [href]="step.link.url"
+                              target="_blank"
+                              rel="noopener"
+                              class="step-link-btn secondary-button"
+                            >
+                              @if (step.link.customIcon) {
+                                <img [src]="step.link.customIcon" class="btn-custom-icon" alt="" />
+                              } @else {
+                                <mat-icon class="link-icon">open_in_new</mat-icon>
+                              }
+                              {{ step.link.label | translate }}
+                            </a>
+                          </div>
+                        }
+                        @if (step.action) {
+                          <div class="action-step">
+                            <button
+                              mat-stroked-button
+                              class="email-btn secondary-button step-link-btn"
+                              (click)="sendToEmail()"
+                            >
+                              <mat-icon>{{ step.action.icon }}</mat-icon>
+                              {{ step.action.label | translate }}
+                            </button>
+                          </div>
+                        }
+                      </div>
+                    </li>
+                  }
+                </ol>
+              </div>
+            </mat-expansion-panel>
+          }
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</div>

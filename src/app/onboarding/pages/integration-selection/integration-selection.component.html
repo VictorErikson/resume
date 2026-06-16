@@ -1,0 +1,135 @@
+<div class="integration-selection-page">
+  <div class="onboarding-content-container">
+    <app-step-navigation [steps]="steps()"></app-step-navigation>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h3 class="card-title">{{ 'onboarding.integrations.title' | translate }}</h3>
+          <p class="card-subtitle">{{ 'onboarding.integrations.subtitle' | translate }}</p>
+        </div>
+        <div class="header-actions">
+          @if (selectedIntegrations.length > 0) {
+            <app-onboarding-continue-button
+              (click)="proceed()"
+              data-test="continue-button"
+            ></app-onboarding-continue-button>
+          } @else {
+            <button
+              mat-stroked-button
+              class="secondary-button"
+              (click)="skip()"
+              data-test="skip-button"
+            >
+              {{ 'onboarding.integrations.skip' | translate }}
+            </button>
+          }
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="integrations-layout">
+          <div class="integration-section">
+            <h4 class="section-title">
+              {{ 'onboarding.integrations.websitePlatform' | translate }}
+            </h4>
+            <div class="section-grid">
+              @for (platform of websitePlatforms; track platform.id) {
+                <button
+                  class="selection-option integration-option"
+                  [class.selected]="selectedSet.has(platform.id)"
+                  [class.disabled]="disabledSet.has(platform.id)"
+                  [disabled]="disabledSet.has(platform.id)"
+                  (click)="toggleIntegration(platform.id)"
+                  [attr.data-test]="platform.id + '-option'"
+                >
+                  @if (platform.logo) {
+                    <img
+                      class="selection-option__logo"
+                      [src]="platform.logo"
+                      [alt]="platform.name"
+                    />
+                  }
+                  @if (platform.icon) {
+                    <mat-icon class="selection-option__icon">{{ platform.icon }}</mat-icon>
+                  }
+                  <span class="selection-option__label">{{ platform.name }}</span>
+                  @if (selectedSet.has(platform.id)) {
+                    <mat-icon class="selection-option__check">check_circle</mat-icon>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+          <div class="integration-section">
+            <h4 class="section-title">{{ 'onboarding.integrations.crm' | translate }}</h4>
+            <div class="section-grid crm-grid">
+              @for (integration of crmIntegrations; track integration.id) {
+                <button
+                  class="selection-option integration-option"
+                  [class.selected]="selectedSet.has(integration.id)"
+                  [class.disabled]="disabledSet.has(integration.id)"
+                  [disabled]="disabledSet.has(integration.id)"
+                  (click)="toggleIntegration(integration.id)"
+                  [attr.data-test]="integration.id + '-option'"
+                >
+                  @if (integration.logo) {
+                    <img
+                      class="selection-option__logo"
+                      [src]="integration.logo"
+                      [alt]="integration.name"
+                    />
+                  }
+                  @if (integration.icon) {
+                    <mat-icon class="selection-option__icon">{{ integration.icon }}</mat-icon>
+                  }
+                  <span class="selection-option__label">{{ integration.name }}</span>
+                  @if (selectedSet.has(integration.id)) {
+                    <mat-icon class="selection-option__check">check_circle</mat-icon>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="other-integration-section">
+          <div class="other-integration-label" [class.dimmed]="selectedIntegrations.length > 0">
+            {{ 'onboarding.integrations.otherLabel' | translate }}
+          </div>
+          <mat-form-field appearance="outline" class="other-integration-field">
+            <mat-label>{{ 'onboarding.integrations.otherInputLabel' | translate }}</mat-label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="otherIntegration"
+              [disabled]="selectedIntegrations.length > 0"
+              [placeholder]="'onboarding.integrations.otherPlaceholder' | translate"
+              data-test="other-integration-input"
+            />
+          </mat-form-field>
+          @if (otherIntegration.trim() && selectedIntegrations.length === 0) {
+            <button
+              mat-stroked-button
+              class="primary-button other-integration-submit"
+              (click)="proceedWithOther()"
+              data-test="other-integration-submit"
+            >
+              {{ 'onboarding.integrations.continueWith' | translate: { name: otherIntegration } }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-actions">
+      <button
+        mat-stroked-button
+        class="secondary-button"
+        (click)="goBack()"
+        data-test="back-button"
+      >
+        <mat-icon>arrow_back</mat-icon>
+        {{ 'generic.back' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

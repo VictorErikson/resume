@@ -1,0 +1,55 @@
+<div class="trigger-field" [matMenuTriggerFor]="widgetMenu" (menuOpened)="onMenuOpened()">
+  <span class="trigger-label" [class.floating]="value.length > 0">{{
+    'data-platform.widget-ids' | translate
+  }}</span>
+  <span class="trigger-value">{{ summaryText }}</span>
+  <mat-icon class="trigger-icon">filter_list</mat-icon>
+</div>
+
+<mat-menu #widgetMenu="matMenu" class="widget-panel-menu">
+  <div class="panel-search" (click)="$event.stopPropagation()">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" style="width: 100%">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput [formControl]="searchCtrl" placeholder="Search widgets..." />
+    </mat-form-field>
+  </div>
+  <div class="panel-actions" (click)="$event.stopPropagation()">
+    <button
+      mat-button
+      [disabled]="allSelected"
+      [class.action-used]="allSelected"
+      (click)="selectAll()"
+    >
+      Select all
+    </button>
+    <button
+      mat-button
+      [disabled]="noneSelected"
+      [class.action-used]="noneSelected"
+      (click)="clearAll()"
+    >
+      Clear all
+    </button>
+    <button
+      mat-icon-button
+      class="sort-btn"
+      [matTooltip]="sortAsc ? 'Sort Z–A' : 'Sort A–Z'"
+      (click)="toggleSort()"
+    >
+      <mat-icon>{{ 'sort' }}</mat-icon>
+      <span class="sort-label">{{ sortAsc ? 'A–Z' : 'Z–A' }}</span>
+    </button>
+  </div>
+  <div class="panel-list" (click)="$event.stopPropagation()">
+    @for (w of filteredWidgets; track w.id) {
+      <div class="panel-item">
+        <mat-checkbox [checked]="isSelected(w)" (change)="toggle(w, $event.checked)">
+          {{ label(w) }}
+        </mat-checkbox>
+      </div>
+    }
+    @if (!filteredWidgets.length) {
+      <div class="panel-empty">No widgets found</div>
+    }
+  </div>
+</mat-menu>

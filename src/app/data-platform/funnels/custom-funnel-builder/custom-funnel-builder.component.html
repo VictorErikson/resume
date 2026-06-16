@@ -1,0 +1,236 @@
+<div class="custom-funnel-builder" [class.is-side-by-side]="isSideBySide()">
+  <div class="builder-header">
+    <div class="builder-header__titles">
+      <h3>{{ 'data-platform.custom-funnel-title' | translate }}</h3>
+      <p class="section-subtitle">{{ 'data-platform.custom-funnel-subtitle' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="builder-expanded">
+    <div class="builder-card">
+      @if (savedFunnels().length > 0) {
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="funnel-select-field">
+          <mat-label>{{ 'data-platform.saved-funnels' | translate }}</mat-label>
+          <mat-select
+            [value]="activeFunnelId()"
+            [compareWith]="compareFunnelId"
+            (selectionChange)="loadFunnel($event.value)"
+          >
+            <mat-option [value]="null" style="display: none"></mat-option>
+            @for (f of savedFunnels(); track f.id) {
+              <mat-option [value]="f.id">{{ f.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+      <div class="card-actions">
+        @if (activeFunnelId()) {
+          <button
+            mat-stroked-button
+            class="funnel-action-btn secondary-button"
+            (click)="newFunnel()"
+          >
+            <mat-icon>add</mat-icon>
+            <span class="btn-full">{{ 'data-platform.new-funnel' | translate | uppercase }}</span>
+            <span class="btn-short">New</span>
+          </button>
+          <button
+            mat-stroked-button
+            class="funnel-action-btn delete-button"
+            (click)="deleteFunnel()"
+          >
+            <span class="material-symbols-outlined">delete</span>
+            <span class="btn-full">{{
+              'data-platform.delete-funnel' | translate | uppercase
+            }}</span>
+            <span class="btn-short">Delete</span>
+          </button>
+        } @else {
+          <button
+            mat-flat-button
+            class="funnel-save-btn"
+            (click)="saveFunnel()"
+            [disabled]="!hasEnoughSteps"
+          >
+            {{ 'data-platform.save-funnel' | translate | uppercase }}
+          </button>
+        }
+      </div>
+    </div>
+
+    @if (!activeFunnelId()) {
+      <div class="preset-bar-wrapper">
+        @if (showHint()) {
+          <div class="preset-hint-bubble" (click)="dismissHint()">
+            {{ 'data-platform.funnel-hint-presets' | translate }}
+          </div>
+        }
+        <div class="preset-bar">
+          <span class="preset-label">{{ 'data-platform.funnel-presets-label' | translate }}</span>
+          @for (preset of presets; track preset.labelKey) {
+            <button
+              class="preset-tag"
+              [class.preset-tag--active]="activePresetKey() === preset.labelKey"
+              (click)="applyPreset(preset)"
+            >
+              {{ preset.labelKey | translate }}
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="builder-body" [class.side-by-side]="isSideBySide()">
+      <div class="step-col">
+        <div [formGroup]="funnelForm" class="step-builder">
+          <div class="step-header">
+            <h4>{{ 'data-platform.funnel-steps' | translate }}</h4>
+            @if (!activeFunnelId()) {
+              <button
+                mat-icon-button
+                (click)="newFunnel()"
+                [disabled]="!hasEnoughSteps"
+                [matTooltip]="'data-platform.clear-funnel' | translate"
+              >
+                <mat-icon>refresh</mat-icon>
+              </button>
+            }
+          </div>
+
+          <div formArrayName="steps" cdkDropList (cdkDropListDropped)="onDropStep($event)">
+            @for (
+              stepCtrl of stepsArray.controls;
+              track stepCtrl;
+              let i = $index;
+              let last = $last
+            ) {
+              <div class="step-item">
+                <div
+                  class="step-indicator"
+                  [class.step-indicator--first]="i === 0"
+                  [class.step-indicator--last]="last"
+                >
+                  <div
+                    class="step-number"
+                    [class.step-number--inactive]="inactiveStepIndexes().has(i)"
+                  >
+                    @if (inactiveStepIndexes().has(i)) {
+                      <mat-icon
+                        class="step-inactive-icon"
+                        [matTooltip]="'data-platform.funnel-step-incompatible' | translate"
+                        >warning</mat-icon
+                      >
+                    } @else {
+                      {{ i + 1 }}
+                    }
+                  </div>
+                </div>
+
+                <div
+                  class="step-card"
+                  [class.step-card--inactive]="inactiveStepIndexes().has(i)"
+                  [formGroupName]="i"
+                  cdkDrag
+                >
+                  <div class="step-drag-handle" cdkDragHandle>
+                    <mat-icon>drag_indicator</mat-icon>
+                  </div>
+
+                  <div class="step-fields">
+                    <mat-form-field
+                      appearance="outline"
+                      subscriptSizing="dynamic"
+                      class="step-field step-field--type"
+                    >
+                      <mat-label>{{ 'data-platform.event-type' | translate }}</mat-label>
+                      <mat-select
+                        formControlName="eventType"
+                        (selectionChange)="onEventTypeChanged(i)"
+                      >
+                        @for (t of availableEventTypes(); track t.value) {
+                          <mat-option [value]="t.value">{{ t.label | translate }}</mat-option>
+                        }
+                      </mat-select>
+                    </mat-form-field>
+
+                    @if (stepCtrl.get('eventType')?.value?.startsWith('widget-')) {
+                      <app-widget-select
+                        [widgets]="filteredWidgets()"
+                        [value]="stepCtrl.get('widgetIds')?.value"
+                        (valueChange)="stepCtrl.get('widgetIds')?.setValue($event)"
+                      ></app-widget-select>
+                    }
+
+                    @if (stepCtrl.get('eventType')?.value === 'goal') {
+                      <mat-form-field
+                        appearance="outline"
+                        subscriptSizing="dynamic"
+                        class="step-field"
+                      >
+                        <mat-label>{{ 'data-platform.goal-name' | translate }}</mat-label>
+                        <mat-select formControlName="goalName">
+                          @for (g of goals(); track g.name) {
+                            <mat-option [value]="g.name">{{ g.displayName || g.name }}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+                    }
+
+                    @if (stepCtrl.get('eventType')?.value === 'pageview') {
+                      <mat-form-field
+                        appearance="outline"
+                        subscriptSizing="dynamic"
+                        class="step-field"
+                      >
+                        <mat-label>{{ 'data-platform.pageview-url' | translate }}</mat-label>
+                        <input matInput formControlName="actionUrl" />
+                      </mat-form-field>
+                    }
+                  </div>
+
+                  <div class="step-remove">
+                    <span
+                      [matTooltip]="
+                        stepsArray.length <= 2 ? ('data-platform.funnel-min-steps' | translate) : ''
+                      "
+                    >
+                      <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="removeStep(i)"
+                        [disabled]="stepsArray.length <= 2"
+                      >
+                        <mat-icon>remove_circle</mat-icon>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          @if (stepsArray.length < maxSteps) {
+            <button class="add-step-btn" (click)="addStep()">
+              <mat-icon>add</mat-icon>
+              {{ 'data-platform.add-step' | translate }}
+            </button>
+          }
+        </div>
+      </div>
+      <div class="funnel-panel">
+        <app-funnel-chart
+          [steps]="funnelChartSteps()"
+          [loadingFunnel]="loading()"
+          [compactHeader]="isSideBySide()"
+          [title]="hasResults() ? funnelNameCtrl.value : null"
+          [editableTitle]="true"
+          [takenNames]="savedFunnelNames()"
+          [showPin]="!!activeFunnelId()"
+          [isPinned]="isActiveFunnelPinned()"
+          (titleChange)="renameFunnel($event)"
+          (pinToggle)="togglePin()"
+        ></app-funnel-chart>
+      </div>
+    </div>
+  </div>
+</div>

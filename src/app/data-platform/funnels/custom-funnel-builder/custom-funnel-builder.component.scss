@@ -1,0 +1,514 @@
+@use '../../../../assets/styles/variables' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.custom-funnel-builder {
+  padding: 16px 0;
+}
+
+.builder-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  h3 {
+    margin: 0 0 4px;
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--textColor);
+  }
+}
+
+.section-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--grayToGray);
+}
+
+.builder-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background-color: var(--bgCard);
+  border: var(--borderCard);
+  border-radius: 12px;
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, 0.1),
+    0 1px 1px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.funnel-save-btn {
+  border-radius: 10px;
+  height: 36px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+
+  &.mat-mdc-unelevated-button:not(:disabled) {
+    background-color: $purple;
+    color: white;
+  }
+
+  &.mat-mdc-unelevated-button[disabled] {
+    background-color: var(--dividerTopMenu);
+    color: var(--lightToDark);
+  }
+}
+
+.funnel-action-btn {
+  height: 36px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  ::ng-deep .mdc-button__label,
+  .mdc-button__label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .material-symbols-outlined,
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    vertical-align: middle;
+  }
+}
+
+.funnel-name-field {
+  flex: 1;
+  min-width: 160px;
+  max-width: 320px;
+}
+
+.funnel-select-field {
+  flex: 1;
+  min-width: 180px;
+  max-width: 320px;
+
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      min-height: unset;
+      display: flex;
+      align-items: center;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding-top: 16px;
+    }
+
+    .mdc-text-field--outlined .mdc-floating-label:not(.mdc-floating-label--float-above) {
+      top: 50%;
+    }
+  }
+}
+
+.campaign-filter-field {
+  flex: 1;
+  min-width: 160px;
+  max-width: 260px;
+  font-size: 13px;
+  font-weight: 600;
+
+  ::ng-deep {
+    .mat-mdc-form-field-infix {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      min-height: unset;
+    }
+    .mdc-notched-outline__notch {
+      border-right: none;
+    }
+  }
+}
+
+.btn-short {
+  display: none;
+}
+
+.builder-expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.builder-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &.side-by-side {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 24px;
+  }
+}
+
+.step-col {
+  flex-shrink: 0;
+  width: 100%;
+
+  .side-by-side & {
+    width: 535px;
+  }
+}
+
+.funnel-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.preset-bar-wrapper {
+  position: relative;
+}
+
+.preset-hint-bubble {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  background: var(--secondaryButton);
+  color: var(--lightToDark);
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  animation: hint-pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 10;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    border: 7px solid transparent;
+    border-top-color: var(--secondaryButton);
+  }
+}
+
+@keyframes hint-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.75) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.preset-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.preset-label {
+  font-size: 12px;
+  color: var(--grayToGray);
+  white-space: nowrap;
+}
+
+.preset-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 16px;
+  border: 1px solid var(--borderColor, #e0e0e0);
+  border-radius: 15px;
+  background: var(--bgCard, #fff);
+  color: var(--textColor);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+
+  &:hover,
+  &.preset-tag--active {
+    border-color: var(--secondaryButton);
+    background: var(--secondaryButton);
+    color: var(--bgCard);
+  }
+}
+
+.step-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 50px;
+  margin-bottom: 16px;
+
+  h4 {
+    margin: 0;
+    font-weight: 500;
+    color: var(--textColor);
+  }
+
+  button {
+    padding-bottom: 0px;
+    margin-bottom: -8px;
+  }
+}
+
+.step-builder {
+  h4 {
+    font-weight: 500;
+    color: var(--textColor);
+  }
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 8px;
+}
+
+.step-indicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 24px;
+
+  &:not(.step-indicator--first)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: calc(50% + 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background-color: var(--borderColor, #e0e0e0);
+  }
+
+  &:not(.step-indicator--last)::after {
+    content: '';
+    position: absolute;
+    top: calc(50% + 20px);
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background-color: var(--borderColor, #e0e0e0);
+  }
+}
+
+.step-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  min-height: var(--step-row-height, 76px);
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--borderColor, #e0e0e0);
+  border-radius: 8px;
+  background: var(--bgCard);
+
+  &.cdk-drag-preview {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    opacity: 0.95;
+  }
+
+  &.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  &.cdk-drag-placeholder {
+    background: transparent;
+    border: 2px dashed var(--borderColor, #e0e0e0);
+    box-shadow: none;
+
+    > * {
+      visibility: hidden;
+    }
+  }
+}
+
+.cdk-drop-list-dragging .step-card:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.step-drag-handle {
+  cursor: grab;
+  color: var(--grayToGray);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.step-number {
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--secondaryButton);
+  color: var(--matCardBg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+
+  &.step-number--inactive {
+    background: #e65100;
+  }
+}
+
+.step-inactive-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.step-card--inactive {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.step-fields {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+  gap: 12px;
+}
+
+.step-field {
+  flex: 1 1 0;
+  min-width: 150px;
+
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      min-height: unset;
+      display: flex;
+      align-items: center;
+    }
+
+    .mdc-text-field--outlined .mdc-floating-label:not(.mdc-floating-label--float-above) {
+      top: 50%;
+    }
+  }
+}
+
+.step-remove {
+  flex-shrink: 0;
+
+  .mat-mdc-icon-button {
+    --mat-icon-button-state-layer-color: transparent;
+    --mat-icon-button-hover-state-layer-opacity: 0;
+    --mat-icon-button-focus-state-layer-opacity: 0;
+    --mat-icon-button-pressed-state-layer-opacity: 0;
+  }
+
+  .mat-mdc-icon-button:not(:disabled) {
+    --mat-icon-button-icon-color: #f44336;
+    color: #f44336;
+  }
+}
+
+.add-step-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: var(--step-row-height, 76px);
+  padding: 10px 14px;
+  border: 2px dashed var(--borderColor, #e0e0e0);
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--grayToGray);
+  font-size: 14px;
+  transition:
+    border-color 200ms ease,
+    color 200ms ease,
+    background-color 200ms ease;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    border-color: var(--secondaryButton);
+    color: var(--secondaryButton);
+    background: rgba(0, 0, 0, 0.02);
+  }
+}
+
+@media (max-width: 822px) {
+  .funnel-select-field,
+  .campaign-filter-field {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .card-actions {
+    flex: 0 0 100%;
+    margin-left: 0;
+
+    button {
+      flex: 1;
+    }
+  }
+}
+
+@media (max-width: 722px) {
+  .btn-full {
+    display: none;
+  }
+  .btn-short {
+    display: inline;
+  }
+}
+
+@media (max-width: 642px) {
+  .card-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+      flex: unset;
+    }
+  }
+}

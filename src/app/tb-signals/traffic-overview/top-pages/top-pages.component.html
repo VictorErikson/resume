@@ -1,0 +1,45 @@
+<div class="top-pages-card">
+  <div class="chart-header">
+    <div class="text">
+      <h2 class="chart-title">{{ 'tb-signals.top-pages.title' | translate }}</h2>
+      <p class="chart-desc">{{ 'tb-signals.top-pages.description' | translate }}</p>
+    </div>
+  </div>
+  @if (loading) {
+    <div class="skeleton"></div>
+  } @else if (pages.length) {
+    <div class="vbar-chart">
+      <div class="vbar-yaxis">
+        @for (label of barYLabels; track label; let i = $index) {
+          <span class="vbar-ytick" [style.top.%]="(i / (barYLabels.length - 1)) * 100">{{
+            label
+          }}</span>
+        }
+      </div>
+      <div class="vbar-body">
+        <div class="vbar-bars">
+          @for (page of pages; track page.label) {
+            <div class="vbar-col">
+              <div
+                class="vbar-fill"
+                [style.height.%]="page.barWidth"
+                [style.background]="page.barBackground"
+              >
+                <span class="vbar-count">{{ page.countDisplay }}</span>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="vbar-xlabels">
+          @for (page of pages; track page.label) {
+            <div class="vbar-xlabel-cell">
+              <span class="vbar-xlabel" [title]="page.label">{{ page.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-state">{{ 'tb-signals.top-pages.empty' | translate }}</div>
+  }
+</div>

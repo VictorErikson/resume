@@ -1,0 +1,60 @@
+@use '../../../../assets/styles/variables' as *;
+
+::ng-deep .funnel-name-dialog-panel {
+  width: 440px;
+
+  .mat-mdc-dialog-surface {
+    border-radius: 12px;
+    padding: 0;
+  }
+}
+
+.funnel-name-dialog {
+  display: flex;
+  flex-direction: column;
+  color: var(--textColor);
+}
+
+.funnel-name-dialog-container {
+  padding: 24px;
+  padding-top: 20px;
+}
+
+.dialog-title {
+  p {
+    margin: 0 0 16px;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 16px 24px 0 24px;
+  }
+}
+
+.dialog-hint {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--grayToGray);
+}
+
+.name-field {
+  width: 100%;
+}
+
+.actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+
+  button {
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .funnel-save-btn {
+    &.mat-mdc-unelevated-button:not(:disabled) {
+      background-color: $purple;
+      color: white;
+    }
+  }
+}

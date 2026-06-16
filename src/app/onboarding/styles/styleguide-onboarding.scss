@@ -1,0 +1,196 @@
+@use '../../../assets/styles/variables' as *;
+
+.onboarding-content-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.card {
+  width: 100%;
+  background: var(--bgCard);
+  border-radius: 8px;
+  border: 1px solid var(--cardDivider);
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  .card-header {
+    min-height: 80px;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--cardDivider);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-sizing: border-box;
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--textColor);
+    }
+
+    .card-subtitle {
+      font-size: 0.875rem;
+      color: var(--grayToGray);
+      margin: 0.25rem 0 0 0;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+}
+
+.selection-option {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 0 1rem;
+  height: 56px;
+  max-height: 60px;
+  border: 1px solid var(--cardDivider);
+  border-radius: 8px;
+  background: var(--bgCard);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Source Sans Pro', sans-serif;
+
+  &:hover {
+    border-color: var(--linkColor);
+    box-shadow: 0 2px 8px rgba(81, 108, 227, 0.15);
+  }
+
+  &.selected {
+    border-color: var(--linkColor);
+    background: var(--appBg);
+  }
+
+  &__icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  &__logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  &__label {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--textColor);
+    flex: 1;
+  }
+
+  &__check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: var(--linkColor);
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+
+    line-height: 18px;
+  }
+}
+
+::ng-deep .mat-mdc-button,
+::ng-deep .mat-mdc-outlined-button,
+::ng-deep .mat-mdc-unelevated-button {
+  font-family: 'Source Sans Pro', sans-serif !important;
+}
+
+::ng-deep .mat-mdc-outlined-button {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.domain-confirmation-page,
+.company-type-page,
+.integration-selection-page,
+.site-preview-page,
+.install-script-page {
+  min-height: calc(100vh - 4rem - 42px - 50px);
+  padding: 2rem;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+body.dark-mode {
+  .card {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 968px) {
+  .card-header {
+    min-height: auto;
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 820px) {
+  .onboarding-content-container {
+    max-width: 100%;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: stretch;
+
+    .header-actions {
+      flex-direction: column;
+      width: 100%;
+
+      button,
+      app-onboarding-continue-button {
+        width: 100%;
+      }
+    }
+  }
+
+  .selection-option__label {
+    font-size: 0.9rem;
+  }
+
+  .domain-confirmation-page,
+  .company-type-page,
+  .integration-selection-page,
+  .site-preview-page,
+  .install-script-page {
+    padding: 1rem;
+  }
+}

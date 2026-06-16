@@ -1,0 +1,176 @@
+<div class="kpi-section-header">
+  <div class="dashboard-top-bar-left">
+    <button class="top-bar-dropdown" [matMenuTriggerFor]="accountMenu">
+      <mat-icon class="top-bar-dropdown-icon">domain</mat-icon>
+      <span class="top-bar-dropdown-label">{{ selectedSiteLabel() }}</span>
+      <mat-icon class="top-bar-dropdown-arrow">arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #accountMenu="matMenu">
+      <button mat-menu-item (click)="onSiteChanged(0)">
+        {{ 'tb-signals.kpi-menu.all-accounts' | translate }}
+      </button>
+      @for (entry of siteEntries(); track entry.id) {
+        <button mat-menu-item (click)="onSiteChanged(entry.id)">{{ entry.name }}</button>
+      }
+    </mat-menu>
+
+    <button class="top-bar-dropdown" [matMenuTriggerFor]="dateMenu">
+      <mat-icon class="top-bar-dropdown-icon">date_range</mat-icon>
+      <span class="top-bar-dropdown-label">{{ selectedDateLabelKey() | translate }}</span>
+      <mat-icon class="top-bar-dropdown-arrow">arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #dateMenu="matMenu">
+      <button mat-menu-item (click)="setDateRange(7, 'dateRange.last7days')">
+        {{ 'dateRange.last7days' | translate }}
+      </button>
+      <button mat-menu-item (click)="setDateRange(30, 'dateRange.last30days')">
+        {{ 'dateRange.last30days' | translate }}
+      </button>
+      <button mat-menu-item (click)="setDateRange(90, 'dateRange.last90days')">
+        {{ 'dateRange.last90days' | translate }}
+      </button>
+      <button mat-menu-item (click)="setDateRange(1, 'dateRange.lastMonth')">
+        {{ 'dateRange.lastMonth' | translate }}
+      </button>
+    </mat-menu>
+    <div class="kpi-section-header-left">
+      @if (showKpiScrollChevrons()) {
+        <button
+          class="kpi-scroll-chevron"
+          (click)="scrollKpiGrid('left')"
+          [disabled]="kpiScrollDisabled()"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button
+          class="kpi-scroll-chevron"
+          (click)="scrollKpiGrid('right')"
+          [disabled]="kpiScrollDisabled()"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+  <div class="kpi-section-header-right">
+    <div class="kpi-layout-toggle">
+      <button
+        class="kpi-layout-toggle-button"
+        [class.kpi-layout-toggle-button--active]="kpiLayout() === 'horizontal'"
+        (click)="setKpiLayout('horizontal')"
+        [matTooltip]="'tb-signals.kpi-menu.row-view' | translate"
+      >
+        <mat-icon>view_column</mat-icon>
+      </button>
+      <button
+        class="kpi-layout-toggle-button"
+        [class.kpi-layout-toggle-button--active]="kpiLayout() === 'stacked'"
+        (click)="setKpiLayout('stacked')"
+        [matTooltip]="'tb-signals.kpi-menu.grid-view' | translate"
+      >
+        <mat-icon>grid_view</mat-icon>
+      </button>
+    </div>
+    <button class="customize-metrics-button" (click)="openKpiSettingsFlyout()">
+      <mat-icon class="customize-metrics-icon">settings</mat-icon>
+      <span>{{ 'dashboard-new.kpi-settings.customize' | translate }}</span>
+    </button>
+  </div>
+</div>
+
+<div class="dashboard-new-kpi-grid-wrapper">
+  <section
+    #kpiGridEl
+    class="dashboard-new-kpi-grid"
+    [class.dashboard-new-kpi-grid--horizontal]="kpiLayout() === 'horizontal'"
+    [class.dashboard-new-kpi-grid--stacked]="kpiLayout() === 'stacked'"
+  >
+    @for (card of visibleKpiCards(); track card.key) {
+      <div
+        class="dashboard-new-card dashboard-new-kpi-card"
+        [class.is-chart-selected]="card.key === selectedChartKpiKey()"
+        (click)="kpiCardClicked.emit(card.key)"
+        style="cursor: pointer"
+      >
+        <div class="kpi-card-header">
+          <p class="dashboard-new-card-label">{{ card.labelKey | translate }}</p>
+          @if (card.icon) {
+            <div
+              class="kpi-card-icon-badge"
+              [matTooltip]="(card.tooltipKey | translate) ?? ''"
+              matTooltipPosition="above"
+              matTooltipShowDelay="200"
+            >
+              <mat-icon>{{ card.icon }}</mat-icon>
+            </div>
+          } @else if (card.tooltipKey) {
+            <mat-icon
+              class="kpi-card-info-icon"
+              [matTooltip]="card.tooltipKey | translate"
+              matTooltipPosition="above"
+              matTooltipShowDelay="200"
+              >info</mat-icon
+            >
+          }
+        </div>
+        @if (card.loading) {
+          <div class="kpi-card-value-loading">
+            <mat-spinner diameter="24"></mat-spinner>
+          </div>
+        } @else if (card.error) {
+          <span class="kpi-card-value kpi-card-value--error">--</span>
+        } @else {
+          <div class="kpi-card-body">
+            <div class="kpi-card-body-left">
+              <span class="kpi-card-value">
+                {{ card.formattedValue }}
+                @if (card.suffix) {
+                  <span class="kpi-card-suffix">{{ card.suffix }}</span>
+                }
+              </span>
+              <div class="kpi-card-footer">
+                @if (card.changePercent !== null) {
+                  <span
+                    class="kpi-card-change"
+                    [class.kpi-card-change--up]="card.changePercent >= 0"
+                    [class.kpi-card-change--down]="card.changePercent < 0"
+                  >
+                    <mat-icon class="kpi-card-change-icon">{{
+                      card.changePercent >= 0 ? 'arrow_upward' : 'arrow_downward'
+                    }}</mat-icon>
+                    {{ card.changePercent >= 0 ? '+' : ''
+                    }}{{ card.changePercent | number: '1.1-1' }}%
+                  </span>
+                }
+              </div>
+            </div>
+            <div class="kpi-card-body-right">
+              @if (card.chartData) {
+                <div class="kpi-card-graph">
+                  <canvas
+                    baseChart
+                    [type]="'line'"
+                    [data]="card.chartData"
+                    [options]="card.chartOptions"
+                  ></canvas>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+    @for (_ of emptyKpiSlots(); track $index) {
+      <button
+        class="dashboard-new-card dashboard-new-kpi-card dashboard-new-kpi-card--empty"
+        (click)="openKpiSettingsFlyout()"
+        type="button"
+      >
+        <mat-icon class="kpi-empty-card-icon">add_chart</mat-icon>
+        <span class="kpi-empty-card-label">{{
+          'dashboard-new.kpi-settings.add-metric' | translate
+        }}</span>
+      </button>
+    }
+  </section>
+</div>

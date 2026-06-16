@@ -1,0 +1,304 @@
+<main class="page">
+  <aside class="sidebar">
+    <img class="photo" src="img/Victor-photo.jpg" [attr.alt]="t().photoAlt" />
+
+    <section class="block" aria-labelledby="contact-heading">
+      <h2 id="contact-heading" class="side-heading underline">{{ t().headings.contact }}</h2>
+      <ul class="contacts">
+        @for (c of contacts(); track c.label || c.value) {
+          <li class="contact-item">
+            @switch (c.kind) {
+              @case ('copy') {
+                <button
+                  type="button"
+                  class="contact contact--action"
+                  [class]="c.symbol"
+                  (click)="copyValue(c)"
+                  [attr.aria-label]="copyAriaLabel(c.label)"
+                >
+                  <span class="contact-icon">
+                    <img [src]="'symbols/' + c.symbol + '.png'" alt="" />
+                  </span>
+                  <span class="contact-body">
+                    <span class="contact-label">{{ c.label }}</span>
+                    <span class="contact-value">{{ c.value }}</span>
+                  </span>
+                  <span class="contact-copy material-symbols-outlined" aria-hidden="true">
+                    {{ copied() === c.label ? 'check' : 'content_copy' }}
+                  </span>
+                </button>
+              }
+              @case ('link') {
+                <a
+                  class="contact contact--action"
+                  [class]="c.symbol"
+                  [href]="c.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="profileAriaLabel(c.label)"
+                >
+                  <span class="contact-icon">
+                    <img [src]="'symbols/' + c.symbol + '.png'" alt="" />
+                  </span>
+                  <span class="contact-body">
+                    <span class="contact-label">{{ c.label }}</span>
+                  </span>
+                </a>
+              }
+              @default {
+                <div class="contact" [class]="c.symbol">
+                  <span class="contact-icon">
+                    @if (c.materialIcon) {
+                      <span class="contact-symbol material-symbols-outlined" aria-hidden="true">{{
+                        c.materialIcon
+                      }}</span>
+                    } @else {
+                      <img [src]="'symbols/' + c.symbol + '.png'" alt="" />
+                    }
+                  </span>
+                  <span class="contact-body">
+                    @if (c.label) {
+                      <span class="contact-label">{{ c.label }}</span>
+                    }
+                    <span class="contact-value">{{ c.value }}</span>
+                  </span>
+                </div>
+              }
+            }
+          </li>
+        }
+      </ul>
+      <p class="visually-hidden" role="status" aria-live="polite">
+        @if (copied()) {
+          {{ copied() }} copied to clipboard
+        }
+      </p>
+    </section>
+
+    <section class="block edu inner-block" aria-labelledby="edu-side-heading">
+      <h2 id="edu-side-heading" class="side-heading banner">{{ t().headings.educationSide }}</h2>
+      <ul class="edu-list">
+        @for (e of education(); track e.school) {
+          <li class="edu-item">
+            <span class="edu-school">{{ e.school }}</span>
+            <span class="edu-program">{{ e.program }}</span>
+            <span class="edu-years">{{ e.years }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="hard-heading">
+      <h2 id="hard-heading" class="side-heading underline center">{{ t().headings.hardSkills }}</h2>
+      <ul class="skills inner-block">
+        @for (s of hardSkills(); track s.name) {
+          <li class="skill">
+            <div
+              class="skill-track"
+              role="meter"
+              [attr.aria-label]="s.name + ' proficiency'"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [attr.aria-valuenow]="s.level"
+            >
+              <span class="skill-fill" [style.width.%]="s.level"></span>
+            </div>
+            <span class="skill-name">{{ s.name }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="soft-heading">
+      <h2 id="soft-heading" class="side-heading underline center">{{ t().headings.softSkills }}</h2>
+      <div class="soft inner-block">
+        <img class="pie" src="img/chart.png" alt="Soft skills pie-chart" />
+        <ul class="soft-legend">
+          @for (p of softSkills(); track p.label) {
+            <li class="soft-item" [style.color]="p.labelColor">{{ p.label }} -</li>
+          }
+        </ul>
+      </div>
+    </section>
+  </aside>
+
+  <section class="content">
+    <header class="masthead">
+      <nav class="lang-toggle" [attr.aria-label]="t().aria.langToggle">
+        <a routerLink="/" [class.active]="lang() === 'en'">EN</a>
+        <span aria-hidden="true">|</span>
+        <a routerLink="/sv" [class.active]="lang() === 'sv'">SV</a>
+      </nav>
+      <div class="identity">
+        <h1 class="name">{{ name() }}</h1>
+        <p class="role-bar">{{ t().role }}</p>
+      </div>
+      <p class="summary">{{ t().summary }}</p>
+    </header>
+
+    <section class="main-block work-exp" aria-labelledby="work-heading">
+      <h2 id="work-heading" class="main-heading">{{ t().headings.workExperience }}</h2>
+      <div class="line"></div>
+      @for (x of experiences(); track x.title) {
+        <article class="exp" [class]="x.variant">
+          <div class="exp-left">
+            <img class="exp-icon" [src]="'symbols/' + x.icon + '.png'" alt="" />
+            <div class="exp-company-header">
+              @if (x.variant === 'triggerbee') {
+                <span class="exp-company-heading">{{ t().companyLabel }}</span>
+              }
+            </div>
+            <ul class="exp-companies">
+              @for (co of x.companies; track co.name) {
+                <li class="exp-company">
+                  <span class="exp-company-name">{{ co.name }}</span>
+                  <span class="exp-company-years">{{ co.years }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+          <div class="exp-right">
+            <h3 class="exp-title">{{ x.title }}</h3>
+            <ul class="exp-bullets">
+              @for (b of x.bullets; track b) {
+                <li>{{ b }}</li>
+              }
+            </ul>
+          </div>
+        </article>
+      }
+    </section>
+
+    <section class="main-block logo-block" aria-labelledby="lang-heading">
+      <div class="logos-head">
+        <h2 id="lang-heading" class="small-heading">{{ t().headings.languagesAndFrameworks }}</h2>
+        <div class="logos-arrows">
+          <button
+            type="button"
+            class="logos-arrow material-symbols-outlined"
+            [disabled]="!langsCanLeft()"
+            (click)="scrollLogos(langsTrack, -1)"
+            [attr.aria-label]="t().aria.scrollLangsLeft"
+          >
+            chevron_left
+          </button>
+          <button
+            type="button"
+            class="logos-arrow material-symbols-outlined"
+            [disabled]="!langsCanRight()"
+            (click)="scrollLogos(langsTrack, 1)"
+            [attr.aria-label]="t().aria.scrollLangsRight"
+          >
+            chevron_right
+          </button>
+        </div>
+      </div>
+      <div class="line carousel-line"></div>
+      <div
+        class="logos-carousel"
+        [class.can-left]="langsCanLeft()"
+        [class.can-right]="langsCanRight()"
+      >
+        <ul
+          #langsTrack
+          class="logos"
+          (scroll)="updateScrollState()"
+          (pointerdown)="onPointerDown($event)"
+          (pointermove)="onPointerMove($event)"
+          (pointerup)="onPointerUp($event)"
+          (pointercancel)="onPointerUp($event)"
+        >
+          @for (logo of languageLogos(); track logo.alt) {
+            <li class="logo" [attr.data-label]="logo.alt">
+              <img class="logo-img" [src]="logo.src" [alt]="logo.alt" />
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="main-block" aria-labelledby="edu-heading">
+      <h2 id="edu-heading" class="main-heading">{{ t().headings.education }}</h2>
+      <div class="line"></div>
+      <div class="edu-container">
+        <h3 class="detail-title">{{ t().edu.detailTitle1 }}</h3>
+        <p class="detail-text">{{ t().edu.detailText }}</p>
+        <h3 class="detail-title">{{ t().edu.udemy.title }}</h3>
+        <p class="detail-text">
+          {{ t().edu.udemy.before }}
+          <a
+            href="https://www.udemy.com/course/the-complete-guide-to-angular-2"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="udemy-link"
+            >{{ t().edu.udemy.linkText }}</a
+          >
+          {{ t().edu.udemy.after }}
+        </p>
+      </div>
+    </section>
+
+    <section class="main-block logo-block" aria-labelledby="tools-heading">
+      <div class="logos-head">
+        <h2 id="tools-heading" class="small-heading">{{ t().headings.tools }}</h2>
+        <div class="logos-arrows">
+          <button
+            type="button"
+            class="logos-arrow material-symbols-outlined"
+            [disabled]="!toolsCanLeft()"
+            (click)="scrollLogos(toolsTrack, -1)"
+            [attr.aria-label]="t().aria.scrollToolsLeft"
+          >
+            chevron_left
+          </button>
+          <button
+            type="button"
+            class="logos-arrow material-symbols-outlined"
+            [disabled]="!toolsCanRight()"
+            (click)="scrollLogos(toolsTrack, 1)"
+            [attr.aria-label]="t().aria.scrollToolsRight"
+          >
+            chevron_right
+          </button>
+        </div>
+      </div>
+      <div class="line carousel-line"></div>
+
+      <div
+        class="logos-carousel"
+        [class.can-left]="toolsCanLeft()"
+        [class.can-right]="toolsCanRight()"
+      >
+        <ul
+          #toolsTrack
+          class="logos"
+          (scroll)="updateScrollState()"
+          (pointerdown)="onPointerDown($event)"
+          (pointermove)="onPointerMove($event)"
+          (pointerup)="onPointerUp($event)"
+          (pointercancel)="onPointerUp($event)"
+        >
+          @for (logo of toolLogos(); track logo.alt) {
+            <li class="logo" [attr.data-label]="logo.alt">
+              <img class="logo-img" [src]="logo.src" [alt]="logo.alt" />
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="main-block" aria-labelledby="project-heading">
+      <h2 id="project-heading" class="small-heading">{{ t().project.heading }}</h2>
+      <div class="line"></div>
+      <div class="summer-project-container">
+        <p class="detail-text">{{ t().project.intro }}</p>
+        <h3 class="detail-title">{{ t().project.bulletsTitle }}</h3>
+        <ul class="project-bullets">
+          @for (b of t().project.bullets; track b) {
+            <li>{{ b }}</li>
+          }
+        </ul>
+      </div>
+    </section>
+  </section>
+</main>

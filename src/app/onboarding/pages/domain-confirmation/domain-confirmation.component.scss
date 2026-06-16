@@ -1,0 +1,81 @@
+@use '../../styles/styleguide-onboarding';
+
+:host {
+  display: block;
+}
+
+.onboarding-content-container {
+  max-width: 700px;
+}
+
+.domain-explanation {
+  font-size: 0.9rem;
+  color: var(--grayToGray);
+  margin: 1rem 0 0 0;
+  text-align: center;
+}
+
+.onboarding-card {
+  width: 100%;
+  padding: 3rem;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    margin: 0 0 0.5rem 0;
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    color: hsl(var(--muted-foreground));
+    margin: 0 0 2rem 0;
+  }
+
+  &__input {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    .domain-input-icon {
+      color: var(--textColor);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__submit {
+    min-width: 150px;
+    padding: 0.75rem 2rem;
+
+    mat-spinner {
+      display: inline-block;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .onboarding-card {
+    padding: 2rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+  .card {
+    min-width: 100%;
+  }
+}

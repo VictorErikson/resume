@@ -1,0 +1,45 @@
+$top-height: 48px;
+$side-width: 230px;
+
+.demo-shell {
+  position: relative;
+  min-height: 100vh;
+}
+
+.demo-shell__top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $top-height;
+  z-index: 200;
+}
+
+.demo-shell__side {
+  position: fixed;
+  top: $top-height;
+  left: 0;
+  bottom: 0;
+  width: $side-width;
+  z-index: 100;
+}
+
+.demo-shell__content {
+  margin-left: $side-width;
+  padding-top: $top-height;
+  min-height: 100vh;
+  background: var(--appBg);
+}
+
+.data-platform-funnels {
+  padding: 24px 24px 24px;
+}
+
+@media (max-width: 900px) {
+  .demo-shell__side {
+    display: none;
+  }
+  .demo-shell__content {
+    margin-left: 0;
+  }
+}

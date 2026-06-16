@@ -29,7 +29,11 @@
                 "input": "public"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["."]
+            },
             "styles": [
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ]
           },
@@ -43,8 +47,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "8kB",
+                  "maximumError": "12kB"
                 }
               ],
               "outputHashing": "all"

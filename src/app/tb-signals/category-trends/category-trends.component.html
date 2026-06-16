@@ -1,0 +1,169 @@
+@if (insights.length) {
+  <div class="ct-insights">
+    @for (card of insights; track card.label) {
+      <div class="insight-card">
+        <div class="insight-accent" [style.background]="card.color"></div>
+        <div class="insight-label">{{ card.label }}</div>
+        <div class="insight-category">{{ card.category }}</div>
+        <div class="insight-sub">{{ card.sub }}</div>
+      </div>
+    }
+  </div>
+}
+
+<div class="ct-card">
+  <div class="ct-header">
+    <div class="text">
+      <h2 class="ct-title">{{ 'tb-signals.category-trends.title' | translate }}</h2>
+      <p class="ct-text">{{ 'tb-signals.category-trends.description' | translate }}</p>
+    </div>
+  </div>
+
+  @if (tabs.length > 1) {
+    <div class="ct-tabs-row">
+      @for (tab of tabs; track tab.prefix) {
+        <button
+          class="ct-tab"
+          [class.active]="tab.prefix === selectedPrefix"
+          (click)="selectTab(tab)"
+        >
+          {{ tab.label }}
+        </button>
+      }
+    </div>
+  }
+
+  @if (lines.length) {
+    <div class="ct-legend">
+      @for (line of lines; track line.label) {
+        <span class="legend-item">
+          <span class="legend-dot" [style.background]="line.color"></span>
+          {{ line.label }}
+        </span>
+      }
+    </div>
+  }
+
+  <div class="ct-body">
+    @if (loading) {
+      <div class="ct-placeholder">{{ 'tb-signals.category-trends.loading' | translate }}</div>
+    } @else if (empty || !lines.length) {
+      <div class="ct-placeholder">{{ 'tb-signals.category-trends.empty' | translate }}</div>
+    } @else {
+      <div class="ct-chart-wrap">
+        <svg
+          [attr.viewBox]="'0 0 ' + svgW + ' ' + svgH"
+          width="100%"
+          class="ct-svg"
+          aria-hidden="true"
+          (mousemove)="onChartMouseMove($event)"
+          (mouseleave)="onChartMouseLeave()"
+        >
+          <defs>
+            <linearGradient id="ct-grad-0" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f9ab10" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#f9ab10" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="ct-grad-1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6366f1" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#6366f1" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="ct-grad-2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#10b981" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+            </linearGradient>
+            <linearGradient id="ct-grad-3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#f43f5e" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+
+          @for (yl of yLabels; track yl.value) {
+            <line
+              [attr.x1]="40"
+              [attr.x2]="svgW - 12"
+              [attr.y1]="yl.y"
+              [attr.y2]="yl.y"
+              class="gridline"
+            />
+            <text
+              [attr.x]="36"
+              [attr.y]="yl.y + 4"
+              [attr.font-size]="axisLabelSize"
+              class="axis-label axis-label--y"
+            >
+              {{ yl.value }}
+            </text>
+          }
+
+          @for (line of lines; track line.label; let i = $index) {
+            <path [attr.d]="line.areaPath" [attr.fill]="'url(#ct-grad-' + i + ')'" />
+          }
+
+          @for (line of lines; track line.label) {
+            <path
+              [attr.d]="line.linePath"
+              [attr.stroke]="line.color"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              fill="none"
+              class="data-line"
+            />
+          }
+
+          @for (xl of xLabels; track $index) {
+            <text
+              [attr.x]="xl.x"
+              [attr.y]="svgH - 4"
+              [attr.font-size]="axisLabelSize"
+              class="axis-label axis-label--x"
+            >
+              {{ xl.label }}
+            </text>
+          }
+
+          @if (hoverIndex !== null) {
+            <line
+              class="hover-line"
+              [attr.x1]="lines[0].points[hoverIndex!].x"
+              [attr.x2]="lines[0].points[hoverIndex!].x"
+              [attr.y1]="svgChartTop"
+              [attr.y2]="chartBottom"
+            />
+            @for (line of lines; track line.label) {
+              <circle
+                class="hover-dot"
+                [attr.cx]="line.points[hoverIndex!].x"
+                [attr.cy]="line.points[hoverIndex!].y"
+                r="4"
+                [attr.fill]="line.color"
+              />
+            }
+          }
+        </svg>
+
+        @if (hoverIndex !== null) {
+          <div
+            class="ct-tooltip"
+            [style.left.px]="hoverPixelX"
+            [style.transform]="
+              hoverPixelX! > svgRenderedW / 2 ? 'translateX(calc(-100% - 8px))' : 'translateX(8px)'
+            "
+          >
+            <div class="ct-tooltip-month">{{ xLabels[hoverIndex!]?.label }}</div>
+            @for (line of lines; track line.label) {
+              <div class="ct-tooltip-row">
+                <span class="ct-tooltip-dot" [style.background]="line.color"></span>
+                <span class="ct-tooltip-label">{{ line.label }}</span>
+                <span class="ct-tooltip-value" [style.color]="line.color">{{
+                  line.points[hoverIndex!].display
+                }}</span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

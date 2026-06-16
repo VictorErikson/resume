@@ -1,0 +1,73 @@
+<div class="flyout-kpi-settings">
+  <div class="flyout-kpi-settings-header">
+    <h3 class="flyout-kpi-settings-title">{{ 'dashboard-new.kpi-settings.title' | translate }}</h3>
+    <button class="flyout-kpi-settings-close" (click)="closeFlyout()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <p class="flyout-kpi-settings-subtitle">
+    {{ 'dashboard-new.kpi-settings.subtitle' | translate }}
+  </p>
+
+  <div class="flyout-kpi-section">
+    <p class="flyout-kpi-section-label">
+      {{ 'dashboard-new.kpi-settings.added-metrics' | translate }}
+    </p>
+    @if (addedDefinitions().length === 0) {
+      <p class="flyout-kpi-section-empty">
+        {{ 'dashboard-new.kpi-settings.no-added-metrics' | translate }}
+      </p>
+    }
+    @for (kpi of addedDefinitions(); track kpi.key) {
+      <div class="flyout-kpi-settings-row flyout-kpi-settings-row--added">
+        <div class="flyout-kpi-row-top">
+          <div class="flyout-kpi-row-label">
+            <span>{{ kpi.labelKey | translate }}</span>
+            @if (kpi.tooltipKey) {
+              <mat-icon
+                class="kpi-definition-info-icon"
+                [matTooltip]="kpi.tooltipKey | translate"
+                matTooltipPosition="right"
+                matTooltipShowDelay="200"
+                >info</mat-icon
+              >
+            }
+          </div>
+          <button class="flyout-kpi-remove-btn" (click)="removeKpi(kpi.key)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="flyout-kpi-section flyout-kpi-section--available">
+    <p class="flyout-kpi-section-label">
+      {{ 'dashboard-new.kpi-settings.available-metrics' | translate }}
+    </p>
+    @if (availableDefinitions().length === 0) {
+      <p class="flyout-kpi-section-empty">
+        {{ 'dashboard-new.kpi-settings.all-added' | translate }}
+      </p>
+    }
+    @for (kpi of availableDefinitions(); track kpi.key) {
+      <div class="flyout-kpi-settings-row">
+        <div class="flyout-kpi-row-label">
+          <span>{{ kpi.labelKey | translate }}</span>
+          @if (kpi.tooltipKey) {
+            <mat-icon
+              class="kpi-definition-info-icon"
+              [matTooltip]="kpi.tooltipKey | translate"
+              matTooltipPosition="right"
+              matTooltipShowDelay="200"
+              >info</mat-icon
+            >
+          }
+        </div>
+        <button class="flyout-kpi-add-btn" (click)="addKpi(kpi.key)" [disabled]="isFull()">
+          {{ 'dashboard-new.kpi-settings.add' | translate }}
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="dialog-component">
+  <div class="dialog-title">
+    <p>{{ 'onboarding.install.notDetectedDialog.title' | translate }}</p>
+  </div>
+  <div class="dialog-content">
+    <p>{{ 'onboarding.install.notDetectedDialog.message' | translate }}</p>
+    <button mat-stroked-button class="open-site-button secondary-button" (click)="openSite()">
+      <mat-icon>open_in_new</mat-icon>
+      {{ 'onboarding.install.notDetectedDialog.openSite' | translate: { domain: data.domain } }}
+    </button>
+  </div>
+  <div class="actions-row">
+    <button mat-stroked-button class="secondary-button" (click)="skip()">
+      {{ 'onboarding.install.notDetectedDialog.skip' | translate }}
+    </button>
+    <button mat-stroked-button class="primary-button" (click)="retry()">
+      <mat-icon>refresh</mat-icon>
+      {{ 'onboarding.install.notDetectedDialog.checkAgain' | translate }}
+    </button>
+  </div>
+</div>

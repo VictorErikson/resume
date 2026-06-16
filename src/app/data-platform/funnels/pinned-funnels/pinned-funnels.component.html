@@ -1,0 +1,44 @@
+@if (displayItems().length > 0) {
+  <div class="pinned-funnels">
+    <div class="pinned-funnels__header">
+      <h3 class="pinned-funnels__title">{{ 'data-platform.pinned-funnels-label' | translate }}</h3>
+      <mat-button-toggle-group
+        [value]="viewMode()"
+        (change)="viewMode.set($event.value)"
+        hideSingleSelectionIndicator="true"
+      >
+        <mat-button-toggle
+          value="columns"
+          [matTooltip]="'data-platform.funnel-view-columns' | translate"
+        >
+          <mat-icon>bar_chart</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="bars" [matTooltip]="'data-platform.funnel-view-bars' | translate">
+          <mat-icon>view_list</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="pinned-row" #rowEl (mousedown)="onRowMouseDown($event, rowEl)">
+      @for (item of displayItems(); track item.funnel.id) {
+        <div
+          class="pinned-card"
+          (click)="onCardClick(item.funnel.id)"
+          [style.width.px]="viewMode() === 'columns' ? getCardWidth(item) : null"
+        >
+          <app-funnel-chart
+            [steps]="item.steps"
+            [loadingFunnel]="item.loading"
+            [title]="item.funnel.name"
+            [editableTitle]="false"
+            [compactView]="true"
+            [defaultMode]="viewMode()"
+            [showModeToggle]="false"
+            [showPin]="true"
+            [isPinned]="true"
+            (pinToggle)="unpin(item.funnel.id)"
+          ></app-funnel-chart>
+        </div>
+      }
+    </div>
+  </div>
+}

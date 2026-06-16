@@ -1,0 +1,510 @@
+@use 'src/assets/styles/variables' as *;
+@use '../../styles/styleguide-onboarding';
+
+:host {
+  display: block;
+}
+
+.onboarding-content-container {
+  max-width: 700px;
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  color: var(--grayToGray);
+  margin: 0.25rem 0 0 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.trial-promo-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba($orange, 0.1);
+  border: 1px solid rgba($orange, 0.25);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+
+  .promo-icon-wrapper {
+    flex-shrink: 0;
+  }
+
+  .promo-icon {
+    color: $orange;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .promo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+
+    strong {
+      color: var(--textColor);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    span {
+      color: var(--textColor);
+      font-size: 14px;
+    }
+  }
+}
+
+.install-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .install-panel {
+    background: var(--bgCard);
+    border: 1px solid var(--cardDivider);
+    border-radius: var(--radius, 8px);
+    box-shadow: none;
+    transition: border-color 0.3s ease;
+
+    &.mat-expanded {
+      margin: 0;
+    }
+
+    ::ng-deep .mat-expansion-indicator::after {
+      color: var(--textColor);
+    }
+
+    ::ng-deep .mat-expansion-panel-body {
+      animation: panelExpand 300ms ease-out;
+      padding-top: 1rem;
+      border-top: 1px solid var(--cardDivider);
+    }
+
+    &::before {
+      display: none;
+    }
+
+    .mat-expansion-panel-header {
+      padding: 0.75rem;
+      height: auto;
+      min-height: unset;
+
+      &:hover {
+        background: var(--appBg) !important;
+      }
+
+      .panel-title-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+      }
+
+      .panel-icon {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: var(--appBg);
+        color: var(--textColor);
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+
+        .custom-logo {
+          width: 18px;
+          height: 18px;
+          object-fit: contain;
+        }
+      }
+
+      .panel-title-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex: 1;
+
+        .panel-title {
+          font-size: 16px;
+          font-weight: 500;
+          color: var(--textColor);
+        }
+
+        .panel-badge {
+          padding: 0.2rem 0.6rem;
+          background: rgba($blue-primary, 0.1);
+          color: $blue-primary;
+          font-size: 11px;
+          font-weight: 500;
+          border-radius: 100px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+
+    .panel-body {
+      padding: 0 1.25rem 1.25rem 1.25rem;
+    }
+  }
+}
+
+.panel-notification {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  margin-bottom: 1rem;
+  background: rgba($blue-primary, 0.08);
+  border: 1px solid rgba($blue-primary, 0.2);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--textColor);
+
+  .notification-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: $blue-primary;
+    flex-shrink: 0;
+  }
+
+  .notification-link {
+    color: $blue-primary;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.install-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  .install-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border: 1px solid $blue-primary;
+      color: $blue-primary;
+      border-radius: 50%;
+      font-size: 14px;
+      font-weight: 600;
+
+      &.step-number--action {
+        margin-top: 7px;
+      }
+    }
+
+    .step-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      min-height: 26px;
+    }
+
+    .step-text {
+      color: var(--textColor);
+      font-size: 14px;
+      line-height: 26px;
+    }
+  }
+}
+
+.copyable-step {
+  .inline-copy-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 10px;
+    padding: 0.25rem 0.5rem;
+    background: var(--appBg);
+    border: 1px solid var(--cardDivider);
+    border-radius: 6px;
+    cursor: pointer;
+    vertical-align: middle;
+
+    .copy-value {
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--textColor);
+    }
+
+    .copy-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      color: var(--grayToGray);
+    }
+
+    &:hover {
+      border-color: var(--grayToGray);
+
+      .copy-icon {
+        color: var(--textColor);
+      }
+    }
+  }
+
+  .code-block-wrapper {
+    position: relative;
+    margin-top: 0.5rem;
+    background: var(--appBg);
+    border: 1px solid var(--cardDivider);
+    border-radius: 6px;
+    padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+    overflow: hidden;
+    max-width: 100%;
+
+    .code-block {
+      margin: 0;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--textColor);
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: var(--textColor);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 0 0.75rem;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--lightToDark);
+      font-family: 'Source Sans Pro', sans-serif;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: var(--lightToDark);
+      }
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+  }
+}
+
+.link-step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  .step-text {
+    margin-bottom: 0;
+  }
+
+  .step-link-btn {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+
+    .link-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      margin-right: 0.25rem;
+    }
+
+    .btn-custom-icon {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      margin-right: 0.25rem;
+    }
+  }
+
+  .or-divider {
+    color: var(--grayToGray);
+    font-size: 13px;
+    font-style: italic;
+  }
+}
+
+.verify-spinner {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+
+  ::ng-deep circle {
+    stroke: var(--linkColor);
+  }
+}
+
+.checking-label {
+  color: var(--textColor);
+  vertical-align: middle;
+}
+
+.checking-dots {
+  display: inline-block;
+  width: 1.5ch;
+  text-align: left;
+}
+
+.action-step {
+  margin-top: 0;
+  padding-top: 0;
+
+  button {
+    mat-icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+@keyframes panelExpand {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::ng-deep body.dark-mode .step-number {
+  background: $blue-primary;
+  color: white !important;
+}
+
+::ng-deep body.dark-mode .panel-badge {
+  background: rgba($blue-primary, 1) !important;
+  color: white !important;
+}
+
+::ng-deep body.dark-mode img.custom-logo[alt='WordPress'] {
+  filter: invert(1);
+}
+
+@media (max-width: 768px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .trial-promo-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .install-panel .mat-expansion-panel-header {
+    padding: 0.75rem;
+  }
+
+  .install-accordion .install-panel ::ng-deep .mat-expansion-panel-body {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .panel-body {
+    padding: 0 0.75rem 1rem 0.75rem;
+  }
+
+  .link-step {
+    .step-text {
+      line-height: 1.4;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-link-btn {
+      width: 100%;
+      min-width: unset;
+      justify-content: center;
+      white-space: normal;
+      height: auto;
+      padding: 0.5rem 1rem;
+      line-height: 1.3;
+    }
+  }
+
+  .action-step {
+    button {
+      width: 100%;
+      min-width: unset;
+      white-space: normal;
+      height: auto;
+      padding: 0.5rem 1rem;
+      line-height: 1.3;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .card-body {
+    padding: 1rem 0.75rem;
+  }
+
+  .install-steps {
+    .install-step {
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+  }
+}
+
+@media (max-width: 734px) {
+  .install-steps {
+    .install-step {
+      .step-number {
+        &.step-number--link {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,284 @@
+$border: rgba(0, 0, 0, 0.08);
+$text-primary: #1a1a1a;
+$text-muted: #999;
+
+:host {
+  display: block;
+  position: relative;
+  z-index: 3;
+}
+
+.ct-insights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.insight-card {
+  background: var(--bgCard);
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 16px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.insight-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 12px 12px 0 0;
+  opacity: 0.7;
+}
+
+.insight-label {
+  font-size: 12px;
+  color: $text-muted;
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.insight-category {
+  font-size: 20px;
+  font-weight: 700;
+  color: $text-primary;
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.insight-sub {
+  font-size: 12px;
+  color: $text-muted;
+}
+
+.ct-card {
+  background: var(--bgCard);
+  border: 1px solid $border;
+  border-radius: 12px;
+  overflow: hidden;
+  padding-bottom: 16px;
+}
+
+.ct-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px 4px;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+.ct-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: $text-primary;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.ct-text {
+  font-size: 12px;
+  color: var(--grayToGray);
+  margin: 0 0 8px;
+}
+
+.ct-time {
+  font-size: 12px;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+.ct-tabs-row {
+  display: flex;
+  gap: 6px;
+  padding: 0px 20px 4px;
+  flex-wrap: wrap;
+}
+
+.ct-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--cardDivider);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--grayToGray);
+  white-space: nowrap;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+
+  &.active {
+    color: #ffffff;
+    background: #516ce3;
+    border-color: #516ce3;
+  }
+
+  &:hover:not(.active) {
+    color: #516ce3;
+    border-color: #516ce3;
+    background: rgba(81, 108, 227, 0.08);
+  }
+}
+
+.ct-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 8px 20px 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ct-body {
+  padding: 12px 16px 8px;
+}
+
+.ct-chart-wrap {
+  position: relative;
+}
+
+.ct-svg {
+  display: block;
+  overflow: visible;
+  cursor: crosshair;
+}
+
+.gridline {
+  stroke: rgba(0, 0, 0, 0.06);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.axis-label {
+  fill: #bbb;
+  font-family: system-ui, sans-serif;
+
+  &--y {
+    text-anchor: end;
+  }
+  &--x {
+    text-anchor: middle;
+  }
+}
+
+.data-line {
+  transition: opacity 200ms;
+}
+
+.hover-line {
+  stroke: rgba(0, 0, 0, 0.2);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.hover-dot {
+  stroke: white;
+  stroke-width: 2;
+}
+
+.ct-tooltip {
+  position: absolute;
+  top: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 8px 10px;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  min-width: 120px;
+}
+
+.ct-tooltip-month {
+  font-size: 11px;
+  font-weight: 600;
+  color: $text-muted;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.ct-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.ct-tooltip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ct-tooltip-label {
+  flex: 1;
+  color: $text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
+}
+
+.ct-tooltip-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ct-placeholder {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: $text-muted;
+  text-align: center;
+  padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+  .ct-insights {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .ct-insights {
+    grid-template-columns: 1fr;
+  }
+}

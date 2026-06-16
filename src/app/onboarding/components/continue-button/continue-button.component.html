@@ -1,0 +1,16 @@
+<button
+  mat-stroked-button
+  iconPositionEnd
+  class="primary-button"
+  type="button"
+  [disabled]="isLoading || disabled"
+>
+  @if (isLoading) {
+    <mat-spinner diameter="20"></mat-spinner>
+  } @else {
+    <ng-container>
+      {{ 'generic.continue' | translate }}
+      <mat-icon>arrow_forward</mat-icon>
+    </ng-container>
+  }
+</button>

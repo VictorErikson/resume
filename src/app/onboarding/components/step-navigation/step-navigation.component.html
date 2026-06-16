@@ -1,0 +1,22 @@
+<div class="onboarding-logo">
+  <img src="assets/img/triggerbee-logo-black.svg" alt="Triggerbee" class="logo-img" />
+</div>
+<div class="step-navigation">
+  <div class="steps-container">
+    @for (step of steps; track step.id; let i = $index) {
+      <div class="step-item" [class.clickable]="step.clickable" (click)="navigateToStep(step)">
+        <div class="step-indicator" [class.completed]="step.completed" [class.active]="step.active">
+          @if (step.completed) {
+            <mat-icon class="check-icon">check</mat-icon>
+          } @else {
+            <span class="step-number">{{ step.id }}</span>
+          }
+        </div>
+        <span class="step-label">{{ step.label | translate }}</span>
+        @if (i < steps.length - 1) {
+          <div class="step-connector"></div>
+        }
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="to-wrapper">
+  @if (!sessionsOnly() && !topPagesOnly()) {
+    <app-traffic-kpi-menu
+      [siteEntries]="data.siteEntries()"
+      [selectedSiteLabel]="data.selectedSiteLabel()"
+      [selectedDateLabelKey]="data.selectedDateLabelKey()"
+      [kpiLayout]="data.kpiLayout()"
+      [visibleKpiCards]="data.visibleKpiCards()"
+      [emptyKpiSlots]="data.emptyKpiSlots()"
+      [showKpiScrollChevrons]="data.showKpiScrollChevrons()"
+      [kpiScrollDisabled]="data.kpiScrollDisabled()"
+      (siteChanged)="data.onSiteChanged($event)"
+      (dateRangeChanged)="data.setDateRange($event.days, $event.labelKey)"
+      (layoutChanged)="data.setKpiLayout($event)"
+      (openKpiSettings)="data.openKpiSettingsFlyout()"
+      [selectedChartKpiKey]="data.selectedChartKpiKey()"
+      (kpiCardClicked)="data.selectChartKpi($event)"
+    ></app-traffic-kpi-menu>
+  }
+
+  @if (!kpiOnly() && !topPagesOnly()) {
+    <app-traffic-sessions-chart
+      [loading]="data.loading"
+      [dataPoints]="data.selectedChartDataPoints()"
+      [titleKey]="data.selectedChartLabelKey()"
+      [valueFormat]="data.selectedChartFormat()"
+    ></app-traffic-sessions-chart>
+  }
+
+  @if (!kpiOnly() && !sessionsOnly()) {
+    <app-traffic-top-pages
+      [loading]="data.loading"
+      [pageRows]="data.pageRows"
+    ></app-traffic-top-pages>
+  }
+</div>

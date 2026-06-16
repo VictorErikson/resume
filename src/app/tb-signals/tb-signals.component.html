@@ -1,0 +1,171 @@
+<div class="page-content">
+  <app-scroll-storyline
+    [startAnchor]="storylineStart"
+    [endAnchor]="storylineEnd"
+    [startOffsetPx]="1200"
+  ></app-scroll-storyline>
+
+  <div
+    class="scroll-pin scroll-pin--rings"
+    appScrollPin
+    pinId="rings"
+    [pinScrollDistanceVh]="250"
+    #storylineStart
+  >
+    <div class="scroll-pin-stage">
+      <div class="hero hero--pinned max-width-wrapper">
+        <div class="signals-logo">
+          <img
+            class="triggerbee-logo"
+            src="../../assets/img/triggerbee-logo-bullet.svg"
+            alt="triggerbee-logo"
+          />
+          <div class="text">
+            <h2>{{ 'tb-signals.hero.product-name' | translate }}</h2>
+            <p>{{ 'tb-signals.hero.from-triggerbee' | translate }}</p>
+          </div>
+        </div>
+        <h1>
+          {{ 'tb-signals.hero.headline1' | translate }}
+          <br />
+          <span class="text-gradient">{{ 'tb-signals.hero.headline2' | translate }}</span>
+        </h1>
+        <p class="hero-sub">
+          {{ 'tb-signals.hero.sub' | translate }}
+        </p>
+        <img class="mascot" src="../../assets/img/tb-signals/bee-mascot.png" alt="bee-mascot" />
+      </div>
+
+      <div class="rings-slot">
+        <div class="scroll-down-btn" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path
+              d="M4 7l5 5 5-5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <app-signal-rings></app-signal-rings>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-width-wrapper">
+    <div class="section-heading section-heading--xl heading-mask-reveal top" appScrollReveal>
+      <h2 class="section-title">
+        <span class="text">{{ 'tb-signals.sections.right-now.title' | translate }}</span>
+      </h2>
+      <p class="section-sub">
+        <span class="text">{{ 'tb-signals.sections.right-now.sub' | translate }}</span>
+      </p>
+    </div>
+    <div class="stats-row under-timeline">
+      @for (card of statCards; track card.label) {
+        <div class="dashboard-new-card dashboard-new-kpi-card">
+          <div class="kpi-card-header">
+            <p class="dashboard-new-card-label">{{ card.label | translate }}</p>
+            <div class="kpi-card-icon-badge">
+              <mat-icon>{{ card.icon }}</mat-icon>
+            </div>
+          </div>
+          <div class="kpi-card-body">
+            <div class="kpi-card-body-left">
+              <span class="kpi-card-value">{{ card.value }}</span>
+              <div class="kpi-card-footer">
+                <span
+                  class="kpi-card-change"
+                  [class.kpi-card-change--up]="card.positive"
+                  [class.kpi-card-change--down]="!card.positive"
+                >
+                  <mat-icon class="kpi-card-change-icon">{{
+                    card.positive ? 'arrow_upward' : 'arrow_downward'
+                  }}</mat-icon>
+                  {{ card.change }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    <app-live-feed appScrollReveal class="reveal-fade-up over-timeline" />
+    @if (hotDimensionsHasData) {
+      <app-hot-dimensions
+        appScrollReveal
+        class="reveal-fade-up over-timeline"
+        (hasData)="hotDimensionsHasData = $event"
+      />
+    }
+    @if (liveFunnelHasData) {
+      <app-live-funnel
+        appScrollReveal
+        class="reveal-fade-up over-timeline"
+        (hasData)="liveFunnelHasData = $event"
+      />
+    }
+
+    <div class="hot-wrapper">
+      <div class="section-heading section-heading--xl heading-mask-reveal" appScrollReveal>
+        <h2 class="section-title">
+          <span class="text">{{ 'tb-signals.sections.whats-hot.title' | translate }}</span>
+        </h2>
+        <p class="section-sub">
+          <span class="text">{{ 'tb-signals.sections.whats-hot.sub' | translate }}</span>
+        </p>
+      </div>
+      <div class="grey-background">
+        <div class="wh-kpi-slot">
+          <app-traffic-kpi-menu
+            [siteEntries]="trafficData.siteEntries()"
+            [selectedSiteLabel]="trafficData.selectedSiteLabel()"
+            [selectedDateLabelKey]="trafficData.selectedDateLabelKey()"
+            [kpiLayout]="trafficData.kpiLayout()"
+            [visibleKpiCards]="trafficData.visibleKpiCards()"
+            [emptyKpiSlots]="trafficData.emptyKpiSlots()"
+            [showKpiScrollChevrons]="trafficData.showKpiScrollChevrons()"
+            [kpiScrollDisabled]="trafficData.kpiScrollDisabled()"
+            (siteChanged)="trafficData.onSiteChanged($event)"
+            (dateRangeChanged)="trafficData.setDateRange($event.days, $event.labelKey)"
+            (layoutChanged)="trafficData.setKpiLayout($event)"
+            (openKpiSettings)="trafficData.openKpiSettingsFlyout()"
+            [selectedChartKpiKey]="trafficData.selectedChartKpiKey()"
+            (kpiCardClicked)="trafficData.selectChartKpi($event)"
+          ></app-traffic-kpi-menu>
+        </div>
+        <div class="wh-charts-track reveal-fade-up" appScrollReveal>
+          <app-traffic-sessions-chart
+            [loading]="trafficData.loading"
+            [dataPoints]="trafficData.selectedChartDataPoints()"
+            [titleKey]="trafficData.selectedChartLabelKey()"
+            [valueFormat]="trafficData.selectedChartFormat()"
+          ></app-traffic-sessions-chart>
+          <div class="divider">
+            <app-traffic-top-pages
+              [loading]="trafficData.loading"
+              [pageRows]="trafficData.pageRows"
+            ></app-traffic-top-pages>
+            <app-category-trends
+              appScrollReveal
+              [siteIds]="trafficData.effectiveSiteIds()"
+              [dateFilter]="trafficData.dateFilter()"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div #storylineEnd class="storyline-end-anchor"></div>
+</div>
+
+<canvas #cv class="wand-canvas" aria-hidden="true"></canvas>
+
+@if (flyout.isOpen()) {
+  <div class="demo-flyout-backdrop" (click)="flyout.close()"></div>
+  <aside class="demo-flyout-panel" role="dialog" aria-modal="true">
+    <app-flyout-kpi-settings [flyoutOpeningData]="flyout.openingData()!"></app-flyout-kpi-settings>
+  </aside>
+}

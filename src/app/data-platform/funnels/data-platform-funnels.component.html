@@ -1,0 +1,15 @@
+<div class="demo-shell">
+  <div class="demo-shell__top">
+    <app-demo-top-menu></app-demo-top-menu>
+  </div>
+  <aside class="demo-shell__side">
+    <app-demo-side-menu></app-demo-side-menu>
+  </aside>
+
+  <div class="demo-shell__content">
+    <div class="data-platform-funnels">
+      <app-custom-funnel-builder></app-custom-funnel-builder>
+      <app-pinned-funnels (loadFunnel)="onLoadPinnedFunnel($event)"></app-pinned-funnels>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+@use '../../../../assets/styles/variables' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.pinned-funnels {
+  padding: 24px 0 0;
+}
+
+.pinned-funnels__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pinned-funnels__title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--textColor);
+  align-self: end;
+}
+
+.pinned-row {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  overflow-x: auto;
+  user-select: none;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.pinned-card {
+  flex-shrink: 0;
+  width: 320px;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  ::ng-deep app-funnel-chart {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ::ng-deep .funnel-chart,
+  ::ng-deep .chart-wrapper,
+  ::ng-deep .chart-content {
+    flex: 1;
+  }
+}

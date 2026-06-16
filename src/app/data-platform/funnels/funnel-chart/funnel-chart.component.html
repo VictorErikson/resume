@@ -1,0 +1,169 @@
+<div class="funnel-chart" [class.compact-header]="compactHeader" [class.compact-view]="compactView">
+  <div class="chart-wrapper">
+    @if (!loadingFunnel && displaySteps.length > 0) {
+      <div class="chart-toolbar">
+        <div class="toolbar-left">
+          @if (title !== null) {
+            @if (isEditingTitle) {
+              <div class="funnel-title-input-wrapper">
+                <input
+                  class="funnel-title-input"
+                  [class.funnel-title-input--error]="isTitleDuplicate"
+                  [value]="title"
+                  (input)="onTitleInput($event.target.value)"
+                  (blur)="commitTitleEdit($event.target.value)"
+                  (keydown.enter)="commitTitleEdit($event.target.value)"
+                  (keydown.escape)="cancelTitleEdit()"
+                />
+                @if (isTitleDuplicate) {
+                  <span class="funnel-title-error">{{
+                    'data-platform.funnel-name-duplicate-error' | translate
+                  }}</span>
+                }
+              </div>
+            } @else {
+              <span
+                class="funnel-title"
+                [class.editable]="editableTitle"
+                (click)="startTitleEdit()"
+                >{{ title }}</span
+              >
+              @if (editableTitle) {
+                <button mat-icon-button class="funnel-title-edit-btn" (click)="startTitleEdit()">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              }
+            }
+          }
+        </div>
+        @if (showModeToggle) {
+          <mat-button-toggle-group
+            [value]="activeMode"
+            (change)="setMode($event.value)"
+            hideSingleSelectionIndicator="true"
+          >
+            <mat-button-toggle
+              value="columns"
+              [matTooltip]="'data-platform.funnel-view-columns' | translate"
+            >
+              <mat-icon>bar_chart</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle
+              value="bars"
+              [matTooltip]="'data-platform.funnel-view-bars' | translate"
+            >
+              <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        }
+      </div>
+    }
+
+    @if (loadingFunnel) {
+      <div class="loading-container">
+        <mat-spinner diameter="36"></mat-spinner>
+      </div>
+    }
+
+    @if (!loadingFunnel && displaySteps.length === 0) {
+      <div class="funnel-empty-state">
+        <mat-icon>stacked_bar_chart</mat-icon>
+        <p>{{ 'data-platform.funnel-auto-run-hint' | translate }}</p>
+      </div>
+    }
+
+    @if (!loadingFunnel && displaySteps.length > 0) {
+      <div class="chart-content">
+        <div class="content-header">
+          <div class="funnel-summary">
+            <div class="summary-item">
+              <span class="summary-label">{{
+                'data-platform.funnel-starting-audience' | translate
+              }}</span>
+              <span class="summary-value">{{ displaySteps[0].count | number }}</span>
+            </div>
+            @if (displaySteps.length >= 2) {
+              <div class="summary-item">
+                <span class="summary-label">{{
+                  'data-platform.funnel-overall-conversion' | translate
+                }}</span>
+                <span class="summary-value"
+                  >{{ displaySteps[displaySteps.length - 1].percentage | number: '1.1-1' }}%</span
+                >
+              </div>
+            }
+          </div>
+          @if (showPin) {
+            <button
+              mat-icon-button
+              class="pin-btn"
+              [class.pin-btn--active]="isPinned"
+              (click)="$event.stopPropagation(); pinToggle.emit()"
+              [matTooltip]="
+                (isPinned ? 'data-platform.funnel-unpin' : 'data-platform.funnel-pin') | translate
+              "
+            >
+              <mat-icon>push_pin</mat-icon>
+            </button>
+          }
+        </div>
+        <div class="chart-row">
+          @if (activeMode === 'columns') {
+            <div class="columns-card">
+              <div class="columns-list" [style.min-width.px]="displaySteps.length * 120">
+                @for (step of displaySteps; track $index; let i = $index) {
+                  <div class="funnel-column">
+                    <div class="header-td">
+                      <div class="step-num">Step {{ i + 1 }}</div>
+                      <div class="step-label">{{ step.label | translate }}</div>
+                      <div class="step-count">{{ step.count | number }}</div>
+                      <div class="step-pct">{{ step.percentage | number: '1.1-1' }}%</div>
+                    </div>
+                    <div class="col-td">
+                      <div class="col-wrapper">
+                        <div class="shadow-line"></div>
+                        <div class="funnel-col" [style.height.%]="step.percentage"></div>
+                      </div>
+                    </div>
+                    <div class="dropoff-td">
+                      @if (step.dropoff) {
+                        <div class="dropoff-content">
+                          <mat-icon class="drop-icon">arrow_downward</mat-icon>
+                          <span class="drop-count"
+                            >{{ 'generic.dropoff' | translate }}:
+                            {{ step.dropoff.count | number }}</span
+                          >
+                          <span class="drop-pct"
+                            >({{ step.dropoff.percentage | number: '1.1-1' }}%)</span
+                          >
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+          @if (activeMode === 'bars') {
+            <div class="bars-view">
+              @for (step of displaySteps; track $index) {
+                <div class="bar-row">
+                  <div class="bar-row-header">
+                    <span class="bar-label">{{ step.label | translate }}</span>
+                    <div class="bar-stats">
+                      <span class="bar-count">{{ step.count | number }}</span>
+                      <span class="bar-pct">{{ step.conversionPct | number: '1.1-1' }}%</span>
+                    </div>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill" [style.width.%]="step.percentage"></div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
