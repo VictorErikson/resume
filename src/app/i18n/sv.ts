@@ -85,5 +85,10 @@ export const sv: Translations = {
     copyTemplate: 'Kopiera {label} till urklipp',
     profileTemplate: '{label}-profil (öppnas i ny flik)',
     langToggle: 'Språk',
+    mobileNav: 'Snabbnavigering',
+    navContact: 'Kontakt',
+    navDemos: 'Demos',
+    navMore: 'Mer',
+    navLess: 'Mindre',
   },
 };

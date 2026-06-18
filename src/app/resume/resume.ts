@@ -9,7 +9,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LanguageService } from '../i18n/language.service';
 
 type ContactKind = 'copy' | 'link' | 'static';
@@ -73,9 +73,12 @@ interface Experience {
 export class Resume {
   protected readonly name = signal('Victor Eriksson');
 
+  private readonly router = inject(Router);
   private readonly langService = inject(LanguageService);
   protected readonly t = this.langService.translations;
   protected readonly lang = this.langService.lang;
+
+  protected readonly moreInfo = signal(true);
 
   protected readonly contacts = computed<Contact[]>(() => {
     const tr = this.t();
@@ -153,7 +156,7 @@ export class Resume {
       );
       host
         .querySelectorAll<HTMLElement>(
-          '.line, .exp-left, .exp-company-header, .side-heading.underline, .exp-title',
+          '.line, .exp-left, .exp-company-header, .side-heading.underline, .exp-title, .skills',
         )
         .forEach((el) => observer.observe(el));
       destroyRef.onDestroy(() => observer.disconnect());
@@ -263,6 +266,15 @@ export class Resume {
     { src: 'img/logos/playwright.webp', alt: 'Playwright' },
   ]);
 
+  protected scrollToContact(): void {
+    const el = this.hostEl.nativeElement.querySelector('#contact-section') as HTMLElement | null;
+    el?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  protected toggleLanguage(): void {
+    this.router.navigate([this.lang() === 'en' ? '/sv' : '/']);
+  }
+
   protected async copyValue(contact: Contact): Promise<void> {
     try {
       await navigator.clipboard.writeText(contact.value);
@@ -281,8 +293,8 @@ export class Resume {
 
   protected readonly education = signal<Education[]>([
     {
-      school: 'STANFORD',
-      program: 'Python: Fundamentals to AI applications',
+      school: 'STANFORD UNIVERSITY',
+      program: 'Python: Fundamentals to AI Applications',
       years: 'Summer 2026',
     },
     { school: 'NACKADEMIN', program: 'Frontend Developer', years: '2024-2026' },

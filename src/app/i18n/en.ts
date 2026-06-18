@@ -87,5 +87,10 @@ export const en: Translations = {
     copyTemplate: 'Copy {label} to clipboard',
     profileTemplate: '{label} profile (opens in a new tab)',
     langToggle: 'Language',
+    mobileNav: 'Quick navigation',
+    navContact: 'Contact',
+    navDemos: 'Demos',
+    navMore: 'More',
+    navLess: 'Less',
   },
 };

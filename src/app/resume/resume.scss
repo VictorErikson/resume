@@ -308,6 +308,19 @@
   display: block;
   height: 100%;
   background: var(--gold-fill);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s ease;
+}
+
+.skills.is-visible .skill-fill {
+  transform: scaleX(1);
+}
+
+@for $i from 1 through 10 {
+  .skills.is-visible .skill:nth-child(#{$i}) .skill-fill {
+    transition-delay: #{($i - 1) * 45}ms;
+  }
 }
 
 .skill-name {
@@ -843,6 +856,85 @@
   padding: 0 26px;
 }
 
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: var(--sidebar-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0 0 max(4px, env(safe-area-inset-bottom));
+    justify-content: space-around;
+    align-items: stretch;
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    color: var(--sidebar-text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 8px 4px;
+    font-size: 10px;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    min-height: 56px;
+    transition: color 0.15s ease;
+
+    .material-symbols-outlined {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: -2px;
+    }
+  }
+
+  .lang-pills {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+
+    .active {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .lang-sep {
+      opacity: 0.4;
+    }
+  }
+
+  .lang-toggle {
+    display: none;
+  }
+
+  .less-mode [aria-labelledby='soft-heading'],
+  .less-mode [aria-labelledby='lang-heading'],
+  .less-mode [aria-labelledby='tools-heading'],
+  .less-mode [aria-labelledby='edu-heading'],
+  .less-mode [aria-labelledby='project-heading'] {
+    display: none;
+  }
+}
+
 @media (max-width: 860px) {
   :host {
     padding: 0;
@@ -857,6 +949,10 @@
 }
 
 @media (max-width: 720px) {
+  :host {
+    padding-bottom: 60px;
+  }
+
   .page {
     display: flex;
     flex-direction: column;
@@ -969,14 +1065,10 @@
     margin: 0;
     aspect-ratio: 1 / 1.2;
   }
-  .masthead > .lang-toggle {
-    grid-column: 2;
-    grid-row: 1;
-  }
   .masthead > .identity {
     grid-column: 2;
-    grid-row: 2;
-    align-self: start;
+    grid-row: 1 / span 2;
+    align-self: center;
     margin-bottom: 0;
   }
 

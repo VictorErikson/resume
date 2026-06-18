@@ -51,5 +51,10 @@ export interface Translations {
     copyTemplate: string;
     profileTemplate: string;
     langToggle: string;
+    mobileNav: string;
+    navContact: string;
+    navDemos: string;
+    navMore: string;
+    navLess: string;
   };
 }

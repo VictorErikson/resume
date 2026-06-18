@@ -1,8 +1,8 @@
-<main class="page">
+<main class="page" [class.less-mode]="!moreInfo()">
   <aside class="sidebar">
     <img class="photo" src="img/Victor-photo.jpg" [attr.alt]="t().photoAlt" />
 
-    <section class="block" aria-labelledby="contact-heading">
+    <section id="contact-section" class="block" aria-labelledby="contact-heading">
       <h2 id="contact-heading" class="side-heading underline">{{ t().headings.contact }}</h2>
       <ul class="contacts">
         @for (c of contacts(); track c.label || c.value) {
@@ -262,3 +262,26 @@
     </section>
   </section>
 </main>
+
+<nav class="mobile-bottom-nav" [attr.aria-label]="t().aria.mobileNav">
+  <button type="button" class="nav-item" (click)="scrollToContact()">
+    <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
+    <span>{{ t().aria.navContact }}</span>
+  </button>
+  <a class="nav-item" routerLink="/demos">
+    <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+    <span>{{ t().aria.navDemos }}</span>
+  </a>
+  <button type="button" class="nav-item" (click)="toggleLanguage()" [attr.aria-label]="t().aria.langToggle">
+    <span class="material-symbols-outlined" aria-hidden="true">translate</span>
+    <span class="lang-pills" aria-hidden="true">
+      <span [class.active]="lang() === 'en'">EN</span>
+      <span class="lang-sep">|</span>
+      <span [class.active]="lang() === 'sv'">SV</span>
+    </span>
+  </button>
+  <button type="button" class="nav-item" (click)="moreInfo.set(!moreInfo())">
+    <span class="material-symbols-outlined" aria-hidden="true">{{ moreInfo() ? 'unfold_less' : 'unfold_more' }}</span>
+    <span>{{ moreInfo() ? t().aria.navLess : t().aria.navMore }}</span>
+  </button>
+</nav>
