@@ -3,11 +3,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   ElementRef,
   inject,
   signal,
   viewChild,
-  WritableSignal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LanguageService } from '../i18n/language.service';
@@ -67,7 +67,7 @@ interface Experience {
   styleUrl: './resume.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '(window:resize)': 'updateScrollState()',
+    '(window:wheel)': 'onWheel($event)',
   },
 })
 export class Resume {
@@ -119,64 +119,118 @@ export class Resume {
 
   protected readonly copied = signal<string | null>(null);
 
+  private readonly hostEl = inject(ElementRef<HTMLElement>);
   private readonly langsTrack = viewChild<ElementRef<HTMLElement>>('langsTrack');
   private readonly toolsTrack = viewChild<ElementRef<HTMLElement>>('toolsTrack');
-  protected readonly langsCanLeft = signal(false);
-  protected readonly langsCanRight = signal(false);
-  protected readonly toolsCanLeft = signal(false);
-  protected readonly toolsCanRight = signal(false);
 
-  private dragging = false;
+  private readonly speed = 0.4;
+  private direction = 1;
+  private draggingEl: HTMLElement | null = null;
   private dragStartX = 0;
   private dragStartScroll = 0;
+  private readonly positions = new WeakMap<HTMLElement, number>();
+  private reducedMotion = false;
+  private rafId = 0;
 
   constructor() {
-    afterNextRender(() => this.updateScrollState());
+    const destroyRef = inject(DestroyRef);
+    afterNextRender(() => {
+      this.reducedMotion =
+        typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      this.rafId = requestAnimationFrame(this.tick);
+
+      const host = this.hostEl.nativeElement as HTMLElement;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+      host
+        .querySelectorAll<HTMLElement>(
+          '.line, .exp-left, .exp-company-header, .side-heading.underline, .exp-title',
+        )
+        .forEach((el) => observer.observe(el));
+      destroyRef.onDestroy(() => observer.disconnect());
+    });
+    destroyRef.onDestroy(() => cancelAnimationFrame(this.rafId));
   }
 
-  protected updateScrollState(): void {
-    this.syncTrack(this.langsTrack()?.nativeElement, this.langsCanLeft, this.langsCanRight);
-    this.syncTrack(this.toolsTrack()?.nativeElement, this.toolsCanLeft, this.toolsCanRight);
-  }
+  private readonly tick = (): void => {
+    this.advance(this.langsTrack()?.nativeElement);
+    this.advance(this.toolsTrack()?.nativeElement);
+    this.rafId = requestAnimationFrame(this.tick);
+  };
 
-  private syncTrack(
-    el: HTMLElement | undefined,
-    canLeft: WritableSignal<boolean>,
-    canRight: WritableSignal<boolean>,
-  ): void {
-    if (!el) {
+  private advance(el: HTMLElement | undefined): void {
+    const loop = this.loopWidth(el);
+    if (!el || loop <= 0) {
       return;
     }
-    canLeft.set(el.scrollLeft > 1);
-    canRight.set(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+    if (el === this.draggingEl) {
+      this.positions.set(el, el.scrollLeft);
+      return;
+    }
+    let pos = this.positions.get(el) ?? el.scrollLeft;
+    if (!this.reducedMotion) {
+      pos += this.speed * this.direction;
+    }
+    pos = ((pos % loop) + loop) % loop;
+    this.positions.set(el, pos);
+    el.scrollLeft = pos;
   }
 
-  protected scrollLogos(el: HTMLElement, direction: -1 | 1): void {
-    el.scrollBy({ left: direction * el.clientWidth * 0.8, behavior: 'smooth' });
+  private loopWidth(el: HTMLElement | undefined): number {
+    if (!el || el.children.length < 2) {
+      return 0;
+    }
+    const half = el.children.length / 2;
+    return (
+      (el.children[half] as HTMLElement).offsetLeft - (el.children[0] as HTMLElement).offsetLeft
+    );
+  }
+
+  protected onWheel(event: WheelEvent): void {
+    if (event.deltaY === 0) {
+      return;
+    }
+    this.direction = event.deltaY > 0 ? 1 : -1;
   }
 
   protected onPointerDown(event: PointerEvent): void {
     const el = event.currentTarget as HTMLElement;
-    this.dragging = true;
+    this.draggingEl = el;
     this.dragStartX = event.clientX;
     this.dragStartScroll = el.scrollLeft;
     el.setPointerCapture(event.pointerId);
   }
 
   protected onPointerMove(event: PointerEvent): void {
-    if (!this.dragging) {
+    const el = event.currentTarget as HTMLElement;
+    if (el !== this.draggingEl) {
       return;
     }
-    const el = event.currentTarget as HTMLElement;
-    el.scrollLeft = this.dragStartScroll - (event.clientX - this.dragStartX);
+    let next = this.dragStartScroll - (event.clientX - this.dragStartX);
+    const loop = this.loopWidth(el);
+    if (loop > 0) {
+      next = ((next % loop) + loop) % loop;
+    }
+    el.scrollLeft = next;
   }
 
   protected onPointerUp(event: PointerEvent): void {
-    if (!this.dragging) {
+    const el = event.currentTarget as HTMLElement;
+    if (el !== this.draggingEl) {
       return;
     }
-    this.dragging = false;
-    (event.currentTarget as HTMLElement).releasePointerCapture(event.pointerId);
+    this.draggingEl = null;
+    this.positions.set(el, el.scrollLeft);
+    el.releasePointerCapture(event.pointerId);
   }
 
   protected readonly languageLogos = signal<Logo[]>([
@@ -226,6 +280,11 @@ export class Resume {
   }
 
   protected readonly education = signal<Education[]>([
+    {
+      school: 'STANFORD',
+      program: 'Python: Fundamentals to AI applications',
+      years: 'Summer 2026',
+    },
     { school: 'NACKADEMIN', program: 'Frontend Developer', years: '2024-2026' },
     { school: 'ABF Stockholm', program: 'Programming - JS, HTML, CSS', years: '2024' },
     { school: 'GAMLEBY College', program: 'TV-Production Specialist', years: '2012-2014' },

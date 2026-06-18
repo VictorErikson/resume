@@ -55,6 +55,7 @@
   font-size: 22px;
   letter-spacing: 0.5px;
   margin: 0 0 18px;
+  position: relative;
 
   &#contact-heading {
     margin: 0 0 4px;
@@ -62,12 +63,25 @@
 
   &.underline {
     padding-bottom: 6px;
-    border-bottom: 2px solid var(--gold);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background: var(--gold);
+      transition: width var(--line-duration) ease;
+    }
+
+    &.is-visible::after {
+      width: 100%;
+    }
   }
 
   &.center {
     text-align: center;
-    border-bottom-color: var(--gold);
   }
 
   &.banner {
@@ -81,12 +95,11 @@
 
 .contacts {
   list-style: none;
-  height: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
   padding: 0;
-  justify-content: space-between;
+  gap: 2px;
 }
 
 .contact-item {
@@ -448,9 +461,29 @@
   height: 2px;
   background: var(--ink);
   margin: 0 26px 22px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--line-duration) ease;
+
+  &.is-visible {
+    transform: scaleX(1);
+  }
 
   &.carousel-line {
     margin: 0 26px 0px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    transform: scaleX(1);
+    transition: none;
+  }
+
+  .side-heading.underline::after,
+  .exp-title::after {
+    width: 100%;
+    transition: none;
   }
 }
 
@@ -471,7 +504,29 @@
   grid-template-columns: 26px 1fr;
   grid-template-rows: auto 1fr;
   column-gap: 8px;
-  border-right: 2px solid var(--ink);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2px;
+    height: 0;
+    background: var(--ink);
+    transition: height var(--line-duration) ease;
+  }
+
+  &.is-visible::after {
+    height: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-left::after {
+    height: 100%;
+    transition: none;
+  }
 }
 
 .exp-icon {
@@ -489,8 +544,30 @@
 .exp-company-header {
   grid-column: 2;
   grid-row: 1;
-  border-bottom: 2px solid var(--ink);
   padding-bottom: 4px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--ink);
+    transition: width calc(var(--line-duration) * 0.7) ease 0.2s;
+  }
+
+  &.is-visible::after {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-company-header::after {
+    width: 100%;
+    transition: none;
+  }
 }
 
 .exp-company-heading {
@@ -531,7 +608,22 @@
   margin: 0 0 4px;
   padding-bottom: 8px;
   padding-right: 16px;
-  border-bottom: 2px solid var(--ink);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--ink);
+    transition: width var(--line-duration) ease;
+  }
+
+  &.is-visible::after {
+    width: 100%;
+  }
 }
 
 .exp-bullets {
@@ -575,32 +667,6 @@
 
   .small-heading {
     margin-bottom: 0;
-  }
-}
-
-.logos-arrows {
-  display: flex;
-  gap: 2px;
-}
-
-.logos-arrow {
-  border: 0;
-  background: none;
-  cursor: pointer;
-  color: var(--ink);
-  font-size: 22px;
-  line-height: 1;
-  padding: 2px;
-  opacity: 0.5;
-  transition: opacity 0.18s ease;
-
-  &:hover:not(:disabled) {
-    opacity: 1;
-  }
-
-  &:disabled {
-    opacity: 0.15;
-    cursor: default;
   }
 }
 

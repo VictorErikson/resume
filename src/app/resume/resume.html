@@ -172,37 +172,12 @@
     <section class="main-block logo-block" aria-labelledby="lang-heading">
       <div class="logos-head">
         <h2 id="lang-heading" class="small-heading">{{ t().headings.languagesAndFrameworks }}</h2>
-        <div class="logos-arrows">
-          <button
-            type="button"
-            class="logos-arrow material-symbols-outlined"
-            [disabled]="!langsCanLeft()"
-            (click)="scrollLogos(langsTrack, -1)"
-            [attr.aria-label]="t().aria.scrollLangsLeft"
-          >
-            chevron_left
-          </button>
-          <button
-            type="button"
-            class="logos-arrow material-symbols-outlined"
-            [disabled]="!langsCanRight()"
-            (click)="scrollLogos(langsTrack, 1)"
-            [attr.aria-label]="t().aria.scrollLangsRight"
-          >
-            chevron_right
-          </button>
-        </div>
       </div>
       <div class="line carousel-line"></div>
-      <div
-        class="logos-carousel"
-        [class.can-left]="langsCanLeft()"
-        [class.can-right]="langsCanRight()"
-      >
+      <div class="logos-carousel can-left can-right">
         <ul
           #langsTrack
           class="logos"
-          (scroll)="updateScrollState()"
           (pointerdown)="onPointerDown($event)"
           (pointermove)="onPointerMove($event)"
           (pointerup)="onPointerUp($event)"
@@ -211,6 +186,11 @@
           @for (logo of languageLogos(); track logo.alt) {
             <li class="logo" [attr.data-label]="logo.alt">
               <img class="logo-img" [src]="logo.src" [alt]="logo.alt" />
+            </li>
+          }
+          @for (logo of languageLogos(); track logo.alt) {
+            <li class="logo" [attr.data-label]="logo.alt" aria-hidden="true">
+              <img class="logo-img" [src]="logo.src" alt="" />
             </li>
           }
         </ul>
@@ -241,38 +221,13 @@
     <section class="main-block logo-block" aria-labelledby="tools-heading">
       <div class="logos-head">
         <h2 id="tools-heading" class="small-heading">{{ t().headings.tools }}</h2>
-        <div class="logos-arrows">
-          <button
-            type="button"
-            class="logos-arrow material-symbols-outlined"
-            [disabled]="!toolsCanLeft()"
-            (click)="scrollLogos(toolsTrack, -1)"
-            [attr.aria-label]="t().aria.scrollToolsLeft"
-          >
-            chevron_left
-          </button>
-          <button
-            type="button"
-            class="logos-arrow material-symbols-outlined"
-            [disabled]="!toolsCanRight()"
-            (click)="scrollLogos(toolsTrack, 1)"
-            [attr.aria-label]="t().aria.scrollToolsRight"
-          >
-            chevron_right
-          </button>
-        </div>
       </div>
       <div class="line carousel-line"></div>
 
-      <div
-        class="logos-carousel"
-        [class.can-left]="toolsCanLeft()"
-        [class.can-right]="toolsCanRight()"
-      >
+      <div class="logos-carousel can-left can-right">
         <ul
           #toolsTrack
           class="logos"
-          (scroll)="updateScrollState()"
           (pointerdown)="onPointerDown($event)"
           (pointermove)="onPointerMove($event)"
           (pointerup)="onPointerUp($event)"
@@ -281,6 +236,11 @@
           @for (logo of toolLogos(); track logo.alt) {
             <li class="logo" [attr.data-label]="logo.alt">
               <img class="logo-img" [src]="logo.src" [alt]="logo.alt" />
+            </li>
+          }
+          @for (logo of toolLogos(); track logo.alt) {
+            <li class="logo" [attr.data-label]="logo.alt" aria-hidden="true">
+              <img class="logo-img" [src]="logo.src" alt="" />
             </li>
           }
         </ul>
