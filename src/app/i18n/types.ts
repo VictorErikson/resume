@@ -54,7 +54,5 @@ export interface Translations {
     mobileNav: string;
     navContact: string;
     navDemos: string;
-    navMore: string;
-    navLess: string;
   };
 }

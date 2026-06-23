@@ -396,7 +396,7 @@ export class InstallScriptComponent implements OnInit {
     });
     this.mtr.goal('Onboarding: Skipped installation');
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/tb-signals']);
   }
 
   public trackInstallMethodClick(methodId: string, methodTitle: string): void {

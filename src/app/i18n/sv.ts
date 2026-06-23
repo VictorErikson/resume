@@ -88,7 +88,5 @@ export const sv: Translations = {
     mobileNav: 'Snabbnavigering',
     navContact: 'Kontakt',
     navDemos: 'Demos',
-    navMore: 'Mer',
-    navLess: 'Mindre',
   },
 };

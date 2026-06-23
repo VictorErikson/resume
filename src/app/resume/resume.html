@@ -1,4 +1,4 @@
-<main class="page" [class.less-mode]="!moreInfo()">
+<main class="page">
   <aside class="sidebar">
     <img class="photo" src="img/Victor-photo.jpg" [attr.alt]="t().photoAlt" />
 
@@ -42,6 +42,9 @@
                   </span>
                   <span class="contact-body">
                     <span class="contact-label">{{ c.label }}</span>
+                  </span>
+                  <span class="contact-copy material-symbols-outlined" aria-hidden="true">
+                    open_in_new
                   </span>
                 </a>
               }
@@ -124,11 +127,6 @@
 
   <section class="content">
     <header class="masthead">
-      <nav class="lang-toggle" [attr.aria-label]="t().aria.langToggle">
-        <a routerLink="/" [class.active]="lang() === 'en'">EN</a>
-        <span aria-hidden="true">|</span>
-        <a routerLink="/sv" [class.active]="lang() === 'sv'">SV</a>
-      </nav>
       <div class="identity">
         <h1 class="name">{{ name() }}</h1>
         <p class="role-bar">{{ t().role }}</p>
@@ -263,12 +261,31 @@
   </section>
 </main>
 
+<nav class="desktop-float-nav" [attr.aria-label]="t().aria.mobileNav">
+  <button type="button" class="dfn-btn" (click)="scrollToContact()">
+    <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
+    <span class="dfn-label">{{ t().aria.navContact }}</span>
+  </button>
+  <a class="dfn-btn" routerLink="/onboarding">
+    <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+    <span class="dfn-label">{{ t().aria.navDemos }}</span>
+  </a>
+  <button type="button" class="dfn-btn" (click)="toggleLanguage()" [attr.aria-label]="t().aria.langToggle">
+    <span class="material-symbols-outlined" aria-hidden="true">translate</span>
+    <span class="dfn-label lang-pills" aria-hidden="true">
+      <span [class.active]="lang() === 'en'">EN</span>
+      <span class="lang-sep">|</span>
+      <span [class.active]="lang() === 'sv'">SV</span>
+    </span>
+  </button>
+</nav>
+
 <nav class="mobile-bottom-nav" [attr.aria-label]="t().aria.mobileNav">
   <button type="button" class="nav-item" (click)="scrollToContact()">
     <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
     <span>{{ t().aria.navContact }}</span>
   </button>
-  <a class="nav-item" routerLink="/demos">
+  <a class="nav-item" routerLink="/onboarding">
     <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
     <span>{{ t().aria.navDemos }}</span>
   </a>
@@ -279,9 +296,5 @@
       <span class="lang-sep">|</span>
       <span [class.active]="lang() === 'sv'">SV</span>
     </span>
-  </button>
-  <button type="button" class="nav-item" (click)="moreInfo.set(!moreInfo())">
-    <span class="material-symbols-outlined" aria-hidden="true">{{ moreInfo() ? 'unfold_less' : 'unfold_more' }}</span>
-    <span>{{ moreInfo() ? t().aria.navLess : t().aria.navMore }}</span>
   </button>
 </nav>

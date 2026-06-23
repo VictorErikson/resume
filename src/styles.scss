@@ -8,6 +8,7 @@
   --sidebar-text: #e9e9e9;
   --sidebar-muted: #b8b8b8;
   --paper: #ffffff;
+  --page-bg: #f0eeeb;
   --rule: #d8d8d8;
   --track: rgba(201, 170, 0, 0.22);
 
@@ -49,6 +50,11 @@
 
 app-tb-signals {
   font-family: 'Source Sans Pro', sans-serif;
+  padding-bottom: 6rem;
+
+  @media (max-width: 899px) {
+    padding-bottom: 60px;
+  }
 }
 
 .demo-inactive-panel .mat-mdc-dialog-surface {
@@ -95,6 +101,11 @@ app-tb-signals {
 .install-script-page {
   min-height: 100vh;
   background: var(--appBg);
+  padding-bottom: 6rem;
+
+  @media (max-width: 899px) {
+    padding-bottom: 60px;
+  }
 }
 
 body:has(.domain-confirmation-page),
@@ -322,7 +333,7 @@ body:has(.data-platform-funnels) {
   .mdc-snackbar__surface {
     position: relative;
     padding: 5px 45px 5px 55px;
-    margin: 24px 24px 64px 24px;
+    margin: 24px 24px 74px 24px;
     color: #222;
     display: flex;
     align-items: center;

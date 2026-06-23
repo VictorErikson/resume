@@ -32,7 +32,11 @@ $side-width: 230px;
 }
 
 .data-platform-funnels {
-  padding: 24px 24px 24px;
+  padding: 24px 24px 6rem;
+
+  @media (max-width: 899px) {
+    padding-bottom: 60px;
+  }
 }
 
 @media (max-width: 900px) {

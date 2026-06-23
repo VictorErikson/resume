@@ -90,7 +90,5 @@ export const en: Translations = {
     mobileNav: 'Quick navigation',
     navContact: 'Contact',
     navDemos: 'Demos',
-    navMore: 'More',
-    navLess: 'Less',
   },
 };

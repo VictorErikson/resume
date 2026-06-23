@@ -78,8 +78,6 @@ export class Resume {
   protected readonly t = this.langService.translations;
   protected readonly lang = this.langService.lang;
 
-  protected readonly moreInfo = signal(true);
-
   protected readonly contacts = computed<Contact[]>(() => {
     const tr = this.t();
     return [

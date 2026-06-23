@@ -1,0 +1,43 @@
+@if (nav.isInDemo()) {
+  <nav class="demo-nav" aria-label="Demo navigation">
+    <button
+      type="button"
+      class="demo-nav__item demo-nav__prev"
+      (click)="navigatePrev()"
+      [disabled]="!nav.prev()"
+      [attr.aria-label]="nav.prev() ? 'Previous demo: ' + nav.prev()?.label : 'No previous demo'">
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+      <span class="demo-nav__label">{{ nav.prev()?.label ?? 'Prev' }}</span>
+    </button>
+
+    <div
+      class="demo-nav__item demo-nav__indicators"
+      [attr.aria-label]="'Demo ' + (nav.currentIndex() + 1) + ' of ' + nav.demos.length">
+      @for (demo of nav.demos; track demo.route; let i = $index) {
+        <span
+          class="demo-nav__dot"
+          [class.demo-nav__dot--active]="i === nav.currentIndex()"
+          aria-hidden="true"></span>
+      }
+    </div>
+
+    <button
+      type="button"
+      class="demo-nav__item demo-nav__next"
+      (click)="navigateNext()"
+      [disabled]="!nav.next()"
+      [attr.aria-label]="nav.next() ? 'Next demo: ' + nav.next()?.label : 'No next demo'">
+      <span class="demo-nav__label">{{ nav.next()?.label ?? 'Next' }}</span>
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+    </button>
+
+    <button
+      type="button"
+      class="demo-nav__item demo-nav__back"
+      (click)="navigateBack()"
+      aria-label="Back to resume">
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      <span class="demo-nav__label">Resume</span>
+    </button>
+  </nav>
+}
