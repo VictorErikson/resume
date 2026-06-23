@@ -194,3 +194,13 @@ body.dark-mode {
     padding: 1rem;
   }
 }
+
+@media (max-width: 899px) {
+  .domain-confirmation-page,
+  .company-type-page,
+  .integration-selection-page,
+  .site-preview-page,
+  .install-script-page {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
