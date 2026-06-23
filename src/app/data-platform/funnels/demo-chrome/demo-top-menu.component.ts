@@ -11,7 +11,7 @@ import { DemoInactiveDialogComponent } from './demo-inactive-dialog.component';
         <a class="triggerbee-logo-container" (click)="onInactiveClick()" title="Triggerbee (demo)">
           <img
             class="triggerbee-logo"
-            src="/assets/img/triggerbee-logo-black.svg"
+            src="assets/img/triggerbee-logo-black.svg"
             alt="Triggerbee"
           />
         </a>
