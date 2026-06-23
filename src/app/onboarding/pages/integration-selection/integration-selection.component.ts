@@ -42,11 +42,11 @@ export class IntegrationSelectionComponent implements OnInit {
   }
 
   websitePlatforms: Integration[] = [
-    { id: 'shopify', name: 'Shopify', logo: '/assets/img/logos/shopify_glyph.png' },
+    { id: 'shopify', name: 'Shopify', logo: 'assets/img/logos/shopify_glyph.png' },
     { id: 'gtm', name: 'Google Tag Manager', logo: 'assets/img/onboarding/gtm-logo.svg' },
     { id: 'wordpress', name: 'WordPress', logo: 'assets/img/onboarding/wordpress-logo.svg' },
-    { id: 'centra', name: 'Centra', logo: '/assets/img/logos/centra.png' },
-    { id: 'shopware', name: 'Shopware', logo: '/assets/img/logos/shopware.svg' },
+    { id: 'centra', name: 'Centra', logo: 'assets/img/logos/centra.png' },
+    { id: 'shopware', name: 'Shopware', logo: 'assets/img/logos/shopware.svg' },
     { id: 'custom', name: 'Custom website', icon: 'code' },
   ];
 
@@ -54,19 +54,19 @@ export class IntegrationSelectionComponent implements OnInit {
     {
       id: 'mailchimp',
       name: 'Mailchimp',
-      logo: '/assets/img/logos/mailchimp_freddie_color_web.png',
+      logo: 'assets/img/logos/mailchimp_freddie_color_web.png',
     },
-    { id: 'klaviyo', name: 'Klaviyo', logo: '/assets/img/logos/klaviyo.svg' },
-    { id: 'rule', name: 'Rule', logo: '/assets/img/logos/rule-logo.png' },
-    { id: 'voyado', name: 'Voyado', logo: '/assets/img/logos/voyado.png' },
-    { id: 'brevo', name: 'Brevo', logo: '/assets/img/logos/brevo.jpg' },
-    { id: 'dotdigital', name: 'DotDigital', logo: '/assets/img/logos/dotdigital.png' },
-    { id: 'emarsys', name: 'Emarsys', logo: '/assets/img/logos/emarsys.png' },
-    { id: 'custobar', name: 'Custobar', logo: '/assets/img/logos/custobar.png' },
-    { id: 'apsis', name: 'Apsis', logo: '/assets/img/logos/apsis.png' },
-    { id: 'mailerlite', name: 'MailerLite', logo: '/assets/img/logos/mailerlite.png' },
-    { id: 'zapier', name: 'Zapier', logo: '/assets/img/logos/zapier.png' },
-    { id: 'mailersend', name: 'MailerSend', logo: '/assets/img/logos/mailer_send.svg' },
+    { id: 'klaviyo', name: 'Klaviyo', logo: 'assets/img/logos/klaviyo.svg' },
+    { id: 'rule', name: 'Rule', logo: 'assets/img/logos/rule-logo.png' },
+    { id: 'voyado', name: 'Voyado', logo: 'assets/img/logos/voyado.png' },
+    { id: 'brevo', name: 'Brevo', logo: 'assets/img/logos/brevo.jpg' },
+    { id: 'dotdigital', name: 'DotDigital', logo: 'assets/img/logos/dotdigital.png' },
+    { id: 'emarsys', name: 'Emarsys', logo: 'assets/img/logos/emarsys.png' },
+    { id: 'custobar', name: 'Custobar', logo: 'assets/img/logos/custobar.png' },
+    { id: 'apsis', name: 'Apsis', logo: 'assets/img/logos/apsis.png' },
+    { id: 'mailerlite', name: 'MailerLite', logo: 'assets/img/logos/mailerlite.png' },
+    { id: 'zapier', name: 'Zapier', logo: 'assets/img/logos/zapier.png' },
+    { id: 'mailersend', name: 'MailerSend', logo: 'assets/img/logos/mailer_send.svg' },
   ];
 
   ngOnInit(): void {

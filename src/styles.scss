@@ -401,7 +401,7 @@ body:has(.data-platform-funnels) {
       color: #37cb99;
     }
     &::before {
-      content: url('/assets/img/emojis/success.svg');
+      content: url('../public/assets/img/emojis/success.svg');
     }
   }
 }
@@ -418,7 +418,7 @@ body:has(.data-platform-funnels) {
       color: #0487d9;
     }
     &::before {
-      content: url('/assets/img/emojis/info.svg');
+      content: url('../public/assets/img/emojis/info.svg');
     }
   }
 }
@@ -435,7 +435,7 @@ body:has(.data-platform-funnels) {
       color: #e6a900;
     }
     &::before {
-      content: url('/assets/img/emojis/warning.svg');
+      content: url('../public/assets/img/emojis/warning.svg');
     }
   }
 }
@@ -452,7 +452,7 @@ body:has(.data-platform-funnels) {
       color: #c8071d;
     }
     &::before {
-      content: url('/assets/img/emojis/error.svg');
+      content: url('../public/assets/img/emojis/error.svg');
     }
   }
 }
