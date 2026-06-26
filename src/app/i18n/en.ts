@@ -13,6 +13,7 @@ export const en: Translations = {
     'I want to take on new challenges in programming, benefiting from my ' +
     'experience and passion.',
   companyLabel: 'Company',
+  demosButton: 'View demos',
   headings: {
     contact: 'CONTACT DETAILS',
     educationSide: 'EDUCATION',

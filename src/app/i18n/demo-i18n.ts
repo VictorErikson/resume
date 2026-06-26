@@ -101,6 +101,32 @@ const en: Record<string, string> = {
   'onboarding.install.notDetectedDialog.openSite': 'Open {{domain}}',
   'onboarding.install.notDetectedDialog.skip': 'Skip for now',
   'onboarding.install.notDetectedDialog.checkAgain': 'Check again',
+  'demo-nav.prev': 'Prev',
+  'demo-nav.next': 'Next',
+  'demo-nav.resume': 'Resume',
+  'demo-nav.navLabel': 'Demo navigation',
+  'demo-nav.prevAria': 'Previous demo: {{ label }}',
+  'demo-nav.prevNoneAria': 'No previous demo',
+  'demo-nav.nextAria': 'Next demo: {{ label }}',
+  'demo-nav.nextNoneAria': 'No next demo',
+  'demo-nav.positionAria': 'Demo {{ current }} of {{ total }}',
+  'demo-nav.backAria': 'Back to resume',
+  'demo-intro.title': 'These are my Triggerbee demos',
+  'demo-intro.intro':
+    'Three things I built during my internship at Triggerbee, rebuilt here with dummy data.',
+  'demo-intro.onboarding.title': 'Onboarding',
+  'demo-intro.onboarding.desc':
+    'A modern, redesigned sign-up flow that guides new users from registration all the way to a working tracking script on their site.',
+  'demo-intro.signals.title': 'Signals',
+  'demo-intro.signals.desc':
+    'A flashy, free-standing dashboard that shows visitors their data in a visually appealing way — designed as a hook to make people want to sign up for Triggerbee.',
+  'demo-intro.funnels.title': 'Funnels',
+  'demo-intro.funnels.desc':
+    "A custom funnel builder that lets users map their own conversion steps and see exactly where they're losing customers.",
+  'demo-intro.navHint': 'Use the bottom menu to switch between demos or return to the resume.',
+  'demo-intro.dismiss': 'Got it',
+  'demo-intro.reopen': 'Show demo info',
+  'demo-intro.dialogLabel': 'About these demos',
 };
 
 const sv: Record<string, string> = {
@@ -202,6 +228,33 @@ const sv: Record<string, string> = {
   'onboarding.install.notDetectedDialog.openSite': 'Öppna {{domain}}',
   'onboarding.install.notDetectedDialog.skip': 'Hoppa över',
   'onboarding.install.notDetectedDialog.checkAgain': 'Kontrollera igen',
+  'demo-nav.prev': 'Föregående',
+  'demo-nav.next': 'Nästa',
+  'demo-nav.resume': 'CV',
+  'demo-nav.navLabel': 'Demonavigering',
+  'demo-nav.prevAria': 'Föregående demo: {{ label }}',
+  'demo-nav.prevNoneAria': 'Ingen föregående demo',
+  'demo-nav.nextAria': 'Nästa demo: {{ label }}',
+  'demo-nav.nextNoneAria': 'Ingen nästa demo',
+  'demo-nav.positionAria': 'Demo {{ current }} av {{ total }}',
+  'demo-nav.backAria': 'Tillbaka till CV:t',
+  'demo-intro.title': 'Det här är mina Triggerbee-demos',
+  'demo-intro.intro':
+    'Tre saker jag byggde under min praktik på Triggerbee, återskapade här med exempeldata.',
+  'demo-intro.onboarding.title': 'Onboarding',
+  'demo-intro.onboarding.desc':
+    'Ett modernt, omdesignat registreringsflöde som guidar nya användare hela vägen från registrering till ett fungerande spårningsskript på sin webbplats.',
+  'demo-intro.signals.title': 'Signals',
+  'demo-intro.signals.desc':
+    'En snygg, fristående dashboard som visar besökarnas data på ett tilltalande sätt — tänkt som en krok för att få fler att vilja registrera sig för Triggerbee.',
+  'demo-intro.funnels.title': 'Funnels',
+  'demo-intro.funnels.desc':
+    'En funnel-byggare där användare kan kartlägga sina egna konverteringssteg och se exakt var de tappar kunder.',
+  'demo-intro.navHint':
+    'Använd menyn längst ned för att byta demo eller gå tillbaka till CV:t.',
+  'demo-intro.dismiss': 'Jag förstår',
+  'demo-intro.reopen': 'Visa demo-info',
+  'demo-intro.dialogLabel': 'Om dessa demos',
 };
 
 Object.assign(en, funnelsEn, tbSignalsEn);

@@ -11,6 +11,7 @@ export const sv: Translations = {
     'för att uppfylla kunders behov och visioner. Nu vill jag ta mig an nya utmaningar inom ' +
     'programmering, med min erfarenhet och passion som grund.',
   companyLabel: 'Företag',
+  demosButton: 'Visa demos',
   headings: {
     contact: 'KONTAKTUPPGIFTER',
     educationSide: 'UTBILDNING',

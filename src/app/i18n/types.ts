@@ -3,6 +3,7 @@ export interface Translations {
   role: string;
   summary: string;
   companyLabel: string;
+  demosButton: string;
   headings: {
     contact: string;
     educationSide: string;

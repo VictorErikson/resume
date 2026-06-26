@@ -1,0 +1,63 @@
+@if (nav.isInDemo()) {
+  @if (mode() === 'overlay') {
+    <div
+      class="demo-intro__backdrop"
+      [class.demo-intro__backdrop--closing]="closing()"
+      (click)="dismiss()"
+    >
+      <div
+        #dialog
+        class="demo-intro__panel"
+        [class.demo-intro__panel--closing]="closing()"
+        role="dialog"
+        aria-modal="true"
+        tabindex="-1"
+        aria-labelledby="demo-intro-title"
+        aria-describedby="demo-intro-desc"
+        (click)="$event.stopPropagation()"
+        (keydown.Tab)="trapFocus($event)"
+        (keydown.shift.Tab)="trapFocus($event)"
+        (animationend)="onCloseAnimationEnd($event)"
+      >
+        <div class="demo-intro__header">
+          <h2 id="demo-intro-title" class="demo-intro__title">{{ t('demo-intro.title') }}</h2>
+          <p id="demo-intro-desc" class="demo-intro__intro">{{ t('demo-intro.intro') }}</p>
+        </div>
+
+        <ol class="demo-intro__list">
+          @for (demo of demos; track demo.titleKey; let i = $index) {
+            <li class="demo-intro__item">
+              <span class="demo-intro__badge" aria-hidden="true">{{ i + 1 }}</span>
+              <span class="demo-intro__item-body">
+                <span class="demo-intro__item-title">{{ t(demo.titleKey) }}</span>
+                <span class="demo-intro__item-desc">{{ t(demo.descKey) }}</span>
+              </span>
+            </li>
+          }
+        </ol>
+
+        <p class="demo-intro__hint">
+          <span class="material-symbols-outlined" aria-hidden="true">swipe</span>
+          {{ t('demo-intro.navHint') }}
+        </p>
+
+        <div class="demo-intro__actions">
+          <button #dismissBtn type="button" class="demo-intro__dismiss" (click)="dismiss()">
+            {{ t('demo-intro.dismiss') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <button
+      #fab
+      type="button"
+      class="demo-intro__fab"
+      [attr.aria-label]="t('demo-intro.reopen')"
+      [attr.aria-expanded]="false"
+      (click)="open()"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">info</span>
+    </button>
+  }
+}

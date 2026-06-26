@@ -77,6 +77,9 @@ export class Resume {
   private readonly langService = inject(LanguageService);
   protected readonly t = this.langService.translations;
   protected readonly lang = this.langService.lang;
+  protected readonly demosLink = computed(() =>
+    this.lang() === 'sv' ? '/sv/onboarding' : '/onboarding',
+  );
 
   protected readonly contacts = computed<Contact[]>(() => {
     const tr = this.t();

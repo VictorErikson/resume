@@ -139,6 +139,12 @@
       <div class="line"></div>
       @for (x of experiences(); track x.title) {
         <article class="exp" [class]="x.variant">
+          @if (x.variant === 'triggerbee') {
+            <a class="exp-demos-link" [routerLink]="demosLink()">
+              {{ t().demosButton }}
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+            </a>
+          }
           <div class="exp-left">
             <img class="exp-icon" [src]="'symbols/' + x.icon + '.png'" alt="" />
             <div class="exp-company-header">
@@ -266,7 +272,7 @@
     <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
     <span class="dfn-label">{{ t().aria.navContact }}</span>
   </button>
-  <a class="dfn-btn" routerLink="/onboarding">
+  <a class="dfn-btn" [routerLink]="demosLink()">
     <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
     <span class="dfn-label">{{ t().aria.navDemos }}</span>
   </a>
@@ -285,7 +291,7 @@
     <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
     <span>{{ t().aria.navContact }}</span>
   </button>
-  <a class="nav-item" routerLink="/onboarding">
+  <a class="nav-item" [routerLink]="demosLink()">
     <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
     <span>{{ t().aria.navDemos }}</span>
   </a>

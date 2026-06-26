@@ -1,18 +1,22 @@
 @if (nav.isInDemo()) {
-  <nav class="demo-nav" aria-label="Demo navigation">
+  <nav class="demo-nav" [attr.aria-label]="t('demo-nav.navLabel')">
     <button
       type="button"
       class="demo-nav__item demo-nav__prev"
       (click)="navigatePrev()"
       [disabled]="!nav.prev()"
-      [attr.aria-label]="nav.prev() ? 'Previous demo: ' + nav.prev()?.label : 'No previous demo'">
+      [attr.aria-label]="
+        nav.prev() ? t('demo-nav.prevAria', { label: nav.prev()?.label }) : t('demo-nav.prevNoneAria')
+      ">
       <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-      <span class="demo-nav__label">{{ nav.prev()?.label ?? 'Prev' }}</span>
+      <span class="demo-nav__label">{{ nav.prev()?.label ?? t('demo-nav.prev') }}</span>
     </button>
 
     <div
       class="demo-nav__item demo-nav__indicators"
-      [attr.aria-label]="'Demo ' + (nav.currentIndex() + 1) + ' of ' + nav.demos.length">
+      [attr.aria-label]="
+        t('demo-nav.positionAria', { current: nav.currentIndex() + 1, total: nav.demos.length })
+      ">
       @for (demo of nav.demos; track demo.route; let i = $index) {
         <span
           class="demo-nav__dot"
@@ -26,8 +30,10 @@
       class="demo-nav__item demo-nav__next"
       (click)="navigateNext()"
       [disabled]="!nav.next()"
-      [attr.aria-label]="nav.next() ? 'Next demo: ' + nav.next()?.label : 'No next demo'">
-      <span class="demo-nav__label">{{ nav.next()?.label ?? 'Next' }}</span>
+      [attr.aria-label]="
+        nav.next() ? t('demo-nav.nextAria', { label: nav.next()?.label }) : t('demo-nav.nextNoneAria')
+      ">
+      <span class="demo-nav__label">{{ nav.next()?.label ?? t('demo-nav.next') }}</span>
       <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
     </button>
 
@@ -35,9 +41,9 @@
       type="button"
       class="demo-nav__item demo-nav__back"
       (click)="navigateBack()"
-      aria-label="Back to resume">
+      [attr.aria-label]="t('demo-nav.backAria')">
       <span class="material-symbols-outlined" aria-hidden="true">close</span>
-      <span class="demo-nav__label">Resume</span>
+      <span class="demo-nav__label">{{ t('demo-nav.resume') }}</span>
     </button>
   </nav>
 }
