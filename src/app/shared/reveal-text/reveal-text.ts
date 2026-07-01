@@ -10,12 +10,6 @@ import {
   signal,
 } from '@angular/core';
 
-/**
- * Renders `text` as a sequence of words that "rise + fade" into view when the
- * element scrolls into the viewport — a lightweight, pure-CSS analog of the
- * anime.js SplitText effect. Words are split reactively from the `text` signal,
- * so translations (EN/SV toggle) re-render correctly without stale DOM.
- */
 @Component({
   selector: 'app-reveal-text',
   changeDetection: ChangeDetectionStrategy.OnPush,

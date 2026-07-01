@@ -327,10 +327,16 @@ body:has(.data-platform-funnels) {
   background: var(--appBg);
 }
 
+.cdk-overlay-pane:has(.mat-mdc-snack-bar-container) {
+  pointer-events: none;
+}
+
 .mdc-snackbar.mat-mdc-snack-bar-container {
   --mdc-snackbar-supporting-text-font: 'Source Sans Pro', sans-serif;
+  pointer-events: none;
 
   .mdc-snackbar__surface {
+    pointer-events: auto;
     position: relative;
     padding: 5px 45px 5px 55px;
     margin: 24px 24px 74px 24px;

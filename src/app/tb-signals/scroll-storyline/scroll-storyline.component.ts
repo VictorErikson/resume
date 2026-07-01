@@ -57,6 +57,13 @@ export class ScrollStorylineComponent implements AfterViewInit {
   private lastWrittenProgress = -1;
   private resizeObserver: ResizeObserver | null = null;
 
+  private readonly revealMinIntervalMs =
+    typeof matchMedia === 'function' && matchMedia('(hover: none), (pointer: coarse)').matches
+      ? 40
+      : 0;
+  private lastRevealTime = 0;
+  private revealTimer: ReturnType<typeof setTimeout> | null = null;
+
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => {
       const maskPath = this.maskPathRef.nativeElement;
@@ -86,6 +93,7 @@ export class ScrollStorylineComponent implements AfterViewInit {
         this.scrollTarget.removeEventListener('scroll', onScrollOrResize);
         window.removeEventListener('resize', onScrollOrResize);
         this.resizeObserver?.disconnect();
+        if (this.revealTimer !== null) clearTimeout(this.revealTimer);
       });
 
       this.scheduleUpdate();
@@ -115,8 +123,7 @@ export class ScrollStorylineComponent implements AfterViewInit {
     if (Math.abs(progress - this.lastWrittenProgress) < 0.0005) return;
     this.lastWrittenProgress = progress;
 
-    const maskPath = this.maskPathRef.nativeElement;
-    maskPath.style.strokeDashoffset = `${this.totalLength * (1 - progress)}`;
+    this.writeReveal(progress);
 
     const dims = this.viewBoxDims();
     const scaleX = this.cachedContainerW / dims.width;
@@ -131,6 +138,33 @@ export class ScrollStorylineComponent implements AfterViewInit {
     const y = point.y * scaleY;
     this.dotRef.nativeElement.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${angle + 90}deg)`;
     this.dotRef.nativeElement.style.opacity = progress > 0 ? '1' : '0';
+  }
+
+  private writeReveal(progress: number): void {
+    if (this.revealMinIntervalMs === 0) {
+      this.applyReveal(progress);
+      return;
+    }
+    const now = performance.now();
+    const elapsed = now - this.lastRevealTime;
+    if (elapsed >= this.revealMinIntervalMs) {
+      if (this.revealTimer !== null) {
+        clearTimeout(this.revealTimer);
+        this.revealTimer = null;
+      }
+      this.lastRevealTime = now;
+      this.applyReveal(progress);
+    } else if (this.revealTimer === null) {
+      this.revealTimer = setTimeout(() => {
+        this.revealTimer = null;
+        this.lastRevealTime = performance.now();
+        this.applyReveal(this.lastWrittenProgress);
+      }, this.revealMinIntervalMs - elapsed);
+    }
+  }
+
+  private applyReveal(progress: number): void {
+    this.maskPathRef.nativeElement.style.strokeDashoffset = `${this.totalLength * (1 - progress)}`;
   }
 
   private sampleAt(progress: number): { x: number; y: number } {

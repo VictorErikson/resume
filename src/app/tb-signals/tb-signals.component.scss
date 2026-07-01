@@ -506,6 +506,14 @@ app-category-trends {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding-top: 0;
+  }
+
+  app-signal-rings {
+    transform: translateY(-36px);
+  }
+
   .stats-row {
     grid-template-columns: repeat(2, 1fr);
     margin: 0 16px 16px;
@@ -543,6 +551,12 @@ app-category-trends {
 
   .divider {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) and (min-height: 700px) {
+  .hero {
+    padding-top: 40px;
   }
 }
 
