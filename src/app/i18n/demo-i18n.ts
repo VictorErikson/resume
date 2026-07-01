@@ -113,7 +113,7 @@ const en: Record<string, string> = {
   'demo-nav.backAria': 'Back to resume',
   'demo-intro.title': 'These are my Triggerbee demos',
   'demo-intro.intro':
-    'Three things I built during my internship at Triggerbee, rebuilt here with dummy data.',
+    'Three examples of things I built during my internship at Triggerbee, rebuilt here with dummy data.',
   'demo-intro.onboarding.title': 'Onboarding',
   'demo-intro.onboarding.desc':
     'A modern, redesigned sign-up flow that guides new users from registration all the way to a working tracking script on their site.',
@@ -250,8 +250,7 @@ const sv: Record<string, string> = {
   'demo-intro.funnels.title': 'Funnels',
   'demo-intro.funnels.desc':
     'En funnel-byggare där användare kan kartlägga sina egna konverteringssteg och se exakt var de tappar kunder.',
-  'demo-intro.navHint':
-    'Använd menyn längst ned för att byta demo eller gå tillbaka till CV:t.',
+  'demo-intro.navHint': 'Använd menyn längst ned för att byta demo eller gå tillbaka till CV:t.',
   'demo-intro.dismiss': 'Jag förstår',
   'demo-intro.reopen': 'Visa demo-info',
   'demo-intro.dialogLabel': 'Om dessa demos',

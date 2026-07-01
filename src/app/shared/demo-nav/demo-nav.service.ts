@@ -7,12 +7,32 @@ export interface Demo {
   label: string;
   route: string;
   matchPrefixes: string[];
+  titleKey: string;
+  descKey: string;
 }
 
 const DEMOS: Demo[] = [
-  { label: 'Onboarding', route: '/onboarding', matchPrefixes: ['/onboarding', '/sv/onboarding'] },
-  { label: 'TB Signals', route: '/tb-signals', matchPrefixes: ['/tb-signals'] },
-  { label: 'Funnels', route: '/funnels', matchPrefixes: ['/funnels'] },
+  {
+    label: 'Onboarding',
+    route: '/onboarding',
+    matchPrefixes: ['/onboarding', '/sv/onboarding'],
+    titleKey: 'demo-intro.onboarding.title',
+    descKey: 'demo-intro.onboarding.desc',
+  },
+  {
+    label: 'TB Signals',
+    route: '/tb-signals',
+    matchPrefixes: ['/tb-signals'],
+    titleKey: 'demo-intro.signals.title',
+    descKey: 'demo-intro.signals.desc',
+  },
+  {
+    label: 'Funnels',
+    route: '/funnels',
+    matchPrefixes: ['/funnels'],
+    titleKey: 'demo-intro.funnels.title',
+    descKey: 'demo-intro.funnels.desc',
+  },
 ];
 
 @Injectable({ providedIn: 'root' })

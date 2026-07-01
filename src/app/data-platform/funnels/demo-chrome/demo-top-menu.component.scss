@@ -121,4 +121,22 @@
   .top-menu-divider {
     margin: 0 12px;
   }
+  .top-menu-left-side {
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+  .triggerbee-logo-container {
+    width: auto;
+    padding: 0 12px;
+  }
+  .top-menu-title {
+    margin-left: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .top-menu-right-side {
+    flex: 0 0 auto;
+  }
 }

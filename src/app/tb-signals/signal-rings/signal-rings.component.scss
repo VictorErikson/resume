@@ -238,6 +238,35 @@ $shape-size: 72px;
   line-height: 1.4;
 }
 
+@media (max-width: 760px) {
+  .bar-track {
+    max-width: 52%;
+  }
+
+  .rings {
+    gap: 64px;
+  }
+
+  .desc {
+    left: calc(var(--target-width) - 24px);
+    top: calc(100% + 36px);
+    transform: none;
+    max-width: 62vw;
+  }
+
+  .text {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .desc-label,
+  .desc-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 app-signal-rings.is-scroll-driven {
   margin: 0;
 
@@ -273,5 +302,11 @@ app-signal-rings.is-scroll-driven {
     animation: none;
     transform: none;
     opacity: clamp(0, calc((var(--row-progress) - 0.6) / 0.4), 1);
+  }
+}
+
+@media (min-width: 1001px) {
+  app-signal-rings.is-scroll-driven {
+    margin-top: 80px;
   }
 }

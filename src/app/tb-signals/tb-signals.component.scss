@@ -15,6 +15,7 @@ $text-muted: #999;
 
 .page-content {
   position: relative;
+  padding-top: var(--demo-header-space, 0px);
   --storyline-z: 100;
 }
 
@@ -293,8 +294,8 @@ app-category-trends {
 
 .scroll-pin-stage {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: var(--demo-header-fixed, 0px);
+  height: calc(100vh - var(--demo-header-fixed, 0px));
   overflow: hidden;
   width: 100%;
 }

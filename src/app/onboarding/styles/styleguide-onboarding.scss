@@ -140,6 +140,7 @@
 .install-script-page {
   min-height: calc(100vh - 4rem - 42px - 50px);
   padding: 2rem;
+  margin-top: var(--demo-header-space, 0px);
   font-family: 'Source Sans Pro', sans-serif;
 }
 

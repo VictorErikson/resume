@@ -8,7 +8,7 @@ $side-width: 230px;
 
 .demo-shell__top {
   position: fixed;
-  top: 0;
+  top: var(--demo-header-fixed, 0px);
   left: 0;
   right: 0;
   height: $top-height;
@@ -17,7 +17,7 @@ $side-width: 230px;
 
 .demo-shell__side {
   position: fixed;
-  top: $top-height;
+  top: calc(var(--demo-header-fixed, 0px) + #{$top-height});
   left: 0;
   bottom: 0;
   width: $side-width;
@@ -26,7 +26,7 @@ $side-width: 230px;
 
 .demo-shell__content {
   margin-left: $side-width;
-  padding-top: $top-height;
+  padding-top: calc(var(--demo-header-space, 0px) + #{$top-height});
   min-height: 100vh;
   background: var(--appBg);
 }
@@ -45,5 +45,18 @@ $side-width: 230px;
   }
   .demo-shell__content {
     margin-left: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .demo-shell {
+    padding-top: var(--demo-header-space, 0px);
+  }
+  .demo-shell__top {
+    position: sticky;
+    top: 0;
+  }
+  .demo-shell__content {
+    padding-top: 0;
   }
 }

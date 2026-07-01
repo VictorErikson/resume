@@ -98,6 +98,10 @@
   justify-content: space-between;
 }
 
+.photo-frame {
+  display: contents;
+}
+
 .photo {
   width: 100%;
   aspect-ratio: 1 / 1.05;
@@ -1097,7 +1101,7 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
-    padding: 8px 4px;
+    padding: 8px 4px calc(8px + env(safe-area-inset-bottom) + 10px);
     font-size: 10px;
     font-family: inherit;
     letter-spacing: 0.3px;
@@ -1143,7 +1147,7 @@
 
 @media (max-width: 899px) {
   :host {
-    padding-bottom: 56px;
+    padding-bottom: calc(56px + env(safe-area-inset-bottom) + 6px);
     background: var(--paper);
   }
 
@@ -1285,7 +1289,7 @@
     grid-column: 1 / -1;
   }
 
-  .sidebar > .photo {
+  .sidebar .photo {
     grid-column: 1;
     grid-row: 1 / span 2;
     align-self: start;
@@ -1295,6 +1299,8 @@
     margin: 12px 0;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
+    border: 3px solid var(--gold);
+    box-sizing: border-box;
   }
   .masthead > .identity {
     grid-column: 2;
@@ -1331,19 +1337,30 @@
 }
 
 @media (max-width: 440px) {
+  .photo-frame {
+    order: 1;
+    display: flex;
+    justify-content: center;
+    padding-top: 24px;
+  }
+
   .photo {
-    max-width: 100%;
+    width: 570px;
+    max-width: 72%;
     margin: 0;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    box-sizing: border-box;
   }
 
   .identity {
     position: relative;
     z-index: 1;
-    margin-top: -130px;
+    margin-top: 0;
     margin-bottom: 0;
-    padding: 10px 0 12px;
-    background: rgba(255, 255, 255, 0.68);
-    backdrop-filter: blur(2px);
+    padding: 14px 0 12px;
+    background: var(--paper);
   }
 
   .name {
@@ -1363,7 +1380,7 @@
   }
 
   .masthead {
-    padding-bottom: 0;
+    padding: 0;
   }
 
   .summary {

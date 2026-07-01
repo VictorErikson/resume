@@ -427,6 +427,19 @@ $border: rgba(0, 0, 0, 0.08);
   }
 }
 
+@media (max-width: 600px) {
+  .dashboard-top-bar-left {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 499px) {
+  .kpi-section-header-left {
+    order: -1;
+    width: 100%;
+  }
+}
+
 @media (max-width: 1024px) {
   .dashboard-new-kpi-grid {
     &--stacked {

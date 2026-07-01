@@ -1,0 +1,11 @@
+@if (nav.isInDemo()) {
+  <header #header class="demo-header">
+    <div class="demo-header__text">
+      <div class="demo-header__heading">
+        <span class="demo-header__badge" aria-hidden="true">{{ nav.currentIndex() + 1 }}</span>
+        <span class="demo-header__title">{{ title() }}</span>
+      </div>
+      <span class="demo-header__desc">{{ desc() }}</span>
+    </div>
+  </header>
+}
