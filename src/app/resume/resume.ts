@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { LanguageService } from '../i18n/language.service';
+import { RevealTextComponent } from '../shared/reveal-text/reveal-text';
 
 type ContactKind = 'copy' | 'link' | 'static';
 
@@ -62,7 +63,7 @@ interface Experience {
 
 @Component({
   selector: 'app-resume',
-  imports: [RouterLink],
+  imports: [RouterLink, RevealTextComponent],
   templateUrl: './resume.html',
   styleUrl: './resume.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

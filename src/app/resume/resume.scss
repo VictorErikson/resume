@@ -1147,7 +1147,7 @@
 
 @media (max-width: 899px) {
   :host {
-    padding-bottom: calc(56px + env(safe-area-inset-bottom) + 6px);
+    padding-bottom: calc(56px + env(safe-area-inset-bottom));
     background: var(--paper);
   }
 

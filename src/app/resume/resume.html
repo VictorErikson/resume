@@ -5,7 +5,9 @@
     </div>
 
     <section id="contact-section" class="block" aria-labelledby="contact-heading">
-      <h2 id="contact-heading" class="side-heading underline">{{ t().headings.contact }}</h2>
+      <h2 id="contact-heading" class="side-heading underline">
+        <app-reveal-text [text]="t().headings.contact" />
+      </h2>
       <ul class="contacts">
         @for (c of contacts(); track c.label || c.value) {
           <li class="contact-item">
@@ -81,7 +83,9 @@
     </section>
 
     <section class="block edu inner-block" aria-labelledby="edu-side-heading">
-      <h2 id="edu-side-heading" class="side-heading banner">{{ t().headings.educationSide }}</h2>
+      <h2 id="edu-side-heading" class="side-heading banner">
+        <app-reveal-text [text]="t().headings.educationSide" />
+      </h2>
       <ul class="edu-list">
         @for (e of education(); track e.school) {
           <li class="edu-item">
@@ -94,7 +98,9 @@
     </section>
 
     <section class="block" aria-labelledby="hard-heading">
-      <h2 id="hard-heading" class="side-heading underline center">{{ t().headings.hardSkills }}</h2>
+      <h2 id="hard-heading" class="side-heading underline center">
+        <app-reveal-text [text]="t().headings.hardSkills" />
+      </h2>
       <ul class="skills inner-block">
         @for (s of hardSkills(); track s.name) {
           <li class="skill">
@@ -115,7 +121,9 @@
     </section>
 
     <section class="block" aria-labelledby="soft-heading">
-      <h2 id="soft-heading" class="side-heading underline center">{{ t().headings.softSkills }}</h2>
+      <h2 id="soft-heading" class="side-heading underline center">
+        <app-reveal-text [text]="t().headings.softSkills" />
+      </h2>
       <div class="soft inner-block">
         <img class="pie" src="img/chart.png" alt="Soft skills pie-chart" />
         <ul class="soft-legend">
@@ -130,14 +138,16 @@
   <section class="content">
     <header class="masthead">
       <div class="identity">
-        <h1 class="name">{{ name() }}</h1>
-        <p class="role-bar">{{ t().role }}</p>
+        <h1 class="name"><app-reveal-text [text]="name()" /></h1>
+        <p class="role-bar"><app-reveal-text [text]="t().role" /></p>
       </div>
       <p class="summary">{{ t().summary }}</p>
     </header>
 
     <section class="main-block work-exp" aria-labelledby="work-heading">
-      <h2 id="work-heading" class="main-heading">{{ t().headings.workExperience }}</h2>
+      <h2 id="work-heading" class="main-heading">
+        <app-reveal-text [text]="t().headings.workExperience" />
+      </h2>
       <div class="line"></div>
       @for (x of experiences(); track x.title) {
         <article class="exp" [class]="x.variant">
@@ -177,7 +187,9 @@
 
     <section class="main-block logo-block" aria-labelledby="lang-heading">
       <div class="logos-head">
-        <h2 id="lang-heading" class="small-heading">{{ t().headings.languagesAndFrameworks }}</h2>
+        <h2 id="lang-heading" class="small-heading">
+          <app-reveal-text [text]="t().headings.languagesAndFrameworks" />
+        </h2>
       </div>
       <div class="line carousel-line"></div>
       <div class="logos-carousel can-left can-right">
@@ -204,7 +216,9 @@
     </section>
 
     <section class="main-block" aria-labelledby="edu-heading">
-      <h2 id="edu-heading" class="main-heading">{{ t().headings.education }}</h2>
+      <h2 id="edu-heading" class="main-heading">
+        <app-reveal-text [text]="t().headings.education" />
+      </h2>
       <div class="line"></div>
       <div class="edu-container">
         <h3 class="detail-title">{{ t().edu.detailTitle1 }}</h3>
@@ -226,7 +240,9 @@
 
     <section class="main-block logo-block" aria-labelledby="tools-heading">
       <div class="logos-head">
-        <h2 id="tools-heading" class="small-heading">{{ t().headings.tools }}</h2>
+        <h2 id="tools-heading" class="small-heading">
+          <app-reveal-text [text]="t().headings.tools" />
+        </h2>
       </div>
       <div class="line carousel-line"></div>
 
@@ -254,7 +270,9 @@
     </section>
 
     <section class="main-block" aria-labelledby="project-heading">
-      <h2 id="project-heading" class="small-heading">{{ t().project.heading }}</h2>
+      <h2 id="project-heading" class="small-heading">
+        <app-reveal-text [text]="t().project.heading" />
+      </h2>
       <div class="line"></div>
       <div class="summer-project-container">
         <p class="detail-text">{{ t().project.intro }}</p>
