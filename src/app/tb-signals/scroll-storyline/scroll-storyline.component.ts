@@ -45,6 +45,9 @@ export class ScrollStorylineComponent implements AfterViewInit {
 
   private scrollTarget: HTMLElement | Window = window;
   private totalLength = 0;
+  private readonly SAMPLE_COUNT = 240;
+  private readonly samplesX = new Float32Array(this.SAMPLE_COUNT + 1);
+  private readonly samplesY = new Float32Array(this.SAMPLE_COUNT + 1);
   private rafScheduled = false;
   private cachedStartY = 0;
   private cachedEndY = 0;
@@ -60,6 +63,12 @@ export class ScrollStorylineComponent implements AfterViewInit {
       this.totalLength = maskPath.getTotalLength();
       maskPath.style.strokeDasharray = `${this.totalLength}`;
       maskPath.style.strokeDashoffset = `${this.totalLength}`;
+
+      for (let i = 0; i <= this.SAMPLE_COUNT; i++) {
+        const p = maskPath.getPointAtLength((i / this.SAMPLE_COUNT) * this.totalLength);
+        this.samplesX[i] = p.x;
+        this.samplesY[i] = p.y;
+      }
 
       this.scrollTarget = this.findScrollContainer(this.host.nativeElement);
 
@@ -113,18 +122,26 @@ export class ScrollStorylineComponent implements AfterViewInit {
     const scaleX = this.cachedContainerW / dims.width;
     const scaleY = this.cachedContainerH / dims.height;
 
-    const eps = this.totalLength * 0.02;
-    const pA = maskPath.getPointAtLength(Math.max(0, progress * this.totalLength - eps));
-    const pB = maskPath.getPointAtLength(
-      Math.min(this.totalLength, progress * this.totalLength + eps),
-    );
+    const pA = this.sampleAt(progress - 0.02);
+    const pB = this.sampleAt(progress + 0.02);
     const angle = Math.atan2((pB.y - pA.y) * scaleY, (pB.x - pA.x) * scaleX) * (180 / Math.PI);
 
-    const point = maskPath.getPointAtLength(progress * this.totalLength);
+    const point = this.sampleAt(progress);
     const x = point.x * scaleX;
     const y = point.y * scaleY;
     this.dotRef.nativeElement.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${angle + 90}deg)`;
     this.dotRef.nativeElement.style.opacity = progress > 0 ? '1' : '0';
+  }
+
+  private sampleAt(progress: number): { x: number; y: number } {
+    const clamped = progress < 0 ? 0 : progress > 1 ? 1 : progress;
+    const f = clamped * this.SAMPLE_COUNT;
+    const i = Math.min(this.SAMPLE_COUNT - 1, Math.floor(f));
+    const t = f - i;
+    return {
+      x: this.samplesX[i] + (this.samplesX[i + 1] - this.samplesX[i]) * t,
+      y: this.samplesY[i] + (this.samplesY[i + 1] - this.samplesY[i]) * t,
+    };
   }
 
   private recomputeBounds(): void {
