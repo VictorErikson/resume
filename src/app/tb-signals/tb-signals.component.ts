@@ -28,6 +28,9 @@ export class TbSignalsComponent implements OnInit, OnDestroy {
     this.initCanvas(el.nativeElement);
   }
 
+  protected readonly pointerFine =
+    typeof matchMedia === 'function' && matchMedia('(hover: hover) and (pointer: fine)').matches;
+
   private readonly hexW = 76;
   private readonly hexH = 66;
   private readonly colPitchX = 60;
@@ -59,6 +62,7 @@ export class TbSignalsComponent implements OnInit, OnDestroy {
   private zone = inject(NgZone);
 
   private initCanvas(canvas: HTMLCanvasElement): void {
+    if (!this.pointerFine) return;
     if (this.rafId) cancelAnimationFrame(this.rafId);
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');

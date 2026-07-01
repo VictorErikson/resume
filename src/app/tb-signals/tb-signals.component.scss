@@ -10,6 +10,7 @@ $text-muted: #999;
 :host {
   display: block;
   min-height: 100vh;
+  background: var(--appBg, #f2f5f8);
   --tb-signals-storyline-color: #{$yellow};
 }
 

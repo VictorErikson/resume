@@ -161,7 +161,9 @@
   <div #storylineEnd class="storyline-end-anchor"></div>
 </div>
 
-<canvas #cv class="wand-canvas" aria-hidden="true"></canvas>
+@if (pointerFine) {
+  <canvas #cv class="wand-canvas" aria-hidden="true"></canvas>
+}
 
 @if (flyout.isOpen()) {
   <div class="demo-flyout-backdrop" (click)="flyout.close()"></div>
