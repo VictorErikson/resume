@@ -28,6 +28,10 @@ export class ScrollPinDirective implements AfterViewInit {
   private resizeObserver: ResizeObserver | null = null;
 
   ngAfterViewInit(): void {
+    const isTouch =
+      typeof matchMedia === 'function' && matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (isTouch) return;
+
     this.zone.runOutsideAngular(() => {
       this.scrollTarget = this.findScrollContainer(this.host.nativeElement);
 

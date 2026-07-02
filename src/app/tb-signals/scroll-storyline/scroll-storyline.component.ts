@@ -28,7 +28,7 @@ export class ScrollStorylineComponent implements AfterViewInit {
   readonly endAnchor = input<HTMLElement | null>(null);
   readonly startOffsetPx = input<number>(0);
   readonly endOffsetPx = input<number>(0);
-  readonly checkpoints = input<HTMLElement[]>([]);
+  readonly touchStartAnchor = input<HTMLElement | null>(null);
 
   @ViewChild('maskPath', { static: true }) private maskPathRef!: ElementRef<SVGPathElement>;
   @ViewChild('dot', { static: true }) private dotRef!: ElementRef<HTMLDivElement>;
@@ -58,17 +58,17 @@ export class ScrollStorylineComponent implements AfterViewInit {
   private lastWrittenProgress = -1;
   private resizeObserver: ResizeObserver | null = null;
 
-  private readonly isTouch =
+  protected readonly isTouch =
     typeof matchMedia === 'function' && matchMedia('(hover: none), (pointer: coarse)').matches;
 
-  private checkpointProgress: number[] = [0, 1];
-  private targetProgress = -1;
-  private currentProgress = 0;
-  private tweenFrom = 0;
-  private tweenTo = 0;
-  private tweenStart = 0;
-  private tweenRaf = 0;
-  private readonly TWEEN_MS = 650;
+  private touchStartScroll = 0;
+  private touchEndScroll = 0;
+  private readonly TOUCH_START_REVEAL_RATIO = 0;
+
+  private touchTargetProgress = 0;
+  private smoothProgress = 0;
+  private smoothingRaf = 0;
+  private readonly TOUCH_EASE = 0.6;
 
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => {
@@ -93,13 +93,14 @@ export class ScrollStorylineComponent implements AfterViewInit {
         this.boundsValid = false;
         this.scheduleUpdate();
       });
-      this.resizeObserver.observe(this.host.nativeElement);
+      const observeTarget = this.host.nativeElement.parentElement ?? this.host.nativeElement;
+      this.resizeObserver.observe(observeTarget);
 
       this.destroyRef.onDestroy(() => {
         this.scrollTarget.removeEventListener('scroll', onScrollOrResize);
         window.removeEventListener('resize', onScrollOrResize);
         this.resizeObserver?.disconnect();
-        if (this.tweenRaf) cancelAnimationFrame(this.tweenRaf);
+        if (this.smoothingRaf) cancelAnimationFrame(this.smoothingRaf);
       });
 
       this.scheduleUpdate();
@@ -122,22 +123,41 @@ export class ScrollStorylineComponent implements AfterViewInit {
     if (this.cachedEndY <= this.cachedStartY) return;
 
     const scrollY = this.getScrollTop();
+
+    if (this.isTouch) {
+      const denom = this.touchEndScroll - this.touchStartScroll;
+      const raw = denom > 0 ? (scrollY - this.touchStartScroll) / denom : 0;
+      this.touchTargetProgress = raw < 0 ? 0 : raw > 1 ? 1 : raw;
+      this.startSmoothing();
+      return;
+    }
+
     const range = this.cachedEndY - this.cachedStartY;
     const raw = (scrollY - this.cachedStartY) / range;
     const progress = raw < 0 ? 0 : raw > 1 ? 1 : raw;
-
-    if (this.isTouch) {
-      this.updateCheckpointTarget(progress);
-      return;
-    }
 
     if (Math.abs(progress - this.lastWrittenProgress) < 0.0005) return;
     this.lastWrittenProgress = progress;
     this.render(progress);
   }
 
+  private startSmoothing(): void {
+    if (!this.smoothingRaf) this.smoothingRaf = requestAnimationFrame(this.smoothTick);
+  }
+
+  private readonly smoothTick = (): void => {
+    const target = this.touchTargetProgress;
+    const next = this.smoothProgress + (target - this.smoothProgress) * this.TOUCH_EASE;
+    const done = Math.abs(target - next) < 0.0005;
+    this.smoothProgress = done ? target : next;
+    this.render(this.smoothProgress);
+    this.smoothingRaf = done ? 0 : requestAnimationFrame(this.smoothTick);
+  };
+
   private render(progress: number): void {
-    this.maskPathRef.nativeElement.style.strokeDashoffset = `${this.totalLength * (1 - progress)}`;
+    if (!this.isTouch) {
+      this.maskPathRef.nativeElement.style.strokeDashoffset = `${this.totalLength * (1 - progress)}`;
+    }
 
     const dims = this.viewBoxDims();
     const scaleX = this.cachedContainerW / dims.width;
@@ -151,45 +171,8 @@ export class ScrollStorylineComponent implements AfterViewInit {
     const x = point.x * scaleX;
     const y = point.y * scaleY;
     this.dotRef.nativeElement.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${angle + 90}deg)`;
-    this.dotRef.nativeElement.style.opacity = progress > 0 ? '1' : '0';
+    this.dotRef.nativeElement.style.opacity = this.isTouch || progress > 0 ? '1' : '0';
   }
-
-  private updateCheckpointTarget(rawProgress: number): void {
-    const cps = this.checkpointProgress;
-    let reached = cps[0];
-    for (let i = 0; i < cps.length; i++) {
-      if (cps[i] <= rawProgress + 1e-4) reached = cps[i];
-      else break;
-    }
-    if (reached === this.targetProgress) return;
-
-    if (this.targetProgress < 0) {
-      this.targetProgress = reached;
-      this.currentProgress = reached;
-      this.render(reached);
-      return;
-    }
-
-    this.targetProgress = reached;
-    this.tweenFrom = this.currentProgress;
-    this.tweenTo = reached;
-    this.tweenStart = performance.now();
-    if (!this.tweenRaf) this.tweenRaf = requestAnimationFrame(this.tweenTick);
-  }
-
-  private readonly tweenTick = (): void => {
-    const t = Math.min(1, (performance.now() - this.tweenStart) / this.TWEEN_MS);
-    const eased = 1 - Math.pow(1 - t, 3);
-    this.currentProgress = this.tweenFrom + (this.tweenTo - this.tweenFrom) * eased;
-    this.render(this.currentProgress);
-    if (t < 1) {
-      this.tweenRaf = requestAnimationFrame(this.tweenTick);
-    } else {
-      this.currentProgress = this.tweenTo;
-      this.render(this.currentProgress);
-      this.tweenRaf = 0;
-    }
-  };
 
   private sampleAt(progress: number): { x: number; y: number } {
     const clamped = progress < 0 ? 0 : progress > 1 ? 1 : progress;
@@ -204,12 +187,16 @@ export class ScrollStorylineComponent implements AfterViewInit {
 
   private recomputeBounds(): void {
     const hostEl = this.host.nativeElement;
+    const scrollTop = this.getScrollTop();
+    const containerOffset = this.getContainerTopOffset();
+
+    if (this.isTouch) {
+      this.positionHostForTouch(hostEl, scrollTop, containerOffset);
+    }
+
     const hostRect = hostEl.getBoundingClientRect();
     this.cachedContainerW = hostEl.clientWidth;
     this.cachedContainerH = hostEl.clientHeight;
-
-    const scrollTop = this.getScrollTop();
-    const containerOffset = this.getContainerTopOffset();
 
     const startEl = this.startAnchor();
     const endEl = this.endAnchor();
@@ -232,35 +219,35 @@ export class ScrollStorylineComponent implements AfterViewInit {
         hostRect.bottom + scrollTop - containerOffset - viewportH - this.endOffsetPx();
     }
 
-    if (this.isTouch) {
-      this.recomputeCheckpoints(scrollTop, containerOffset, viewportH);
-    }
-
     this.boundsValid = true;
   }
 
-  private recomputeCheckpoints(scrollTop: number, containerOffset: number, viewportH: number): void {
-    const range = this.cachedEndY - this.cachedStartY;
-    if (range <= 0) {
-      this.checkpointProgress = [0, 1];
-      return;
-    }
-    const values = new Set<number>([0, 1]);
-    for (const el of this.collectCheckpointEls()) {
-      const r = el.getBoundingClientRect();
-      const y = r.top + scrollTop - containerOffset - viewportH * 0.6;
-      const p = (y - this.cachedStartY) / range;
-      values.add(p < 0 ? 0 : p > 1 ? 1 : p);
-    }
-    this.checkpointProgress = [...values].sort((a, b) => a - b);
-    this.targetProgress = -1;
-  }
+  private positionHostForTouch(
+    hostEl: HTMLElement,
+    scrollTop: number,
+    containerOffset: number,
+  ): void {
+    const startEl = this.touchStartAnchor() ?? this.startAnchor();
+    const endEl = this.endAnchor();
+    if (!startEl || !endEl) return;
 
-  private collectCheckpointEls(): HTMLElement[] {
-    const provided = this.checkpoints();
-    if (provided.length) return provided;
-    const root: ParentNode = this.host.nativeElement.parentElement ?? document;
-    return Array.from(root.querySelectorAll('[appscrollreveal]')) as HTMLElement[];
+    const parent = hostEl.offsetParent as HTMLElement | null;
+    const parentTopDoc = parent
+      ? parent.getBoundingClientRect().top + scrollTop - containerOffset
+      : 0;
+    const headingDoc = startEl.getBoundingClientRect().top + scrollTop - containerOffset;
+    const bottomDoc = endEl.getBoundingClientRect().bottom + scrollTop - containerOffset;
+
+    const frac = this.samplesY[0] / this.viewBoxDims().height;
+    const topDoc = (headingDoc - frac * bottomDoc) / (1 - frac);
+    const height = Math.max(0, bottomDoc - topDoc);
+
+    hostEl.style.top = `${topDoc - parentTopDoc}px`;
+    hostEl.style.bottom = 'auto';
+    hostEl.style.height = `${height}px`;
+
+    this.touchStartScroll = headingDoc - window.innerHeight * this.TOUCH_START_REVEAL_RATIO;
+    this.touchEndScroll = bottomDoc - window.innerHeight;
   }
 
   private getScrollTop(): number {

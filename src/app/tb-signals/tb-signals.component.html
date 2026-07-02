@@ -2,6 +2,7 @@
   <app-scroll-storyline
     [startAnchor]="storylineStart"
     [endAnchor]="storylineEnd"
+    [touchStartAnchor]="rightNowHeading"
     [startOffsetPx]="isTouch ? 0 : 1200"
   ></app-scroll-storyline>
 
@@ -54,7 +55,11 @@
   </div>
 
   <div class="max-width-wrapper">
-    <div class="section-heading section-heading--xl heading-mask-reveal top" appScrollReveal>
+    <div
+      class="section-heading section-heading--xl heading-mask-reveal top"
+      appScrollReveal
+      #rightNowHeading
+    >
       <h2 class="section-title">
         <span class="text">{{ 'tb-signals.sections.right-now.title' | translate }}</span>
       </h2>

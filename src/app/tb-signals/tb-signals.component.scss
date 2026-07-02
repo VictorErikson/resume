@@ -306,12 +306,6 @@ app-category-trends {
   z-index: 5;
 }
 
-@media (hover: none), (pointer: coarse) {
-  .scroll-pin--rings {
-    height: 130vh;
-  }
-}
-
 .scroll-pin--rings .hero--pinned {
   position: absolute;
   top: 0;
@@ -581,5 +575,31 @@ app-category-trends {
     .section-title {
       font-size: 32px;
     }
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .scroll-pin--rings {
+    height: auto;
+  }
+
+  .scroll-pin--rings .scroll-pin-stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .scroll-pin--rings .hero--pinned {
+    position: static;
+    transform: none;
+  }
+
+  .scroll-pin--rings .rings-slot {
+    position: static;
+    height: auto;
+  }
+
+  .scroll-down-btn {
+    display: none;
   }
 }

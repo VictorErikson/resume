@@ -27,7 +27,7 @@
     stroke-linejoin="round"
     fill="none"
     vector-effect="non-scaling-stroke"
-    [attr.mask]="'url(#' + maskId + ')'"
+    [attr.mask]="isTouch ? null : 'url(#' + maskId + ')'"
   ></path>
 </svg>
 <img #dot class="storyline-dot" src="assets/img/tb-signals/bee.png" alt="" aria-hidden="true" />

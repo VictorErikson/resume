@@ -110,6 +110,31 @@
   display: block;
 }
 
+.photo-ring {
+  display: none;
+}
+
+.photo-ring__text {
+  fill: var(--sidebar-bg);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 5.5px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+@keyframes photo-ring-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-ring {
+    animation: none;
+  }
+}
+
 .block {
   padding: 0;
   margin-top: 18px;
@@ -1189,6 +1214,7 @@
   .page {
     display: flex;
     flex-direction: column;
+    overflow-x: clip;
   }
 
   .sidebar,
@@ -1294,13 +1320,27 @@
     grid-row: 1 / span 2;
     align-self: start;
     justify-self: center;
-    width: calc(100% - 24px);
+    width: calc(100% - 60px);
     max-width: none;
-    margin: 12px 0;
+    margin: 24px 0;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
-    border: 3px solid var(--gold);
     box-sizing: border-box;
+  }
+  .sidebar .photo-ring {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+    justify-self: center;
+    display: block;
+    width: calc(100% - 60px);
+    max-width: none;
+    margin: 24px 0;
+    aspect-ratio: 1 / 1;
+    overflow: visible;
+    pointer-events: none;
+    scale: 1.15;
+    animation: photo-ring-spin 45s linear infinite;
   }
   .masthead > .identity {
     grid-column: 2;
@@ -1339,19 +1379,31 @@
 @media (max-width: 440px) {
   .photo-frame {
     order: 1;
-    display: flex;
-    justify-content: center;
-    padding-top: 24px;
+    display: grid;
+    place-items: center;
+    padding: 42px 0;
   }
 
   .photo {
+    grid-area: 1 / 1;
     width: 570px;
     max-width: 72%;
     margin: 0;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
-    border: 3px solid var(--gold);
     box-sizing: border-box;
+  }
+
+  .photo-ring {
+    grid-area: 1 / 1;
+    display: block;
+    width: 570px;
+    max-width: 72%;
+    aspect-ratio: 1 / 1;
+    overflow: visible;
+    pointer-events: none;
+    scale: 1.15;
+    animation: photo-ring-spin 45s linear infinite;
   }
 
   .identity {
@@ -1359,7 +1411,7 @@
     z-index: 1;
     margin-top: 0;
     margin-bottom: 0;
-    padding: 14px 0 12px;
+    padding: 0 0 12px;
     background: var(--paper);
   }
 
