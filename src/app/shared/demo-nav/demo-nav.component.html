@@ -2,14 +2,14 @@
   <nav class="demo-nav" [attr.aria-label]="t('demo-nav.navLabel')">
     <button
       type="button"
-      class="demo-nav__item demo-nav__prev"
+      class="demo-nav__item demo-nav__prev text-roll-trigger"
       (click)="navigatePrev()"
       [disabled]="!nav.prev()"
       [attr.aria-label]="
         nav.prev() ? t('demo-nav.prevAria', { label: nav.prev()?.label }) : t('demo-nav.prevNoneAria')
       ">
       <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-      <span class="demo-nav__label">{{ nav.prev()?.label ?? t('demo-nav.prev') }}</span>
+      <app-text-roll class="demo-nav__label" [text]="nav.prev()?.label ?? t('demo-nav.prev')" />
     </button>
 
     <div
@@ -27,13 +27,13 @@
 
     <button
       type="button"
-      class="demo-nav__item demo-nav__next"
+      class="demo-nav__item demo-nav__next text-roll-trigger"
       (click)="navigateNext()"
       [disabled]="!nav.next()"
       [attr.aria-label]="
         nav.next() ? t('demo-nav.nextAria', { label: nav.next()?.label }) : t('demo-nav.nextNoneAria')
       ">
-      <span class="demo-nav__label">{{ nav.next()?.label ?? t('demo-nav.next') }}</span>
+      <app-text-roll class="demo-nav__label" [text]="nav.next()?.label ?? t('demo-nav.next')" />
       <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
     </button>
 

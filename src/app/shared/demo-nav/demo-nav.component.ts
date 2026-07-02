@@ -3,12 +3,14 @@ import { Router } from '@angular/router';
 import { DemoNavService } from './demo-nav.service';
 import { LanguageService } from '../../i18n/language.service';
 import { resolveTranslation } from '../../i18n/demo-i18n';
+import { TextRollComponent } from '../text-roll/text-roll.component';
 
 @Component({
   selector: 'app-demo-nav',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './demo-nav.component.html',
   styleUrl: './demo-nav.component.scss',
+  imports: [TextRollComponent],
 })
 export class DemoNavComponent {
   protected readonly nav = inject(DemoNavService);

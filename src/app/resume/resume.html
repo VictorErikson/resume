@@ -10,20 +10,26 @@
       />
       <svg class="photo-ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
         <defs>
-          <path
-            id="photo-ring-path"
-            d="M 50,50 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"
-          />
+          <path id="photo-ring-path" d="M 50,50 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0" />
         </defs>
         <text class="photo-ring__text">
-          <textPath href="#photo-ring-path" startOffset="0" textLength="289" lengthAdjust="spacing">VICTOR ERIKSSON • FRONTEND DEVELOPER • VICTOR ERIKSSON • FRONTEND DEVELOPER •&#160;</textPath>
+          <textPath href="#photo-ring-path" startOffset="0" textLength="289" lengthAdjust="spacing">
+            VICTOR ERIKSSON • FRONTEND DEVELOPER • VICTOR ERIKSSON • FRONTEND DEVELOPER •&#160;
+          </textPath>
         </text>
       </svg>
     </div>
 
     <section id="contact-section" class="block" aria-labelledby="contact-heading">
       <h2 id="contact-heading" class="side-heading underline">
-        <app-reveal-text [text]="t().headings.contact" />
+        <app-text-roll
+          [text]="t().headings.contact"
+          mode="auto"
+          [reveal]="true"
+          [interval]="headingRoll.contact.interval"
+          [jitter]="headingRoll.contact.jitter"
+          [startDelay]="headingRoll.contact.startDelay"
+        />
       </h2>
       <ul class="contacts">
         @for (c of contacts(); track c.label || c.value) {
@@ -116,7 +122,14 @@
 
     <section class="block" aria-labelledby="hard-heading">
       <h2 id="hard-heading" class="side-heading underline center">
-        <app-reveal-text [text]="t().headings.hardSkills" />
+        <app-text-roll
+          [text]="t().headings.hardSkills"
+          mode="auto"
+          [reveal]="true"
+          [interval]="headingRoll.hard.interval"
+          [jitter]="headingRoll.hard.jitter"
+          [startDelay]="headingRoll.hard.startDelay"
+        />
       </h2>
       <ul class="skills inner-block">
         @for (s of hardSkills(); track s.name) {
@@ -139,7 +152,14 @@
 
     <section class="block" aria-labelledby="soft-heading">
       <h2 id="soft-heading" class="side-heading underline center">
-        <app-reveal-text [text]="t().headings.softSkills" />
+        <app-text-roll
+          [text]="t().headings.softSkills"
+          mode="auto"
+          [reveal]="true"
+          [interval]="headingRoll.soft.interval"
+          [jitter]="headingRoll.soft.jitter"
+          [startDelay]="headingRoll.soft.startDelay"
+        />
       </h2>
       <div class="soft inner-block">
         <img class="pie" src="img/chart.png" alt="Soft skills pie-chart" />
@@ -163,14 +183,21 @@
 
     <section class="main-block work-exp" aria-labelledby="work-heading">
       <h2 id="work-heading" class="main-heading">
-        <app-reveal-text [text]="t().headings.workExperience" />
+        <app-text-roll
+          [text]="t().headings.workExperience"
+          mode="auto"
+          [reveal]="true"
+          [interval]="headingRoll.work.interval"
+          [jitter]="headingRoll.work.jitter"
+          [startDelay]="headingRoll.work.startDelay"
+        />
       </h2>
       <div class="line"></div>
       @for (x of experiences(); track x.title) {
         <article class="exp" [class]="x.variant">
           @if (x.variant === 'triggerbee') {
             <a class="exp-demos-link" [routerLink]="demosLink()">
-              {{ t().demosButton }}
+              <span class="exp-demos-link__text">{{ t().demosButton }}</span>
               <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
             </a>
           }
@@ -234,7 +261,14 @@
 
     <section class="main-block" aria-labelledby="edu-heading">
       <h2 id="edu-heading" class="main-heading">
-        <app-reveal-text [text]="t().headings.education" />
+        <app-text-roll
+          [text]="t().headings.education"
+          mode="auto"
+          [reveal]="true"
+          [interval]="headingRoll.edu.interval"
+          [jitter]="headingRoll.edu.jitter"
+          [startDelay]="headingRoll.edu.startDelay"
+        />
       </h2>
       <div class="line"></div>
       <div class="edu-container">
@@ -288,7 +322,14 @@
 
     <section class="main-block" aria-labelledby="project-heading">
       <h2 id="project-heading" class="small-heading">
-        <app-reveal-text [text]="t().project.heading" />
+        <app-text-roll
+          [text]="t().project.heading"
+          mode="auto"
+          [reveal]="true"
+          [interval]="headingRoll.project.interval"
+          [jitter]="headingRoll.project.jitter"
+          [startDelay]="headingRoll.project.startDelay"
+        />
       </h2>
       <div class="line"></div>
       <div class="summer-project-container">
@@ -305,39 +346,47 @@
 </main>
 
 <nav class="desktop-float-nav" [attr.aria-label]="t().aria.mobileNav">
-  <button type="button" class="dfn-btn" (click)="scrollToContact()">
+  <button type="button" class="dfn-btn text-roll-trigger" (click)="scrollToContact()">
     <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
-    <span class="dfn-label">{{ t().aria.navContact }}</span>
+    <app-text-roll class="dfn-label" [text]="t().aria.navContact" />
   </button>
-  <a class="dfn-btn" [routerLink]="demosLink()">
-    <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
-    <span class="dfn-label">{{ t().aria.navDemos }}</span>
+  <a class="dfn-btn text-roll-trigger" [routerLink]="demosLink()">
+    <span class="material-symbols-outlined demos-icon" aria-hidden="true">grid_view</span>
+    <app-text-roll class="dfn-label" [text]="t().aria.navDemos" />
   </a>
-  <button type="button" class="dfn-btn" (click)="toggleLanguage()" [attr.aria-label]="t().aria.langToggle">
+  <button
+    type="button"
+    class="dfn-btn lang-btn"
+    (click)="toggleLanguage()"
+    [attr.aria-label]="t().aria.langToggle"
+  >
     <span class="material-symbols-outlined" aria-hidden="true">translate</span>
-    <span class="dfn-label lang-pills" aria-hidden="true">
-      <span [class.active]="lang() === 'en'">EN</span>
-      <span class="lang-sep">|</span>
-      <span [class.active]="lang() === 'sv'">SV</span>
+    <span class="dfn-label lang-pills" [class.lang-pills--sv]="lang() === 'sv'" aria-hidden="true">
+      <span class="lang-pill" [class.active]="lang() === 'en'">EN</span>
+      <span class="lang-pill" [class.active]="lang() === 'sv'">SV</span>
     </span>
   </button>
 </nav>
 
 <nav class="mobile-bottom-nav" [attr.aria-label]="t().aria.mobileNav">
-  <button type="button" class="nav-item" (click)="scrollToContact()">
+  <button type="button" class="nav-item text-roll-trigger" (click)="scrollToContact()">
     <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
-    <span>{{ t().aria.navContact }}</span>
+    <app-text-roll [text]="t().aria.navContact" />
   </button>
-  <a class="nav-item" [routerLink]="demosLink()">
-    <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
-    <span>{{ t().aria.navDemos }}</span>
+  <a class="nav-item text-roll-trigger" [routerLink]="demosLink()">
+    <span class="material-symbols-outlined demos-icon" aria-hidden="true">grid_view</span>
+    <app-text-roll [text]="t().aria.navDemos" />
   </a>
-  <button type="button" class="nav-item" (click)="toggleLanguage()" [attr.aria-label]="t().aria.langToggle">
+  <button
+    type="button"
+    class="nav-item"
+    (click)="toggleLanguage()"
+    [attr.aria-label]="t().aria.langToggle"
+  >
     <span class="material-symbols-outlined" aria-hidden="true">translate</span>
-    <span class="lang-pills" aria-hidden="true">
-      <span [class.active]="lang() === 'en'">EN</span>
-      <span class="lang-sep">|</span>
-      <span [class.active]="lang() === 'sv'">SV</span>
+    <span class="lang-pills" [class.lang-pills--sv]="lang() === 'sv'" aria-hidden="true">
+      <span class="lang-pill" [class.active]="lang() === 'en'">EN</span>
+      <span class="lang-pill" [class.active]="lang() === 'sv'">SV</span>
     </span>
   </button>
 </nav>

@@ -12,6 +12,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { LanguageService } from '../i18n/language.service';
 import { RevealTextComponent } from '../shared/reveal-text/reveal-text';
+import { TextRollComponent } from '../shared/text-roll/text-roll.component';
 
 type ContactKind = 'copy' | 'link' | 'static';
 
@@ -63,7 +64,7 @@ interface Experience {
 
 @Component({
   selector: 'app-resume',
-  imports: [RouterLink, RevealTextComponent],
+  imports: [RouterLink, RevealTextComponent, TextRollComponent],
   templateUrl: './resume.html',
   styleUrl: './resume.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -81,6 +82,15 @@ export class Resume {
   protected readonly demosLink = computed(() =>
     this.lang() === 'sv' ? '/sv/onboarding' : '/onboarding',
   );
+
+  protected readonly headingRoll = {
+    work: { interval: 12000, jitter: 20000, startDelay: 1000 },
+    project: { interval: 12000, jitter: 20000, startDelay: 5000 },
+    contact: { interval: 12000, jitter: 20000, startDelay: 9000 },
+    hard: { interval: 12000, jitter: 20000, startDelay: 13000 },
+    edu: { interval: 12000, jitter: 20000, startDelay: 17000 },
+    soft: { interval: 12000, jitter: 20000, startDelay: 21000 },
+  } as const;
 
   protected readonly contacts = computed<Contact[]>(() => {
     const tr = this.t();

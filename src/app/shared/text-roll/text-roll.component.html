@@ -1,0 +1,15 @@
+<span class="text-roll__sr">{{ text() }}</span>
+@for (word of words(); track $index; let last = $last) {
+  <span class="text-roll__word" aria-hidden="true">
+    <span class="text-roll__word-inner" [style.--wi]="$index">
+      @for (c of word; track $index) {
+        <span class="text-roll__char" [style.--_d]="c.index * waveMs() + 'ms'">
+          <span class="text-roll__stack">
+            <span class="text-roll__copy">{{ c.ch }}</span>
+            <span class="text-roll__copy">{{ c.ch }}</span>
+          </span>
+        </span>
+      }
+    </span>
+  </span>@if (!last) {<span class="text-roll__space">{{ ' ' }}</span>}
+}

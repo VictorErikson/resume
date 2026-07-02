@@ -55,10 +55,6 @@
     line-height: 1;
   }
 
-  &:hover:not(:disabled):not(.demo-nav__indicators) {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
   &:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 2px;
@@ -139,10 +135,22 @@
 }
 
 .demo-nav__back {
+  &:hover:not(:disabled):not(.demo-nav__indicators) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
   @media (min-width: 900px) {
     margin-left: 0.125rem;
     padding-left: 0.7rem;
     border-left: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 0 100px 100px 0;
+  }
+
+  .material-symbols-outlined {
+    transition: transform 0.25s ease;
+  }
+
+  &:hover:not(:disabled) .material-symbols-outlined {
+    transform: rotate(90deg);
   }
 }
