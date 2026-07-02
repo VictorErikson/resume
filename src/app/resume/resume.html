@@ -1,7 +1,13 @@
 <main class="page">
   <aside class="sidebar">
     <div class="photo-frame">
-      <img class="photo" src="img/Victor-photo.jpg" [attr.alt]="t().photoAlt" />
+      <img
+        class="photo"
+        src="img/Victor-photo.jpg"
+        [attr.alt]="t().photoAlt"
+        fetchpriority="high"
+        decoding="async"
+      />
     </div>
 
     <section id="contact-section" class="block" aria-labelledby="contact-heading">

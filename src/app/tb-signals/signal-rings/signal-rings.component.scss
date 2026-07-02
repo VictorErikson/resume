@@ -310,3 +310,9 @@ app-signal-rings.is-scroll-driven {
     margin-top: 80px;
   }
 }
+
+@media (hover: none), (pointer: coarse) {
+  :host {
+    margin: 0;
+  }
+}

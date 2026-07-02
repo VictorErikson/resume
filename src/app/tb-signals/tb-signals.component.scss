@@ -306,6 +306,12 @@ app-category-trends {
   z-index: 5;
 }
 
+@media (hover: none), (pointer: coarse) {
+  .scroll-pin--rings {
+    height: 130vh;
+  }
+}
+
 .scroll-pin--rings .hero--pinned {
   position: absolute;
   top: 0;

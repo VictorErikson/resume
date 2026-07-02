@@ -31,6 +31,9 @@ export class TbSignalsComponent implements OnInit, OnDestroy {
   protected readonly pointerFine =
     typeof matchMedia === 'function' && matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  protected readonly isTouch =
+    typeof matchMedia === 'function' && matchMedia('(hover: none), (pointer: coarse)').matches;
+
   private readonly hexW = 76;
   private readonly hexH = 66;
   private readonly colPitchX = 60;

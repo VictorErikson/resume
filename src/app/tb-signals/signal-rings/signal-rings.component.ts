@@ -82,7 +82,9 @@ export class SignalRingsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.isScrollDriven = !!this.findScrollPinAncestor();
+    const isTouch =
+      typeof matchMedia === 'function' && matchMedia('(hover: none), (pointer: coarse)').matches;
+    this.isScrollDriven = !isTouch && !!this.findScrollPinAncestor();
     if (this.isScrollDriven) {
       this.elementRef.nativeElement.classList.add('is-scroll-driven');
       this.setupScrollDrivenAnimations();
