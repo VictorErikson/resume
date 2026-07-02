@@ -370,7 +370,6 @@ app-category-trends {
 
 .section-heading--xl {
   padding: 96px 24px 24px;
-
   &.top {
     padding-top: 0px;
   }
@@ -508,6 +507,9 @@ app-category-trends {
 @media (max-width: 768px) {
   .hero {
     padding-top: 0;
+  }
+  .section-heading--xl {
+    z-index: 200;
   }
 
   app-signal-rings {

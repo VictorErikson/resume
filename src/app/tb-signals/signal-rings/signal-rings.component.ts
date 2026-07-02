@@ -49,6 +49,9 @@ export class SignalRingsComponent implements OnInit, AfterViewInit {
   public highIntentRate = 0;
   public animationsArmed = false;
 
+  protected readonly isTouch =
+    typeof matchMedia === 'function' && matchMedia('(hover: none), (pointer: coarse)').matches;
+
   private isScrollDriven = false;
 
   public readonly rows: RingRow[] = [

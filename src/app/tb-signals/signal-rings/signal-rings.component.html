@@ -19,12 +19,24 @@
             </span>
           </div>
           @if (row.key === 'highIntent') {
-            <img
-              class="honey"
-              src="assets/img/tb-signals/honey.svg"
-              alt="honey"
-              aria-hidden="true"
-            />
+            @if (isTouch) {
+              <video
+                class="honey"
+                src="assets/img/tb-signals/honey.mp4"
+                autoplay
+                [muted]="true"
+                loop
+                playsinline
+                aria-hidden="true"
+              ></video>
+            } @else {
+              <img
+                class="honey"
+                src="assets/img/tb-signals/honey.svg"
+                alt="honey"
+                aria-hidden="true"
+              />
+            }
           }
           <div class="desc">
             <div class="desc-icon">

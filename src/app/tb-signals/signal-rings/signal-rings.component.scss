@@ -315,4 +315,13 @@ app-signal-rings.is-scroll-driven {
   app-signal-rings {
     margin: 96px 0 140px;
   }
+
+  .desc {
+    z-index: 3;
+  }
+
+  .honey {
+    z-index: -1;
+    left: calc(var(--target-width) - 16px);
+  }
 }
