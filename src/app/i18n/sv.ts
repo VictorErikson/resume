@@ -9,7 +9,7 @@ export const sv: Translations = {
     'lett mig till att genomföra flera personliga projekt vid sidan av studierna. Från mina ' +
     '12 år i TV-branschen har jag lärt mig att arbeta i agila team, under tight deadlines och ' +
     'för att uppfylla kunders behov och visioner. Nu vill jag ta mig an nya utmaningar inom ' +
-    'programmering, med min erfarenhet och passion som grund.',
+    'programmering.',
   companyLabel: 'Företag',
   demosButton: 'Visa demos',
   headings: {
@@ -59,7 +59,7 @@ export const sv: Translations = {
       'Utbildningen innefattade: JavaScript, TypeScript, JSON, DOM-manipulation, OOP, HTML5, CSS3, ' +
       'SASS, CSS Grid, Flexbox, Bootstrap, Tailwind, CSS Modules, React, Angular, Node.js, ' +
       'Material UI, Angular Material, Vite, NPM, GIT, ESLint, Prettier, Figma, Responsivitet, ' +
-      'Tillgänglighet (WCAG 2.2 AA, ARIA), API:er, Axios, Autentisering, Supabase, CMS (Strapi) ' +
+      'Tillgänglighet (WCAG 2.2 AA, ARIA), API:er, Axios, Autentisering, Supabase, GSAP, CMS (Strapi) ' +
       'och Testning (Vitest, Playwright).',
     udemy: {
       title: 'Angular-kurs – Udemy',

@@ -165,6 +165,17 @@
   .photo-ring {
     animation: none;
   }
+
+  .pie-slice {
+    animation: none;
+    transform: scale(var(--rest));
+    opacity: 1;
+  }
+
+  .soft-item {
+    animation: none;
+    transform: scale(0.81);
+  }
 }
 
 .block {
@@ -222,7 +233,7 @@
     color: var(--ink);
     font-weight: 400;
     margin: 0 -18px 14px;
-    padding: 10px 18px;
+    padding: 18px 18px;
   }
 }
 
@@ -268,7 +279,7 @@
   color: inherit;
   text-align: left;
   text-decoration: none;
-  padding: 8px 12px;
+  padding: 8px 18px;
 
   &.email {
     .contact-icon {
@@ -488,10 +499,87 @@
 }
 
 .pie {
+  position: relative;
   width: 120px;
   height: 120px;
-  border-radius: 50%;
   justify-self: start;
+  margin-left: 18px;
+  overflow: visible;
+}
+
+.pie-slice {
+  --rest: 0.857;
+  position: absolute;
+  inset: -8.5%;
+  transform-origin: center;
+  transform: scale(0.4);
+  opacity: 0;
+}
+
+.pie-slice--blue {
+  --i: 0;
+  --order: 3;
+  --fx: -1;
+  --fy: -0.05;
+}
+
+.pie-slice--red {
+  --i: 1;
+  --order: 0;
+  --fx: 0.7;
+  --fy: -0.7;
+}
+
+.pie-slice--yellow {
+  --i: 2;
+  --order: 1;
+  --fx: 0.75;
+  --fy: 0.6;
+}
+
+.pie-slice--green {
+  --i: 3;
+  --order: 2;
+  --fx: -0.05;
+  --fy: 1;
+}
+
+.pie.is-visible .pie-slice {
+  opacity: 1;
+  transform: scale(var(--rest));
+  animation:
+    pie-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards,
+    pie-cycle 12s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.12s), calc(1.6s + var(--order) * 3s);
+}
+
+@keyframes pie-enter {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(var(--rest));
+    opacity: 1;
+  }
+}
+
+@keyframes pie-cycle {
+  0% {
+    transform: translate(0, 0) scale(var(--rest));
+  }
+  5% {
+    transform: translate(calc(var(--fx) * 9px), calc(var(--fy) * 9px)) scale(1);
+  }
+  16% {
+    transform: translate(calc(var(--fx) * 9px), calc(var(--fy) * 9px)) scale(1);
+  }
+  22% {
+    transform: translate(0, 0) scale(var(--rest));
+  }
+  100% {
+    transform: translate(0, 0) scale(var(--rest));
+  }
 }
 
 .soft-legend {
@@ -505,7 +593,49 @@
 }
 
 .soft-item {
-  font-size: 13px;
+  font-size: 16px;
+  white-space: nowrap;
+  transform: scale(0.81);
+  transform-origin: right center;
+}
+
+.soft-item:nth-child(1) {
+  --order: 3;
+}
+
+.soft-item:nth-child(2) {
+  --order: 0;
+}
+
+.soft-item:nth-child(3) {
+  --order: 1;
+}
+
+.soft-item:nth-child(4) {
+  --order: 2;
+}
+
+.pie.is-visible ~ .soft-legend .soft-item {
+  animation: legend-cycle 12s ease-in-out infinite;
+  animation-delay: calc(1.6s + var(--order) * 3s);
+}
+
+@keyframes legend-cycle {
+  0% {
+    transform: scale(0.81);
+  }
+  5% {
+    transform: scale(1);
+  }
+  16% {
+    transform: scale(1);
+  }
+  22% {
+    transform: scale(0.81);
+  }
+  100% {
+    transform: scale(0.81);
+  }
 }
 
 .content {
@@ -1341,6 +1471,15 @@
     display: flex;
     justify-content: center;
     gap: 24px;
+  }
+
+  .soft .pie {
+    margin-left: 0;
+    margin-right: 20px;
+  }
+
+  .sidebar > .block[aria-labelledby='soft-heading'] {
+    padding-bottom: 40px;
   }
 
   .photo {

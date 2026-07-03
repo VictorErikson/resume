@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="300" height="300" role="img" aria-label="Victor Eriksson, Frontend Developer">
+  <style>
+    .photo-ring__text {
+      fill: #ffffff;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 5.5px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+  </style>
+  <defs>
+    <path id="photo-ring-path" d="M 50,50 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0" />
+  </defs>
+  <text class="photo-ring__text">
+    <textPath href="#photo-ring-path" startOffset="0" textLength="289" lengthAdjust="spacing">
+      VICTOR ERIKSSON • FRONTEND DEVELOPER • VICTOR ERIKSSON • FRONTEND DEVELOPER •&#160;
+    </textPath>
+  </text>
+</svg>

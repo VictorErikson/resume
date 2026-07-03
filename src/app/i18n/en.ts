@@ -10,8 +10,7 @@ export const en: Translations = {
     'led me to complete several personal projects alongside my studies. ' +
     'From my 12 years in the TV industry, I have learned to work in agile ' +
     'teams, under strict deadlines, to meet clients needs and visions. Now ' +
-    'I want to take on new challenges in programming, benefiting from my ' +
-    'experience and passion.',
+    'I want to take on new challenges in programming.',
   companyLabel: 'Company',
   demosButton: 'View demos',
   headings: {
@@ -61,7 +60,7 @@ export const en: Translations = {
       'Education involved: JavaScript, TypeScript, JSON, DOM manipulation, OOP, HTML5, CSS3, ' +
       'SASS, CSS Grid, Flexbox, Bootstrap, Tailwind, CSS Modules, React, Angular, Node.js, ' +
       'Material UI, Angular Material, Vite, NPM, GIT, ESLint, Prettier, Figma, Responsiveness, ' +
-      'Accessibility (WCAG 2.2 AA, ARIA), APIs, Axios, Authentication, Supabase, CMS (Strapi), ' +
+      'Accessibility (WCAG 2.2 AA, ARIA), API integration (REST/GraphQL), Axios, Authentication, Supabase, GSAP, CMS (Strapi), ' +
       'and Testing (Vitest, Playwright).',
     udemy: {
       title: 'Angular course – Udemy',

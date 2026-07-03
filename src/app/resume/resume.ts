@@ -168,7 +168,7 @@ export class Resume {
       );
       host
         .querySelectorAll<HTMLElement>(
-          '.line, .exp-left, .exp-company-header, .side-heading.underline, .exp-title, .skills',
+          '.line, .exp-left, .exp-company-header, .side-heading.underline, .exp-title, .skills, .pie',
         )
         .forEach((el) => observer.observe(el));
       destroyRef.onDestroy(() => observer.disconnect());

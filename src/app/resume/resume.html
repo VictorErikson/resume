@@ -162,7 +162,32 @@
         />
       </h2>
       <div class="soft inner-block">
-        <img class="pie" src="img/chart.png" alt="Soft skills pie-chart" />
+        <div class="pie" role="img" aria-label="Soft skills pie-chart">
+          <img
+            class="pie-slice pie-slice--blue"
+            src="assets/img/chart/blue.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            class="pie-slice pie-slice--red"
+            src="assets/img/chart/red.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            class="pie-slice pie-slice--yellow"
+            src="assets/img/chart/yellow.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            class="pie-slice pie-slice--green"
+            src="assets/img/chart/green.svg"
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
         <ul class="soft-legend">
           @for (p of softSkills(); track p.label) {
             <li class="soft-item" [style.color]="p.labelColor">{{ p.label }} -</li>
