@@ -325,6 +325,7 @@ export class Resume {
     { name: 'Swift', level: 60 },
     { name: 'Express', level: 45 },
     { name: 'SQL', level: 30 },
+    { name: 'Python', level: 10 },
   ]);
 
   protected readonly softSkills = signal<PieSlice[]>([
