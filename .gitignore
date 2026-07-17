@@ -43,3 +43,6 @@ __screenshots__/
 Thumbs.db
 
 ds-bundle/
+
+# Raw demo footage (uncompressed source for public/assets/demo-imgs previews)
+/demo-footage-source/

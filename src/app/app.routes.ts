@@ -7,7 +7,18 @@ export const routes: Routes = [
   { path: '', component: Resume },
   { path: 'sv', component: Resume },
 
+  {
+    path: 'demo-picker',
+    loadComponent: () => import('./demo-picker/demo-picker').then((m) => m.DemoPicker),
+  },
+
   { path: 'demos', loadComponent: () => import('./demos/demos').then((m) => m.Demos) },
+
+  {
+    path: 'projects',
+    loadComponent: () =>
+      import('./personal-projects/personal-projects').then((m) => m.PersonalProjects),
+  },
 
   { path: 'onboarding', loadChildren: onboarding },
   { path: 'sv/onboarding', loadChildren: onboarding },

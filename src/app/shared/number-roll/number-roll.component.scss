@@ -1,0 +1,48 @@
+:host {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.25em;
+  line-height: 1.25;
+  vertical-align: top;
+  font-variant-numeric: tabular-nums;
+}
+
+.number-roll__item {
+  display: block;
+  height: 1.25em;
+  white-space: nowrap;
+}
+
+.number-roll__stack {
+  display: flex;
+  flex-direction: column;
+  animation: number-roll-up 320ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.number-roll__stack--down {
+  animation-name: number-roll-down;
+}
+
+@keyframes number-roll-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes number-roll-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .number-roll__stack {
+    animation: none;
+  }
+}

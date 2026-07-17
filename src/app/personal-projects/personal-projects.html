@@ -1,0 +1,137 @@
+<div class="stageglow" aria-hidden="true"></div>
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">Interactive demos</p>
+    <h1>See it <span class="script">in action</span></h1>
+  </div>
+  <p class="count">
+    <b><app-number-roll [value]="activeIndex() + 1" [digits]="2" /></b> / {{ totalLabel() }}
+  </p>
+</header>
+
+<div
+  class="carousel"
+  (pointerenter)="onCarouselPointerEnter($event)"
+  (pointerleave)="onCarouselPointerLeave($event)"
+>
+  <ul
+    class="rail"
+    #rail
+    [class.dragging]="dragging()"
+    (scroll)="onRailScroll()"
+    (pointerdown)="onRailPointerDown($event)"
+    (pointermove)="onRailPointerMove($event)"
+    (pointerup)="onRailPointerUp($event)"
+    (pointercancel)="onRailPointerUp($event)"
+    (wheel)="onRailWheel($event)"
+    (dragstart)="$event.preventDefault()"
+    aria-label="Personal project demos"
+  >
+    @for (demo of demos(); track demo.slug; let i = $index) {
+      <li>
+        <div class="card" [class.active]="i === activeIndex()" [style.--d]="distance(i)">
+          <button
+            type="button"
+            class="card-hit"
+            [attr.aria-label]="'Show ' + demo.name"
+            [attr.aria-current]="i === activeIndex() ? 'true' : null"
+            [attr.tabindex]="i === activeIndex() ? -1 : 0"
+            (click)="select(i)"
+          ></button>
+          <span class="art">
+            @switch (demo.media.kind) {
+              @case ('video') {
+                @if (autoplayVideos()) {
+                  <video
+                    class="art-media"
+                    [attr.poster]="demo.media.poster"
+                    [src]="demo.media.src"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    aria-hidden="true"
+                  ></video>
+                } @else {
+                  <img class="art-media" [ngSrc]="demo.media.poster" fill alt="" />
+                }
+              }
+              @case ('image') {
+                <img class="art-media" [ngSrc]="demo.media.src" fill alt="" />
+              }
+            }
+          </span>
+          <span class="icon material-symbols-outlined" aria-hidden="true">{{ demo.icon }}</span>
+          <span class="info">
+            <span class="demo-name">{{ demo.name }}</span>
+            <a
+              class="go text-roll-trigger"
+              [href]="demo.link"
+              target="_blank"
+              rel="noopener"
+              [attr.tabindex]="i === activeIndex() ? 0 : -1"
+              [attr.aria-hidden]="i === activeIndex() ? null : 'true'"
+              (pointerdown)="pauseAutoplay()"
+            >
+              <app-text-roll text="Launch" />
+              <span class="go-arrow" aria-hidden="true">→</span>
+            </a>
+          </span>
+        </div>
+      </li>
+    }
+  </ul>
+  <div class="arrows">
+    <button
+      type="button"
+      aria-label="Previous demo"
+      [disabled]="activeIndex() === 0"
+      (click)="previous()"
+    >
+      ‹
+    </button>
+    <button
+      type="button"
+      aria-label="Next demo"
+      [disabled]="activeIndex() === demos().length - 1"
+      (click)="next()"
+    >
+      ›
+    </button>
+  </div>
+</div>
+
+<div class="dots" aria-hidden="true">
+  @for (demo of demos(); track demo.slug; let i = $index) {
+    <span class="dot" [class.active]="i === activeIndex()"></span>
+  }
+</div>
+
+<section
+  class="detail"
+  aria-live="polite"
+  (pointerdown)="pauseAutoplay()"
+  (pointerenter)="onCarouselPointerEnter($event)"
+  (pointerleave)="onCarouselPointerLeave($event)"
+>
+  <div class="detail-text">
+    <h2>{{ activeDemo().name }}</h2>
+    <p>{{ activeDemo().description }}</p>
+  </div>
+  <a class="launch" [href]="activeDemo().link" target="_blank" rel="noopener">Launch demo</a>
+  <p class="stack">
+    <span class="lbl">Built with</span>
+    @for (tech of activeDemo().stack; track tech) {
+      <span class="tech">{{ tech }}</span>
+    }
+  </p>
+</section>
+
+<footer>
+  <span class="signature">Victor Eriksson</span>
+  <a class="back-link text-roll-trigger" routerLink="/">
+    <app-text-roll text="Back to résumé" />
+    <span class="back-link-arrow" aria-hidden="true">→</span>
+  </a>
+</footer>

@@ -229,6 +229,10 @@ app-data-platform-funnels {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+body:has(app-personal-projects) {
+  background: var(--sidebar-bg);
+}
+
 .data-platform-funnels {
   min-height: 100vh;
   background: var(--appBg);

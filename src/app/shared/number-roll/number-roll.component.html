@@ -1,0 +1,13 @@
+@if (roll(); as r) {
+  <span class="number-roll__stack" [class.number-roll__stack--down]="r.direction === 'down'">
+    @if (r.direction === 'up') {
+      <span class="number-roll__item">{{ r.from }}</span>
+      <span class="number-roll__item">{{ r.to }}</span>
+    } @else {
+      <span class="number-roll__item">{{ r.to }}</span>
+      <span class="number-roll__item">{{ r.from }}</span>
+    }
+  </span>
+} @else {
+  <span class="number-roll__item">{{ formatted() }}</span>
+}

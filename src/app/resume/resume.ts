@@ -79,9 +79,7 @@ export class Resume {
   private readonly langService = inject(LanguageService);
   protected readonly t = this.langService.translations;
   protected readonly lang = this.langService.lang;
-  protected readonly demosLink = computed(() =>
-    this.lang() === 'sv' ? '/sv/onboarding' : '/onboarding',
-  );
+  protected readonly demosLink = computed(() => '/demo-picker');
 
   protected readonly headingRoll = {
     work: { interval: 12000, jitter: 20000, startDelay: 1000 },
@@ -276,6 +274,8 @@ export class Resume {
     { src: 'img/logos/supabase.webp', alt: 'Supabase' },
     { src: 'img/logos/vitest.webp', alt: 'Vitest' },
     { src: 'img/logos/playwright.webp', alt: 'Playwright' },
+    { src: 'img/logos/photoshop.webp', alt: 'Photoshop' },
+    { src: 'img/logos/AE.png', alt: 'After Effects' },
   ]);
 
   protected scrollToContact(): void {
