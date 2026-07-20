@@ -31,14 +31,25 @@
     @for (demo of demos(); track demo.slug; let i = $index) {
       <li>
         <div class="card" [class.active]="i === activeIndex()" [style.--d]="distance(i)">
-          <button
-            type="button"
-            class="card-hit"
-            [attr.aria-label]="'Show ' + demo.name"
-            [attr.aria-current]="i === activeIndex() ? 'true' : null"
-            [attr.tabindex]="i === activeIndex() ? -1 : 0"
-            (click)="select(i)"
-          ></button>
+          @if (i === activeIndex()) {
+            <a
+              class="card-hit"
+              [href]="demo.link"
+              target="_blank"
+              rel="noopener"
+              tabindex="-1"
+              aria-hidden="true"
+              (pointerdown)="pauseAutoplay()"
+            ></a>
+          } @else {
+            <button
+              type="button"
+              class="card-hit"
+              [attr.aria-label]="'Show ' + demo.name"
+              tabindex="0"
+              (click)="select(i)"
+            ></button>
+          }
           <span class="art">
             @switch (demo.media.kind) {
               @case ('video') {

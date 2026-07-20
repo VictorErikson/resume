@@ -13,6 +13,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TextRollComponent } from '../shared/text-roll/text-roll.component';
 import { NumberRollComponent } from '../shared/number-roll/number-roll.component';
+import { BookstoreWakeService } from '../core/bookstore-wake.service';
 
 interface VideoMedia {
   kind: 'video';
@@ -47,6 +48,7 @@ interface PersonalDemo {
 export class PersonalProjects {
   private readonly rail = viewChild.required<ElementRef<HTMLUListElement>>('rail');
   private readonly destroyRef = inject(DestroyRef);
+  private readonly bookstoreWake = inject(BookstoreWakeService);
   private scrollFrame = 0;
 
   protected readonly dragging = signal(false);
@@ -62,6 +64,20 @@ export class PersonalProjects {
   private hovering = false;
 
   protected readonly demos = signal<PersonalDemo[]>([
+    {
+      slug: 'tamagotchi',
+      name: 'Tamagotchi',
+      icon: 'smart_toy',
+      media: {
+        kind: 'video',
+        src: 'assets/demo-imgs/tamagotchi-preview.mp4',
+        poster: 'assets/demo-imgs/tamagotchi-poster.jpg',
+      },
+      description:
+        'A virtual pet to feed, play with, and keep alive, an exercise in object-oriented programming.',
+      stack: ['TypeScript', 'SCSS', 'OOP', 'Responsive'],
+      link: 'https://victorerikson.github.io/Tamaguchi/',
+    },
     {
       slug: 'country-explorer',
       name: 'CountryExplorer',
@@ -107,24 +123,14 @@ export class PersonalProjects {
       link: 'https://victorerikson.github.io/bookStore/',
     },
     {
-      slug: 'tamagotchi',
-      name: 'Tamagotchi',
-      icon: 'smart_toy',
-      media: {
-        kind: 'video',
-        src: 'assets/demo-imgs/tamagotchi-preview.mp4',
-        poster: 'assets/demo-imgs/tamagotchi-poster.jpg',
-      },
-      description:
-        'A virtual pet to feed, play with, and keep alive, an exercise in object-oriented programming.',
-      stack: ['TypeScript', 'SCSS', 'OOP', 'Responsive'],
-      link: 'https://victorerikson.github.io/Tamaguchi/',
-    },
-    {
       slug: 'hangman',
       name: 'Hangman',
       icon: 'match_word',
-      media: { kind: 'image', src: 'assets/demo-imgs/hangman.webp' },
+      media: {
+        kind: 'video',
+        src: 'assets/demo-imgs/hangman-preview.mp4',
+        poster: 'assets/demo-imgs/hangman-poster.jpg',
+      },
       description: 'The classic word-guessing game, one wrong letter at a time.',
       stack: ['React', 'TypeScript', 'Bootstrap', 'Responsive'],
       link: 'https://victorerikson.github.io/hangman/',
@@ -133,7 +139,11 @@ export class PersonalProjects {
       slug: 'art-gallery',
       name: 'Art Gallery',
       icon: 'palette',
-      media: { kind: 'image', src: 'assets/demo-imgs/art-gallery.webp' },
+      media: {
+        kind: 'video',
+        src: 'assets/demo-imgs/art-gallery-preview.mp4',
+        poster: 'assets/demo-imgs/art-gallery-poster.jpg',
+      },
       description: 'A curated online exhibition space with a page for each painting.',
       stack: ['HTML', 'CSS', 'JavaScript', 'Mobile-first', 'Responsive'],
       link: 'https://victorerikson.github.io/art-gallery/',
@@ -142,7 +152,11 @@ export class PersonalProjects {
       slug: 'alarm-system',
       name: 'Alarm System',
       icon: 'lock',
-      media: { kind: 'image', src: 'assets/demo-imgs/alarm-system.webp' },
+      media: {
+        kind: 'video',
+        src: 'assets/demo-imgs/alarm-system-preview.mp4',
+        poster: 'assets/demo-imgs/alarm-system-poster.jpg',
+      },
       description:
         'Frontend for a physical alarm built with fellow students over a summer project, enroll users with a code or RFID tag, then arm or disarm the hardware from here. Running on dummy data in this demo.',
       stack: ['Angular', 'TypeScript', 'REST', 'Accessibility', 'Responsive'],
@@ -160,11 +174,13 @@ export class PersonalProjects {
       this.scrollToIndex(this.activeIndex(), 'instant');
       this.autoplayVideos.set(!matchMedia('(prefers-reduced-motion: reduce)').matches);
       this.startAutoplay();
+      this.bookstoreWake.startKeepAlive();
     });
 
     this.destroyRef.onDestroy(() => {
       clearInterval(this.autoplayTimer);
       clearTimeout(this.resumeTimer);
+      this.bookstoreWake.stopKeepAlive();
     });
   }
 
