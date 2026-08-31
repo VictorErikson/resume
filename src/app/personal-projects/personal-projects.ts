@@ -97,7 +97,16 @@ export class PersonalProjects {
       },
       description:
         'An audio gear storefront with real-time 3D product models you can orbit, a reactive audio visualiser, and a chat agent I built in Python to answer questions about the catalogue.',
-      stack: ['Vue 3', 'TypeScript', 'Three.js', 'Pinia', 'Python', 'WCAG AA', 'Responsive'],
+      stack: [
+        'Vue 3',
+        'TypeScript',
+        'Three.js',
+        'Python',
+        'WCAG AA',
+        'Mobile-first',
+        'Responsive',
+        'REST',
+      ],
       link: 'https://victorerikson.github.io/audiophile/',
       status: 'In progress',
     },
