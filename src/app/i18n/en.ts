@@ -58,9 +58,9 @@ export const en: Translations = {
     detailTitle1: 'Frontend Development - Nackademin Technical College (Sweden)',
     detailText:
       'Education involved: JavaScript, TypeScript, JSON, DOM manipulation, OOP, HTML5, CSS3, ' +
-      'SASS, CSS Grid, Flexbox, Bootstrap, Tailwind, CSS Modules, React, Angular, Node.js, ' +
+      'SASS, CSS Grid, Flexbox, Bootstrap, Tailwind, CSS Modules, React, Angular, Vue.js, Node.js, ' +
       'Material UI, Angular Material, Vite, NPM, GIT, ESLint, Prettier, Figma, Responsiveness, ' +
-      'Accessibility (WCAG 2.2 AA, ARIA), API integration (REST/GraphQL), Axios, Authentication, Supabase, GSAP, CMS (Strapi), ' +
+      'Accessibility (WCAG 2.2 AA, ARIA), API integration (REST/GraphQL), Axios, Authentication (JWT/OAuth), Supabase, GSAP, Three.js, CMS (Strapi), ' +
       'and Testing (Vitest, Playwright).',
     udemy: {
       title: 'Angular course – Udemy',

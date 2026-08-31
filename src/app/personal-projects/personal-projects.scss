@@ -189,6 +189,56 @@ h1 {
   color: var(--sidebar-bg);
 }
 
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 100px;
+  background: rgba(24, 23, 23, 0.92);
+  border: 1px solid var(--gold);
+  font:
+    600 10.5px 'Source Sans Pro',
+    sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--gold);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: status-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+.card .status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.detail-status {
+  margin-left: 10px;
+  vertical-align: 2px;
+}
+
 .info {
   display: flex;
   flex-direction: column;
@@ -472,6 +522,10 @@ footer {
   .back-link-arrow {
     transition: none;
   }
+
+  .status-dot {
+    animation: none;
+  }
 }
 
 @media (max-width: 719px) {
@@ -541,6 +595,17 @@ footer {
     height: 34px;
     border-radius: 8px;
     font-size: 18px;
+  }
+
+  .status {
+    gap: 5px;
+    padding: 4px 9px;
+    font-size: 9.5px;
+  }
+
+  .card .status {
+    top: 10px;
+    right: 10px;
   }
 
   .art {

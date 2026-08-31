@@ -74,6 +74,12 @@
             }
           </span>
           <span class="icon material-symbols-outlined" aria-hidden="true">{{ demo.icon }}</span>
+          @if (demo.status) {
+            <span class="status" aria-hidden="true">
+              <span class="status-dot"></span>
+              {{ demo.status }}
+            </span>
+          }
           <span class="info">
             <span class="demo-name">{{ demo.name }}</span>
             <a
@@ -127,7 +133,15 @@
   (pointerleave)="onCarouselPointerLeave($event)"
 >
   <div class="detail-text">
-    <h2>{{ activeDemo().name }}</h2>
+    <h2>
+      {{ activeDemo().name }}
+      @if (activeDemo().status) {
+        <span class="status detail-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          {{ activeDemo().status }}
+        </span>
+      }
+    </h2>
     <p>{{ activeDemo().description }}</p>
   </div>
   <a class="launch" [href]="activeDemo().link" target="_blank" rel="noopener">Launch demo</a>

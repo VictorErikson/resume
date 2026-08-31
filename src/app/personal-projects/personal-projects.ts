@@ -36,6 +36,7 @@ interface PersonalDemo {
   description: string;
   stack: string[];
   link: string;
+  status?: string;
 }
 
 @Component({
@@ -65,18 +66,40 @@ export class PersonalProjects {
 
   protected readonly demos = signal<PersonalDemo[]>([
     {
-      slug: 'tamagotchi',
-      name: 'Tamagotchi',
-      icon: 'smart_toy',
+      slug: 'bookstore',
+      name: 'Bookstore',
+      icon: 'menu_book',
       media: {
         kind: 'video',
-        src: 'assets/demo-imgs/tamagotchi-preview.mp4',
-        poster: 'assets/demo-imgs/tamagotchi-poster.jpg',
+        src: 'assets/demo-imgs/bookstore-preview.mp4',
+        poster: 'assets/demo-imgs/bookstore-poster.jpg',
       },
       description:
-        'A virtual pet to feed, play with, and keep alive, an exercise in object-oriented programming.',
-      stack: ['TypeScript', 'SCSS', 'OOP', 'Responsive'],
-      link: 'https://victorerikson.github.io/Tamaguchi/',
+        'Browse, search, and check out titles in an e-commerce storefront backed by a headless CMS.',
+      stack: [
+        'React',
+        'TypeScript',
+        'Tailwind CSS',
+        'Strapi',
+        'Accessibility',
+        'Mobile-first',
+        'Responsive',
+      ],
+      link: 'https://victorerikson.github.io/bookStore/',
+    },
+    {
+      slug: 'audiophile',
+      name: 'Audiophile',
+      icon: 'headphones',
+      media: {
+        kind: 'image',
+        src: 'assets/demo-imgs/audiophile.jpg',
+      },
+      description:
+        'An audio gear storefront with real-time 3D product models you can orbit, a reactive audio visualiser, and a chat agent I built in Python to answer questions about the catalogue.',
+      stack: ['Vue 3', 'TypeScript', 'Three.js', 'Pinia', 'Python', 'WCAG AA', 'Responsive'],
+      link: 'https://victorerikson.github.io/audiophile/',
+      status: 'In progress',
     },
     {
       slug: 'country-explorer',
@@ -101,26 +124,18 @@ export class PersonalProjects {
       link: 'https://victorerikson.github.io/CountryExplorer2/',
     },
     {
-      slug: 'bookstore',
-      name: 'Bookstore',
-      icon: 'menu_book',
+      slug: 'tamagotchi',
+      name: 'Tamagotchi',
+      icon: 'smart_toy',
       media: {
         kind: 'video',
-        src: 'assets/demo-imgs/bookstore-preview.mp4',
-        poster: 'assets/demo-imgs/bookstore-poster.jpg',
+        src: 'assets/demo-imgs/tamagotchi-preview.mp4',
+        poster: 'assets/demo-imgs/tamagotchi-poster.jpg',
       },
       description:
-        'Browse, search, and check out titles in an e-commerce storefront backed by a headless CMS.',
-      stack: [
-        'React',
-        'TypeScript',
-        'Tailwind CSS',
-        'Strapi',
-        'Accessibility',
-        'Mobile-first',
-        'Responsive',
-      ],
-      link: 'https://victorerikson.github.io/bookStore/',
+        'A virtual pet to feed, play with, and keep alive, an exercise in object-oriented programming.',
+      stack: ['TypeScript', 'SCSS', 'OOP', 'Responsive'],
+      link: 'https://victorerikson.github.io/Tamaguchi/',
     },
     {
       slug: 'hangman',

@@ -57,9 +57,9 @@ export const sv: Translations = {
     detailTitle1: 'Frontendutveckling – Nackademin Tekniska Yrkeshögskola (Sverige)',
     detailText:
       'Utbildningen innefattade: JavaScript, TypeScript, JSON, DOM-manipulation, OOP, HTML5, CSS3, ' +
-      'SASS, CSS Grid, Flexbox, Bootstrap, Tailwind, CSS Modules, React, Angular, Node.js, ' +
+      'SASS, CSS Grid, Flexbox, Bootstrap, Tailwind, CSS Modules, React, Angular, Vue.js, Node.js, ' +
       'Material UI, Angular Material, Vite, NPM, GIT, ESLint, Prettier, Figma, Responsivitet, ' +
-      'Tillgänglighet (WCAG 2.2 AA, ARIA), API:er, Axios, Autentisering, Supabase, GSAP, CMS (Strapi) ' +
+      'Tillgänglighet (WCAG 2.2 AA, ARIA), API:er, Axios, Autentisering (JWT/OAuth), Supabase, GSAP, Three.js, CMS (Strapi) ' +
       'och Testning (Vitest, Playwright).',
     udemy: {
       title: 'Angular-kurs – Udemy',

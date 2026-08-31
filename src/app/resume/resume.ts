@@ -251,6 +251,7 @@ export class Resume {
     { src: 'img/logos/JS.png', alt: 'JavaScript' },
     { src: 'img/logos/React.png', alt: 'React' },
     { src: 'img/logos/angular.jpg', alt: 'Angular' },
+    { src: 'img/logos/vue.png', alt: 'VueJS' },
     { src: 'img/logos/HTML.png', alt: 'HTML5' },
     { src: 'img/logos/CSS.png', alt: 'CSS3' },
     { src: 'img/logos/Sass.png', alt: 'Sass' },
@@ -265,6 +266,7 @@ export class Resume {
     { src: 'img/logos/npm.png', alt: 'npm' },
     { src: 'img/logos/git.png', alt: 'Git' },
     { src: 'img/logos/github.svg', alt: 'GitHub' },
+    { src: 'img/logos/Threejs.webp', alt: 'ThreeJS' },
     { src: 'img/logos/MU.jpg', alt: 'Material UI' },
     { src: 'img/logos/AngularMaterial.png', alt: 'Angular Material' },
     { src: 'img/logos/eslint.png', alt: 'ESLint' },
@@ -319,13 +321,14 @@ export class Resume {
     { name: 'TypeScript', level: 100 },
     { name: 'React', level: 100 },
     { name: 'Angular', level: 100 },
+    { name: 'Vue.js', level: 80 },
     { name: 'HTML', level: 100 },
     { name: 'CSS', level: 100 },
     { name: 'Tailwind/Bootstrap', level: 90 },
-    { name: 'Swift', level: 60 },
+    { name: 'Python', level: 60 },
     { name: 'Express', level: 45 },
     { name: 'SQL', level: 30 },
-    { name: 'Python', level: 10 },
+    { name: 'Swift', level: 20 },
   ]);
 
   protected readonly softSkills = signal<PieSlice[]>([
