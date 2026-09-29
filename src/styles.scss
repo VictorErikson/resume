@@ -571,3 +571,28 @@ body {
   word-wrap: normal;
   direction: ltr;
 }
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html,
+  body {
+    background: var(--paper);
+  }
+}
+
+.print-only {
+  display: none;
+}

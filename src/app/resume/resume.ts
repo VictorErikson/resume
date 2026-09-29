@@ -41,6 +41,8 @@ interface Logo {
 interface Skill {
   name: string;
   level: number;
+  screenSuffix?: string;
+  screenOnly?: boolean;
 }
 
 interface PieSlice {
@@ -67,7 +69,7 @@ interface Experience {
   selector: 'app-resume',
   imports: [RouterLink, RevealTextComponent, TextRollComponent],
   templateUrl: './resume.html',
-  styleUrls: ['./resume.scss', './resume-status.scss'],
+  styleUrls: ['./resume.scss', './resume-status.scss', './resume-print.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(window:wheel)': 'onWheel($event)',
@@ -81,6 +83,7 @@ export class Resume {
   protected readonly t = this.langService.translations;
   protected readonly lang = this.langService.lang;
   protected readonly demosLink = computed(() => '/demo-picker');
+  protected readonly onlineDemosUrl = 'https://victorerikson.github.io/resume/#/';
 
   protected readonly headingRoll = {
     work: { interval: 12000, jitter: 20000, startDelay: 1000 },
@@ -110,15 +113,15 @@ export class Resume {
         symbol: 'github',
         kind: 'link',
         label: tr.contacts.github,
-        value: '',
+        value: 'https://github.com/VictorErikson',
         href: 'https://github.com/VictorErikson',
       },
       {
         symbol: 'linkedin',
         kind: 'link',
         label: tr.contacts.linkedin,
-        value: '',
-        href: 'https://www.linkedin.com/in/victor-eriksson-aa22a4334',
+        value: 'https://www.linkedin.com/in/victor-eriksson-aa22a4334/',
+        href: 'https://www.linkedin.com/in/victor-eriksson-aa22a4334/',
       },
       {
         symbol: 'location',
@@ -341,12 +344,12 @@ export class Resume {
     { name: 'Vue.js', level: 80 },
     { name: 'HTML', level: 100 },
     { name: 'CSS', level: 100 },
-    { name: 'Tailwind/Bootstrap', level: 90 },
+    { name: 'Tailwind', screenSuffix: '/Bootstrap', level: 90 },
     { name: 'Python', level: 60 },
     { name: 'Java', level: 50 },
-    { name: 'Express', level: 45 },
-    { name: 'SQL', level: 30 },
-    { name: 'Swift', level: 20 },
+    { name: 'Express', level: 45, screenOnly: true },
+    { name: 'SQL', level: 30, screenOnly: true },
+    { name: 'Swift', level: 20, screenOnly: true },
   ]);
 
   protected readonly softSkills = signal<PieSlice[]>([

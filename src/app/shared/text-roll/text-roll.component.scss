@@ -77,3 +77,14 @@
     transition: none;
   }
 }
+
+@media print {
+  :host(.text-roll--reveal) .text-roll__word-inner {
+    transform: none;
+    opacity: 1;
+  }
+
+  .text-roll__stack {
+    transform: none;
+  }
+}

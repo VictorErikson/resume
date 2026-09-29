@@ -11,7 +11,7 @@
   overflow: visible;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 900px), print {
   :host {
     background: var(--sidebar-bg);
 
@@ -91,7 +91,7 @@
   }
 }
 
-@media (min-width: 1080px) {
+@media screen and (min-width: 1080px) {
   :host {
     padding: 24px 12px;
     background-image:
@@ -1081,13 +1081,13 @@
   padding: 0;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 900px), print {
   .logos {
     gap: 40px;
   }
 }
 
-@media (min-width: 721px) {
+@media (min-width: 721px), print {
   .logos-carousel {
     margin-left: 26px;
   }
@@ -1342,7 +1342,7 @@
   }
 }
 
-@media (max-width: 899px) {
+@media screen and (max-width: 899px) {
   .mobile-bottom-nav {
     display: flex;
     position: fixed;
@@ -1402,7 +1402,7 @@
   }
 }
 
-@media (max-width: 860px) {
+@media screen and (max-width: 860px) {
   .name {
     font-size: clamp(40px, 7vw, 64px);
   }
@@ -1412,7 +1412,7 @@
   }
 }
 
-@media (max-width: 899px) {
+@media screen and (max-width: 899px) {
   :host {
     padding-bottom: calc(56px + env(safe-area-inset-bottom));
     background: var(--paper);
@@ -1552,7 +1552,7 @@
   }
 }
 
-@media (min-width: 441px) and (max-width: 899px) {
+@media screen and (min-width: 441px) and (max-width: 899px) {
   .page {
     display: grid;
     grid-template-columns: 230px 1fr;
@@ -1613,12 +1613,12 @@
     margin-bottom: 0;
   }
 }
-@media (min-width: 630px) and (max-width: 899px) {
+@media screen and (min-width: 630px) and (max-width: 899px) {
   .page {
     grid-template-columns: 290px 1fr;
   }
 }
-@media (max-width: 500px) {
+@media screen and (max-width: 500px) {
   .exp {
     grid-template-columns: 30% 70%;
   }
@@ -1631,7 +1631,7 @@
   }
 }
 
-@media (max-width: 440px) {
+@media screen and (max-width: 440px) {
   .photo-frame {
     order: 1;
     display: grid;
@@ -1727,7 +1727,7 @@
 .desktop-float-nav {
   display: none;
 
-  @media (min-width: 900px) {
+  @media screen and (min-width: 900px) {
     display: flex;
     position: fixed;
     bottom: 1rem;

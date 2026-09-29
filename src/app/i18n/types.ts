@@ -4,6 +4,7 @@ export interface Translations {
   summary: string;
   companyLabel: string;
   demosButton: string;
+  onlineDemosLabel: string;
   headings: {
     contact: string;
     educationSide: string;

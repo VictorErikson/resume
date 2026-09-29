@@ -1,0 +1,263 @@
+@media print {
+  :host {
+    padding: 0;
+    background: none;
+
+    .page {
+      width: 1058px;
+      max-width: none;
+      min-height: 1496px;
+      zoom: 0.75;
+      margin: 0;
+      grid-template-columns: 30% 1fr;
+      background: none;
+      box-shadow: none;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    .sidebar {
+      padding-bottom: 28px;
+    }
+
+    .photo-frame {
+      padding: 34px 0 6px;
+    }
+
+    .photo,
+    .photo-ring {
+      width: 56%;
+    }
+
+    .masthead {
+      aspect-ratio: auto;
+      padding-top: 0;
+    }
+
+    .identity {
+      padding: 40px 0 28px;
+    }
+
+    .main-block:not(.logo-block) {
+      padding-bottom: 10px;
+    }
+  }
+
+  .desktop-float-nav,
+  .mobile-bottom-nav,
+  .exp-demos-link,
+  .contact-copy,
+  .skill-name-suffix,
+  .screen-only,
+  [aria-labelledby='tools-heading'],
+  [aria-labelledby='project-heading'] {
+    display: none;
+  }
+
+  .block {
+    margin-top: 12px;
+  }
+
+  .side-heading {
+    margin-bottom: 12px;
+  }
+
+  // The base stylesheet gives #contact-heading its own small margin (it
+  // normally relies on the underline's own padding for spacing), which beats
+  // the generic .side-heading rule above by specificity. Override it directly.
+  #contact-heading {
+    margin-bottom: 14px;
+  }
+
+  .contact-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .contact {
+    padding-block: 4px;
+  }
+
+  .edu {
+    padding-bottom: 12px;
+  }
+
+  .side-heading.banner {
+    padding-block: 12px;
+    margin-bottom: 10px;
+  }
+
+  .edu-list {
+    gap: 8px;
+  }
+
+  .edu-school {
+    font-size: 17px;
+  }
+
+  .skills {
+    gap: 4px;
+  }
+
+  .main-block {
+    margin-top: 18px;
+  }
+
+  .main-heading {
+    margin-bottom: 8px;
+  }
+
+  .line {
+    margin-bottom: 14px;
+  }
+
+  .logo-block + .main-block {
+    margin-top: 28px;
+  }
+
+  // Kept tight so the vertical divider lines of consecutive experience
+  // entries read as one continuous line instead of leaving a visible gap.
+  .exp {
+    margin-bottom: 0;
+  }
+
+  .exp-bullets {
+    gap: 8px;
+
+    :last-child {
+      margin-bottom: 2px;
+    }
+  }
+
+  .detail-title {
+    margin-top: 10px;
+  }
+
+  .line,
+  .skill-fill {
+    transform: scaleX(1);
+  }
+
+  .pie-slice {
+    opacity: 1;
+    transform: scale(var(--rest));
+  }
+
+  .soft-item {
+    transform: scale(0.81);
+  }
+
+  .side-heading.underline::after,
+  .exp-title::after,
+  .exp-company-header::after {
+    width: 100%;
+  }
+
+  .exp-left::after {
+    height: 100%;
+  }
+
+  // Chrome's print renderer anti-aliases hairlines that don't land on a whole
+  // device pixel once `zoom: 0.75` is applied to `.page`, making some 2px
+  // lines look blurry/thicker than others. Rounding to a whole pixel post-zoom
+  // keeps every rule the same crisp thickness.
+  .line,
+  .side-heading.underline::after,
+  .exp-title::after,
+  .exp-company-header::after {
+    height: calc(2px / 0.75);
+  }
+
+  .exp-left::after {
+    width: calc(2px / 0.75);
+  }
+
+  .logos {
+    flex-wrap: wrap;
+    height: 54px;
+    margin: 14px 0 6px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .logo[aria-hidden='true'],
+  .logos-carousel::before,
+  .logos-carousel::after {
+    display: none;
+  }
+
+  // Dropped so the remaining logos keep fitting on one row now that the
+  // side gutter below is wider.
+  .logo[data-label='Bootstrap'] {
+    display: none;
+  }
+
+  // Wider side gutter for the content column's text, while the full-bleed
+  // backgrounds (.summary, .line) keep spanning edge to edge as before —
+  // increase padding/margin-left rather than shrinking those elements.
+  .name {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  .role-bar {
+    margin-left: 40px;
+  }
+
+  .summary,
+  .main-heading,
+  .exp,
+  .logos-head,
+  .edu-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  // .line.carousel-line's own 2-class rule in the base stylesheet otherwise
+  // beats a plain `.line` override here, leaving the divider under
+  // "Languages and frameworks" stuck at the old 26px inset.
+  .line,
+  .line.carousel-line,
+  .logos-carousel {
+    margin-left: 40px;
+  }
+
+  // A QR code only makes sense on a printed/PDF copy — on the live site the
+  // visitor is already looking at it. Shown via .print-only (hidden by
+  // default in styles.scss).
+  .print-only {
+    display: flex;
+  }
+
+  // The second experience entry's company list (6 companies) runs longer
+  // than its bullet list, so the grid row stretches .exp-right well past its
+  // last bullet, leaving empty space at its bottom-right. Anchor the QR link
+  // there instead of adding it to the document flow.
+  .exp-right {
+    position: relative;
+  }
+
+  .qr-link {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .qr-image {
+    flex: 0 0 auto;
+    width: 120px;
+    height: 120px;
+  }
+
+  .qr-label {
+    font-size: 20px;
+    font-weight: 700;
+    color: #3d7fff;
+    text-decoration: underline;
+  }
+}

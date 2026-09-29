@@ -47,6 +47,12 @@ import {
         transition: none;
       }
     }
+    @media print {
+      .rw-i {
+        transform: none;
+        opacity: 1;
+      }
+    }
   `,
   host: {
     '[class.revealed]': 'revealed()',

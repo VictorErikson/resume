@@ -69,6 +69,7 @@
                   </span>
                   <span class="contact-body">
                     <span class="contact-label">{{ c.label }}</span>
+                    <span class="contact-value">{{ c.value }}</span>
                   </span>
                   <span class="contact-copy material-symbols-outlined" aria-hidden="true">
                     open_in_new
@@ -138,18 +139,20 @@
       </h2>
       <ul class="skills inner-block">
         @for (s of hardSkills(); track s.name) {
-          <li class="skill">
+          <li class="skill" [class.screen-only]="s.screenOnly">
             <div
               class="skill-track"
               role="meter"
-              [attr.aria-label]="s.name + ' proficiency'"
+              [attr.aria-label]="s.name + (s.screenSuffix ?? '') + ' proficiency'"
               aria-valuemin="0"
               aria-valuemax="100"
               [attr.aria-valuenow]="s.level"
             >
               <span class="skill-fill" [style.width.%]="s.level"></span>
             </div>
-            <span class="skill-name">{{ s.name }}</span>
+            <span class="skill-name"
+              >{{ s.name }}<span class="skill-name-suffix">{{ s.screenSuffix }}</span></span
+            >
           </li>
         }
       </ul>
@@ -223,7 +226,7 @@
         />
       </h2>
       <div class="line"></div>
-      @for (x of experiences(); track x.title) {
+      @for (x of experiences(); track x.title; let i = $index) {
         <article class="exp" [class]="x.variant">
           @if (x.variant === 'triggerbee') {
             <a class="exp-demos-link" [routerLink]="demosLink()">
@@ -254,6 +257,17 @@
                 <li>{{ b }}</li>
               }
             </ul>
+            @if (i === experiences().length - 1) {
+              <a
+                class="qr-link print-only"
+                [href]="onlineDemosUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="qr-label">{{ t().onlineDemosLabel }}</span>
+                <img class="qr-image" src="img/qr-online-demos.png" alt="" />
+              </a>
+            }
           </div>
         </article>
       }

@@ -12,6 +12,7 @@ export const sv: Translations = {
     'programmering.',
   companyLabel: 'Företag',
   demosButton: 'Visa demos',
+  onlineDemosLabel: 'ONLINE-DEMOS',
   headings: {
     contact: 'KONTAKTUPPGIFTER',
     educationSide: 'UTBILDNING',
