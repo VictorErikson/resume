@@ -58,9 +58,9 @@ export const en: Translations = {
     detailTitle1: 'Frontend Development - Nackademin Technical College (Sweden)',
     detailText:
       'Education involved: JavaScript, TypeScript, JSON, DOM manipulation, OOP, HTML5, CSS3, ' +
-      'SASS, CSS Grid, Flexbox, Bootstrap, Tailwind, CSS Modules, React, Angular, Vue.js, Node.js, ' +
-      'Material UI, Angular Material, Vite, NPM, GIT, ESLint, Prettier, Figma, Responsiveness, ' +
-      'Accessibility (WCAG 2.2 AA, ARIA), API integration (REST/GraphQL), Axios, Authentication (JWT/OAuth), Supabase, GSAP, Three.js, CMS (Strapi), ' +
+      'SASS, CSS Grid, Flexbox, Bootstrap, CSS Modules, React, Node.js, ' +
+      'Vite, NPM, GIT, VSCode, ESLint, Prettier, Figma, Responsiveness, ' +
+      'Accessibility (WCAG 2.2 AA, ARIA), API integration (REST/GraphQL), Axios, Authentication (JWT/OAuth), CMS (Strapi), ' +
       'and Testing (Vitest, Playwright).',
     udemy: {
       title: 'Angular course – Udemy',
@@ -68,6 +68,25 @@ export const en: Translations = {
       linkText: 'Angular – The Complete Guide',
       after: 'in my free time, gaining a deeper understanding of Angular and its core concepts.',
     },
+    selfTaughtTitle: 'Self-Taught',
+    selfTaughtText:
+      "Explored independently: Tailwind CSS, Angular, Material UI, Angular Material, Vue.js, " +
+      "Supabase, GSAP, Three.js, SQL, Express, Swift, and Chrome's Built-in AI APIs (WebMCP, " +
+      'along with the LanguageModel, TaskAPI, and Translator model surfaces).',
+    stanfordTitle: 'Python: Fundamentals to AI Applications - Stanford University (Summer Course)',
+    stanfordText:
+      'Learned core Python fundamentals and applied them to build an AI-powered chatbot application.',
+    mobileDevTitle: 'Mobile App Developer',
+    mobileDevSchool: 'Folkuniversitetet',
+    mobileDevText:
+      'Curriculum covering Java, Kotlin, and Swift for native Android and iOS development with ' +
+      'IntelliJ, Android Studio, and Xcode, plus Material Design and Progressive Web Apps (PWA).',
+    dotnetTitle: '.NET Backend Developer',
+    dotnetSchool: 'Medieinstitutet',
+    dotnetText:
+      'Backend-focused curriculum covering C# and .NET, API development with Node.js, ' +
+      'SQL/NoSQL databases (incl. MongoDB, Entity Framework), Git-based DevOps, cloud deployment, ' +
+      'and AI-assisted development tools.',
   },
   project: {
     heading: 'SUMMER PROJECT - ALARM SYSTEM',

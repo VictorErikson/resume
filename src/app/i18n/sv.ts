@@ -57,9 +57,9 @@ export const sv: Translations = {
     detailTitle1: 'Frontendutveckling – Nackademin Tekniska Yrkeshögskola (Sverige)',
     detailText:
       'Utbildningen innefattade: JavaScript, TypeScript, JSON, DOM-manipulation, OOP, HTML5, CSS3, ' +
-      'SASS, CSS Grid, Flexbox, Bootstrap, Tailwind, CSS Modules, React, Angular, Vue.js, Node.js, ' +
-      'Material UI, Angular Material, Vite, NPM, GIT, ESLint, Prettier, Figma, Responsivitet, ' +
-      'Tillgänglighet (WCAG 2.2 AA, ARIA), API:er, Axios, Autentisering (JWT/OAuth), Supabase, GSAP, Three.js, CMS (Strapi) ' +
+      'SASS, CSS Grid, Flexbox, Bootstrap, CSS Modules, React, Node.js, ' +
+      'Vite, NPM, GIT, VSCode, ESLint, Prettier, Figma, Responsivitet, ' +
+      'Tillgänglighet (WCAG 2.2 AA, ARIA), API:er, Axios, Autentisering (JWT/OAuth), CMS (Strapi) ' +
       'och Testning (Vitest, Playwright).',
     udemy: {
       title: 'Angular-kurs – Udemy',
@@ -67,6 +67,24 @@ export const sv: Translations = {
       linkText: 'Angular – The Complete Guide',
       after: 'på fritiden och fick en djupare förståelse för Angular och dess kärnkoncept.',
     },
+    selfTaughtTitle: 'Självlärd',
+    selfTaughtText:
+      'Utforskat på egen hand: Tailwind CSS, Angular, Material UI, Angular Material, Vue.js, ' +
+      'Supabase, GSAP, Three.js, SQL, Express, Swift, samt Chromes inbyggda AI-API:er (WebMCP, ' +
+      'samt modellgränssnitten LanguageModel, TaskAPI och Translator).',
+    stanfordTitle: 'Python: Fundamentals to AI Applications – Stanford University (sommarkurs)',
+    stanfordText: 'Lärde mig grunderna i Python och tillämpade dem för att bygga en AI-driven chatbot.',
+    mobileDevTitle: 'Mobilapplikationsutvecklare',
+    mobileDevSchool: 'Folkuniversitetet',
+    mobileDevText:
+      'Utbildningen täcker Java, Kotlin och Swift för native Android- och iOS-utveckling med ' +
+      'IntelliJ, Android Studio och Xcode, samt Material Design och progressiva webbappar (PWA).',
+    dotnetTitle: '.NET Backendutvecklare',
+    dotnetSchool: 'Medieinstitutet',
+    dotnetText:
+      'Backendinriktad utbildning som täcker C# och .NET, API-utveckling med Node.js, ' +
+      'SQL/NoSQL-databaser (bl.a. MongoDB, Entity Framework), Git-baserad DevOps och molndistribution, ' +
+      'samt AI-understödd utveckling.',
   },
   project: {
     heading: 'SOMMARPROJEKT – LARMSYSTEM',

@@ -30,6 +30,7 @@ interface Education {
   school: string;
   program: string;
   years: string;
+  status?: string;
 }
 
 interface Logo {
@@ -66,7 +67,7 @@ interface Experience {
   selector: 'app-resume',
   imports: [RouterLink, RevealTextComponent, TextRollComponent],
   templateUrl: './resume.html',
-  styleUrl: './resume.scss',
+  styleUrls: ['./resume.scss', './resume-status.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(window:wheel)': 'onWheel($event)',
@@ -259,6 +260,8 @@ export class Resume {
     { src: 'img/logos/Bootstrap.png', alt: 'Bootstrap' },
     { src: 'img/logos/Node.png', alt: 'Node.js' },
     { src: 'img/logos/json2.png', alt: 'JSON' },
+    { src: 'img/logos/Java_Logo.svg', alt: 'Java' },
+    { src: 'img/logos/python.png', alt: 'Python' },
   ]);
 
   protected readonly toolLogos = signal<Logo[]>([
@@ -278,6 +281,8 @@ export class Resume {
     { src: 'img/logos/playwright.webp', alt: 'Playwright' },
     { src: 'img/logos/photoshop.webp', alt: 'Photoshop' },
     { src: 'img/logos/AE.png', alt: 'After Effects' },
+    { src: 'img/logos/vsCode.jpg', alt: 'VS Code' },
+    { src: 'img/logos/IntelliJ.webp', alt: 'IntelliJ' },
   ]);
 
   protected scrollToContact(): void {
@@ -307,6 +312,18 @@ export class Resume {
 
   protected readonly education = signal<Education[]>([
     {
+      school: 'MEDIEINSTITUTET',
+      program: '.NET Backend Developer',
+      years: '2026',
+      status: 'Ongoing',
+    },
+    {
+      school: 'FOLKUNIVERSITETET',
+      program: 'Mobile App Developer',
+      years: '2026',
+      status: 'Ongoing',
+    },
+    {
       school: 'STANFORD UNIVERSITY',
       program: 'Python: Fundamentals to AI Applications',
       years: 'Summer 2026',
@@ -326,6 +343,7 @@ export class Resume {
     { name: 'CSS', level: 100 },
     { name: 'Tailwind/Bootstrap', level: 90 },
     { name: 'Python', level: 60 },
+    { name: 'Java', level: 50 },
     { name: 'Express', level: 45 },
     { name: 'SQL', level: 30 },
     { name: 'Swift', level: 20 },

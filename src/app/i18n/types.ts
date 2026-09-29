@@ -37,6 +37,16 @@ export interface Translations {
       linkText: string;
       after: string;
     };
+    selfTaughtTitle: string;
+    selfTaughtText: string;
+    stanfordTitle: string;
+    stanfordText: string;
+    mobileDevTitle: string;
+    mobileDevSchool: string;
+    mobileDevText: string;
+    dotnetTitle: string;
+    dotnetSchool: string;
+    dotnetText: string;
   };
   project: {
     heading: string;

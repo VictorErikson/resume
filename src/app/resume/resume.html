@@ -114,7 +114,12 @@
           <li class="edu-item">
             <span class="edu-school">{{ e.school }}</span>
             <span class="edu-program">{{ e.program }}</span>
-            <span class="edu-years">{{ e.years }}</span>
+            <span class="edu-years">
+              {{ e.years }}
+              @if (e.status) {
+                <span class="edu-status"> - {{ e.status }}</span>
+              }
+            </span>
           </li>
         }
       </ul>
@@ -311,6 +316,22 @@
           >
           {{ t().edu.udemy.after }}
         </p>
+        <h3 class="detail-title">{{ t().edu.selfTaughtTitle }}</h3>
+        <p class="detail-text">{{ t().edu.selfTaughtText }}</p>
+        <h3 class="detail-title">{{ t().edu.stanfordTitle }}</h3>
+        <p class="detail-text">{{ t().edu.stanfordText }}</p>
+        <h3 class="detail-title">
+          {{ t().edu.dotnetTitle }}
+          <span class="detail-title-school"> - {{ t().edu.dotnetSchool }}</span>
+          <span class="status"><span class="status-dot" aria-hidden="true"></span>Ongoing</span>
+        </h3>
+        <p class="detail-text">{{ t().edu.dotnetText }}</p>
+        <h3 class="detail-title">
+          {{ t().edu.mobileDevTitle }}
+          <span class="detail-title-school"> - {{ t().edu.mobileDevSchool }}</span>
+          <span class="status"><span class="status-dot" aria-hidden="true"></span>Ongoing</span>
+        </h3>
+        <p class="detail-text">{{ t().edu.mobileDevText }}</p>
       </div>
     </section>
 
