@@ -229,7 +229,7 @@
       @for (x of experiences(); track x.title; let i = $index) {
         <article class="exp" [class]="x.variant">
           @if (x.variant === 'triggerbee') {
-            <a class="exp-demos-link" [routerLink]="demosLink()">
+            <a class="exp-demos-link" [href]="demosUrl">
               <span class="exp-demos-link__text">{{ t().demosButton }}</span>
               <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
             </a>
@@ -410,7 +410,7 @@
     <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
     <app-text-roll class="dfn-label" [text]="t().aria.navContact" />
   </button>
-  <a class="dfn-btn text-roll-trigger" [routerLink]="demosLink()">
+  <a class="dfn-btn text-roll-trigger" [href]="demosUrl">
     <span class="material-symbols-outlined demos-icon" aria-hidden="true">grid_view</span>
     <app-text-roll class="dfn-label" [text]="t().aria.navDemos" />
   </a>
@@ -433,7 +433,7 @@
     <span class="material-symbols-outlined" aria-hidden="true">contacts</span>
     <app-text-roll [text]="t().aria.navContact" />
   </button>
-  <a class="nav-item text-roll-trigger" [routerLink]="demosLink()">
+  <a class="nav-item text-roll-trigger" [href]="demosUrl">
     <span class="material-symbols-outlined demos-icon" aria-hidden="true">grid_view</span>
     <app-text-roll [text]="t().aria.navDemos" />
   </a>

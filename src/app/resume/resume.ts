@@ -9,7 +9,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { LanguageService } from '../i18n/language.service';
 import { RevealTextComponent } from '../shared/reveal-text/reveal-text';
 import { TextRollComponent } from '../shared/text-roll/text-roll.component';
@@ -67,7 +67,7 @@ interface Experience {
 
 @Component({
   selector: 'app-resume',
-  imports: [RouterLink, RevealTextComponent, TextRollComponent],
+  imports: [RevealTextComponent, TextRollComponent],
   templateUrl: './resume.html',
   styleUrls: ['./resume.scss', './resume-status.scss', './resume-print.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -82,7 +82,7 @@ export class Resume {
   private readonly langService = inject(LanguageService);
   protected readonly t = this.langService.translations;
   protected readonly lang = this.langService.lang;
-  protected readonly demosLink = computed(() => '/demo-picker');
+  protected readonly demosUrl = 'https://victorerikson.github.io/';
   protected readonly onlineDemosUrl = 'https://victorerikson.github.io/resume/#/';
 
   protected readonly headingRoll = {
