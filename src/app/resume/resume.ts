@@ -83,7 +83,7 @@ export class Resume {
   protected readonly t = this.langService.translations;
   protected readonly lang = this.langService.lang;
   protected readonly demosUrl = 'https://victorerikson.github.io/';
-  protected readonly onlineDemosUrl = 'https://victorerikson.github.io/resume/#/';
+  protected readonly onlineDemosUrl = 'https://victorerikson.github.io/';
 
   protected readonly headingRoll = {
     work: { interval: 12000, jitter: 20000, startDelay: 1000 },

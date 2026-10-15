@@ -231,16 +231,29 @@
 
   // The second experience entry's company list (6 companies) runs longer
   // than its bullet list, so the grid row stretches .exp-right well past its
-  // last bullet, leaving empty space at its bottom-right. Anchor the QR link
-  // there instead of adding it to the document flow.
+  // last bullet, leaving empty space at its bottom-right. The QR link is
+  // placed as a normal (statically positioned) grid item explicitly sharing
+  // .exp-right's cell — rather than position: absolute — because Chrome's
+  // print-to-pdf export doesn't reliably keep an absolutely positioned
+  // anchor clickable as a PDF link. .exp-left/.exp-right need the same
+  // explicit placement, otherwise Grid auto-placement (which resolves
+  // explicitly-placed items first) pushes the auto-placed one into a new row
+  // instead of letting it share the cell.
+  .exp-left {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   .exp-right {
-    position: relative;
+    grid-column: 2;
+    grid-row: 1;
   }
 
   .qr-link {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: end;
     display: flex;
     flex-direction: column;
     align-items: center;
